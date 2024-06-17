@@ -4,10 +4,7 @@ import dev.revere.revsentials.Revsential;
 import dev.revere.revsentials.api.command.CommandManager;
 import dev.revere.revsentials.api.service.Service;
 import dev.revere.revsentials.command.RevsentialsCommand;
-import dev.revere.revsentials.command.admin.AlertCommand;
-import dev.revere.revsentials.command.admin.InstanceCommand;
-import dev.revere.revsentials.command.admin.RebootCommand;
-import dev.revere.revsentials.command.admin.ReloadCommand;
+import dev.revere.revsentials.command.admin.*;
 import dev.revere.revsentials.command.player.LocationCommand;
 import dev.revere.revsentials.command.player.PingCommand;
 import dev.revere.revsentials.command.player.PlayTimeCommand;
@@ -66,6 +63,7 @@ public class CommandService implements Service {
 
     private void registerAdminCommands() {
         new InstanceCommand();
+        new ClearLagCommand();
         new RebootCommand();
         new ReloadCommand();
         new AlertCommand();
