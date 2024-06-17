@@ -1,0 +1,71 @@
+on-join:
+  title-sender:
+    enabled: true
+    main-title: "&4❤"
+    sub-title: "&fWelcome to the Flower Network, &b%player%&f!"
+  messages:
+    bars-format: "&8&m-----------------------------------"
+    welcome-message:
+      enabled: true
+      message:
+        - " "
+        - "%bars%"
+        - " "
+        - "  &fWelcome to the server, &b%player%&f! &7(&c%health%&4❤&7)"
+        - " "
+        - "   ● Website: &bhttps://www.revere.dev"
+        - "   ● Discord: &bhttps://discord.revere.dev"
+        - "   ● Store: &bhttps://store.revere.dev"
+        - " "
+        - "%bars%"
+        - " "
+    joined-the-game: "&f[&b+&f] &b%player% &fhas joined."
+
+on-leave:
+  messages:
+    left-the-game: "&f[&c-&f] &c%player% &fhas left."
+
+staff:
+  ore-notify:
+    delay: 10
+    enabled: true
+    message: "&f&l[&b&lStaff&f&l] &b%player% &fmined &b%total% &f%ore% ores in the last &b%time% &fseconds."
+  logger:
+    enabled: true
+    commands: ["gamemode", "teleport", "tp", "give"]
+    message: "&f&l[&b&lStaff&f&l] &b%player% &fhas executed command: &b%command%&f."
+
+reload:
+  reloading:
+    - "&r"
+    - "&8&m-----------------------------------------------------"
+    - " &7[&cWARNING&7] &fReloading the configuration files..."
+    - "&r"
+    - " &8[&bMenus folder, Commands.yml, Database.yml"
+    - " &bMessages.yml, Ranks.yml, &bSettings.yml&8]"
+    - "&8&m-----------------------------------------------------"
+    - "&r"
+  finished:
+    - "&b➥ &fSuccessfully reloaded the &bconfiguration &ffiles! &f(&b%timetaken% ms&f)"
+    - "&r"
+
+instance-command:
+  separator-format: "&f, &b"
+  lines:
+    - " "
+    - "&8&m-----------------------------------"
+    - " "
+    - "&b&lServer Details:"
+    - " &fVersion: &b%version%"
+    - " &fServer Region: &b%server-region%"
+    - " &fServer Name: &b%server-name%"
+    - " &fSoftware: &b%spigot%"
+    - " &fPlayers: &b%online-players%&f/&b%max-players%"
+    - " "
+    - "&b&lOperators: &f(&b%ops%&f)"
+    - " &f- &b%ops-name%"
+    - " "
+    - "&b&lInstalled Plugins: &f(&b%plugins%&f)"
+    - " &f- &b%plugins-name%"
+    - " "
+    - "&8&m-----------------------------------"

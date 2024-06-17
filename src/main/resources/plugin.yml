@@ -1,0 +1,6 @@
+name: Revsentials
+author: Revere Development
+version: '${project.version}'
+main: dev.revere.revsentials.Revsential
+description: 'A plugin that adds essential features to the server.'
+api-version: '1.20'
