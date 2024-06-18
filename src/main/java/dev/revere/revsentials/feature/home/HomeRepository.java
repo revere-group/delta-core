@@ -93,8 +93,8 @@ public class HomeRepository {
         String playerName = player.getName().toLowerCase();
         Map<String, Home> homes = playerHomes.getOrDefault(playerName, new HashMap<>());
 
-        if (homes.size() >= 5) {
-            player.sendMessage(CC.translate("&cYou have reached the maximum limit of 5 homes."));
+        if (homes.size() >= 7) {
+            player.sendMessage(CC.translate("&cYou have reached the maximum limit of 7 homes."));
             return;
         }
 

@@ -5,19 +5,13 @@ import dev.revere.revsentials.api.command.CommandManager;
 import dev.revere.revsentials.api.service.Service;
 import dev.revere.revsentials.command.RevsentialsCommand;
 import dev.revere.revsentials.command.admin.*;
-import dev.revere.revsentials.command.player.LocationCommand;
-import dev.revere.revsentials.command.player.PingCommand;
-import dev.revere.revsentials.command.player.PlayTimeCommand;
-import dev.revere.revsentials.command.player.SocialCommand;
+import dev.revere.revsentials.command.player.*;
 import dev.revere.revsentials.command.staff.ClearInventoryCommand;
 import dev.revere.revsentials.command.staff.HealCommand;
 import dev.revere.revsentials.command.staff.SudoCommand;
 import dev.revere.revsentials.command.troll.CaptureCommand;
 import dev.revere.revsentials.feature.home.command.HomeCommand;
-import dev.revere.revsentials.feature.home.command.impl.HomeDeleteCommand;
-import dev.revere.revsentials.feature.home.command.impl.HomeListCommand;
-import dev.revere.revsentials.feature.home.command.impl.HomeSetCommand;
-import dev.revere.revsentials.feature.home.command.impl.HomeTeleportCommand;
+import dev.revere.revsentials.feature.home.command.impl.*;
 
 /**
  * @author Remi
@@ -52,6 +46,7 @@ public class CommandService implements Service {
         new LocationCommand();
         new PlayTimeCommand();
         new SocialCommand();
+        new RulesCommand();
         new PingCommand();
     }
 
@@ -70,10 +65,11 @@ public class CommandService implements Service {
     }
 
     private void registerHomeCommands() {
-        new HomeSetCommand();
-        new HomeDeleteCommand();
         new HomeTeleportCommand();
+        new HomeDeleteCommand();
         new HomeListCommand();
+        new HomeMenuCommand();
+        new HomeSetCommand();
         new HomeCommand();
     }
 

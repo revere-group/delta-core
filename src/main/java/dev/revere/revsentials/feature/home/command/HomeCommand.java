@@ -22,6 +22,7 @@ public class HomeCommand extends BaseCommand {
         player.sendMessage(CC.translate(" &f● &b/home create &8(&7homeName&8) &7| Create a home"));
         player.sendMessage(CC.translate(" &f● &b/home delete &8(&7homeName&8) &7| Delete a home"));
         player.sendMessage(CC.translate(" &f● &b/home go &8(&7homeName&8) &7| Go to a home"));
+        player.sendMessage(CC.translate(" &f● &b/home menu &7| Open the home menu"));
         player.sendMessage(CC.translate(" &f● &b/home list &7| List all homes"));
         player.sendMessage("");
     }

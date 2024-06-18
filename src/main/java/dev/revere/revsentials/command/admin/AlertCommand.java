@@ -15,7 +15,7 @@ import java.util.List;
  * @date 6/17/2024
  */
 public class AlertCommand extends BaseCommand {
-    @Command(name = "alert", permission = "revsentials.admin.alert", description = "Alerts all players on the server", usage = "/alert <message>")
+    @Command(name = "alert", permission = "revsentials.admin.alert", description = "Alerts all players on the server", inGameOnly = false, usage = "/alert <message>")
     @Override
     public void onCommand(CommandArgs command) {
         Player player = command.getPlayer();
