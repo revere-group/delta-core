@@ -27,7 +27,7 @@ public class HelpopCommand extends BaseCommand {
         Player player = command.getPlayer();
         String[] args = command.getArgs();
 
-        if (args.length < 2) {
+        if (args.length == 0) {
             player.sendMessage(CC.translate("&cUsage: /helpop <reason>"));
             return;
         }

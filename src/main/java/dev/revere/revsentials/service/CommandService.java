@@ -14,6 +14,7 @@ import dev.revere.revsentials.command.staff.gamemode.GMCCommand;
 import dev.revere.revsentials.command.staff.gamemode.GMSCommand;
 import dev.revere.revsentials.command.staff.gamemode.GMSPCommand;
 import dev.revere.revsentials.command.troll.CaptureCommand;
+import dev.revere.revsentials.command.troll.LaunchCommand;
 import dev.revere.revsentials.feature.home.command.HomeCommand;
 import dev.revere.revsentials.feature.home.command.impl.*;
 
@@ -89,5 +90,6 @@ public class CommandService implements Service {
 
     private void registerTrollCommands() {
         new CaptureCommand();
+        new LaunchCommand();
     }
 }

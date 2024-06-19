@@ -135,7 +135,6 @@ public class HomeRepository {
         if (home != null) {
             player.teleport(home.getLocation());
             player.sendMessage(CC.translate("&bTeleported to home '&f" + home.getName() + "&b'."));
-            return;
         }
 
         Cooldown cooldown = optionalCooldown.orElseGet(() -> {
