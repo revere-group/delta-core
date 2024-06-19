@@ -1,7 +1,9 @@
 package dev.revere.revsentials.feature.home;
 
 import dev.revere.revsentials.Revsential;
+import dev.revere.revsentials.cooldown.Cooldown;
 import dev.revere.revsentials.service.ConfigService;
+import dev.revere.revsentials.service.CooldownService;
 import dev.revere.revsentials.util.CC;
 import org.bukkit.Location;
 import org.bukkit.configuration.file.FileConfiguration;
@@ -116,15 +118,33 @@ public class HomeRepository {
         String playerName = player.getName().toLowerCase();
         Map<String, Home> homes = playerHomes.get(playerName);
 
-        if (homes != null) {
-            Home home = homes.get(homeName.toLowerCase());
-            if (home != null) {
-                player.teleport(home.getLocation());
-                player.sendMessage(CC.translate("&bTeleported to home '&f" + home.getName() + "&b'."));
-                return;
-            }
+        if (homes == null) {
+            player.sendMessage(CC.translate("&cYou don't have a home named '&f" + homeName + "&c'."));
+            return;
         }
-        player.sendMessage(CC.translate("&cYou don't have a home named '&f" + homeName + "&c'."));
+
+        CooldownService cooldownService = Revsential.getInstance().getServiceManager().getService(CooldownService.class);
+        Optional<Cooldown> optionalCooldown = Optional.ofNullable(cooldownService.getCooldown(player.getUniqueId(), "HOME_TELEPORT"));
+
+        if (optionalCooldown.isPresent() && optionalCooldown.get().isActive()) {
+            player.sendMessage(CC.translate("&cYou must wait " + optionalCooldown.get().remainingTime() + " seconds before teleporting again."));
+            return;
+        }
+
+        Home home = homes.get(homeName.toLowerCase());
+        if (home != null) {
+            player.teleport(home.getLocation());
+            player.sendMessage(CC.translate("&bTeleported to home '&f" + home.getName() + "&b'."));
+            return;
+        }
+
+        Cooldown cooldown = optionalCooldown.orElseGet(() -> {
+            Cooldown newCooldown = new Cooldown(60 * 1000L, null);
+            cooldownService.addCooldown(player.getUniqueId(), "HOME_TELEPORT", newCooldown);
+            return newCooldown;
+        });
+
+        cooldown.resetCooldown();
     }
 
     /**
