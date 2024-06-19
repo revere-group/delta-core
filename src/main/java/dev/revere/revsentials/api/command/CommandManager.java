@@ -133,15 +133,38 @@ public class CommandManager implements CommandExecutor {
         }
     }
 
+    private void unregisterCommand(org.bukkit.command.Command command) {
+        try {
+            command.unregister(commandMapInstance);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
     public void registerCommand(Command command, String label, Method m, Object obj) {
         commandMap.put(label.toLowerCase(), new AbstractMap.SimpleEntry<>(m, obj));
         commandMap.put(this.plugin.getName() + ':' + label.toLowerCase(), new AbstractMap.SimpleEntry<>(m, obj));
         String cmdLabel = label.replace(".", ",").split(",")[0].toLowerCase();
 
-        if (commandMapInstance.getCommand(cmdLabel) == null) {
+        org.bukkit.command.Command existingCommand = commandMapInstance.getCommand(cmdLabel);
+        if (existingCommand != null) {
+            // Unregister the existing command
+            unregisterCommand(existingCommand);
+            plugin.getLogger().info("Unregistered existing command: " + cmdLabel);
+        }
+
+        // Register the new command
+        org.bukkit.command.Command cmd = new BukkitCommand(cmdLabel, this, plugin);
+        commandMapInstance.register(plugin.getName(), cmd);
+        plugin.getLogger().info("Registered command: " + cmdLabel);
+
+        /*if (commandMapInstance.getCommand(cmdLabel) == null) {
             org.bukkit.command.Command cmd = new BukkitCommand(cmdLabel, this, plugin);
             commandMapInstance.register(plugin.getName(), cmd);
-        }
+            plugin.getLogger().info("Registered command: " + cmdLabel);
+        } else {
+            plugin.getLogger().info("Command already exists: " + cmdLabel);
+        }*/
 
         if (!command.description().equalsIgnoreCase("") && cmdLabel == label) {
             commandMapInstance.getCommand(cmdLabel).setDescription(command.description());
