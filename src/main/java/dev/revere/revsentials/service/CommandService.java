@@ -62,6 +62,7 @@ public class CommandService implements Service {
     private void registerStaffCommands() {
         new ClearInventoryCommand();
         new StaffChatCommand();
+        new InvSeeCommand();
         new SudoCommand();
         new HealCommand();
         new GMSPCommand();
