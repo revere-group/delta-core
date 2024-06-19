@@ -53,7 +53,5 @@ public class CaptureCommand extends BaseCommand {
         }
 
         player.sendMessage(CC.translate("&fYou have captured &b" + target.getName()));
-        target.sendMessage(CC.translate("&fYou have been captured by &b" + player.getName()));
-
     }
 }

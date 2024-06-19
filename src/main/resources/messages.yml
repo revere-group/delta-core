@@ -1,3 +1,12 @@
+chat:
+  format:
+    regular: "&f%player%&f: &f%message%"
+    staff: "&b%player%&f: &f%message%"
+
+conversation:
+  from: "&f(&bFrom %sender%&f) %message%"
+  to: "&f(&bTo %receiver%&f) %message%"
+
 on-join:
   title-sender:
     enabled: true
@@ -20,6 +29,7 @@ on-join:
         - "%bars%"
         - " "
     joined-the-game: "&f[&b+&f] &b%player% &fhas joined."
+    first-join: "&f[&b+&f] &fWelcome to &b%player%'s first time on the server!"
 
 on-leave:
   messages:
@@ -34,6 +44,13 @@ staff:
     enabled: true
     commands: ["gamemode", "teleport", "tp", "give"]
     message: "&f&l[&b&lStaff&f&l] &b%player% &fhas executed command: &b%command%&f."
+  chat:
+    format: "&f[&bStaff&f] &b%player%&f: &7%message%"
+  report:
+    format: "&f[&bReport&f] &b%player% &fhas reported &b%target% &ffor &b%reason%&f."
+  help:
+    format: "&f[&bRequest&f] &b%player% &fhas requested help from staff. &7(&b%message%&7)"
+
 
 reload:
   reloading:
@@ -60,7 +77,19 @@ instance-command:
     - " &fServer Region: &b%server-region%"
     - " &fServer Name: &b%server-name%"
     - " &fSoftware: &b%spigot%"
+    - " &fUptime: &b%uptime%"
+    - " &fTPS: &b%tps1% %tps2% %tps3%"
     - " &fPlayers: &b%online-players%&f/&b%max-players%"
+    - " "
+    - "&b&lMemory Usage:"
+    - " &fMax Memory: &b%max-memory%"
+    - " &fFree Memory: &b%free-memory%"
+    - " &fUsed Memory: &b%used-memory%"
+    - " &fAllocated Memory: &b%allocated-memory%"
+    - " "
+    - "&b&lCPU Usage:"
+    - " &fProcessors: &b%cpu-cores%"
+    - " &fSystem Load: &b%cpu-load%"
     - " "
     - "&b&lOperators: &f(&b%ops%&f)"
     - " &f- &b%ops-name%"

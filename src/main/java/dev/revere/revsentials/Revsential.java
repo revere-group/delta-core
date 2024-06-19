@@ -48,6 +48,7 @@ public class Revsential extends JavaPlugin {
         serviceManager.registerService(new CooldownService(this));
         serviceManager.registerService(new ListenerService(this));
         serviceManager.registerService(new CommandService(this));
+        serviceManager.registerService(new ConversationService(this));
     }
 
     /**

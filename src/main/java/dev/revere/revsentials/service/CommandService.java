@@ -6,9 +6,16 @@ import dev.revere.revsentials.api.service.Service;
 import dev.revere.revsentials.command.RevsentialsCommand;
 import dev.revere.revsentials.command.admin.*;
 import dev.revere.revsentials.command.player.*;
+import dev.revere.revsentials.command.player.conversation.MessageCommand;
+import dev.revere.revsentials.command.player.conversation.ReplyCommand;
 import dev.revere.revsentials.command.staff.ClearInventoryCommand;
 import dev.revere.revsentials.command.staff.HealCommand;
+import dev.revere.revsentials.command.staff.StaffChatCommand;
 import dev.revere.revsentials.command.staff.SudoCommand;
+import dev.revere.revsentials.command.staff.gamemode.GMACommand;
+import dev.revere.revsentials.command.staff.gamemode.GMCCommand;
+import dev.revere.revsentials.command.staff.gamemode.GMSCommand;
+import dev.revere.revsentials.command.staff.gamemode.GMSPCommand;
 import dev.revere.revsentials.command.troll.CaptureCommand;
 import dev.revere.revsentials.feature.home.command.HomeCommand;
 import dev.revere.revsentials.feature.home.command.impl.*;
@@ -45,15 +52,24 @@ public class CommandService implements Service {
         new RevsentialsCommand();
         new LocationCommand();
         new PlayTimeCommand();
+        new MessageCommand();
+        new ReportCommand();
+        new HelpopCommand();
         new SocialCommand();
+        new ReplyCommand();
         new RulesCommand();
         new PingCommand();
     }
 
     private void registerStaffCommands() {
         new ClearInventoryCommand();
+        new StaffChatCommand();
         new SudoCommand();
         new HealCommand();
+        new GMSPCommand();
+        new GMACommand();
+        new GMSCommand();
+        new GMCCommand();
     }
 
     private void registerAdminCommands() {

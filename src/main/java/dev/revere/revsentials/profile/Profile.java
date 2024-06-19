@@ -1,5 +1,6 @@
 package dev.revere.revsentials.profile;
 
+import dev.revere.revsentials.profile.staff.setting.StaffOptions;
 import lombok.Getter;
 import lombok.Setter;
 import org.bukkit.Bukkit;
@@ -19,6 +20,8 @@ public class Profile {
 
     private boolean online;
 
+    private final StaffOptions staffOptions;
+
     /**
      * Constructor for the Profile class
      *
@@ -27,5 +30,6 @@ public class Profile {
     public Profile(UUID uuid) {
         this.uuid = uuid;
         this.name = Bukkit.getOfflinePlayer(this.uuid).getName();
+        this.staffOptions = new StaffOptions();
     }
 }

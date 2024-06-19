@@ -42,7 +42,14 @@ public class ProfileListener implements Listener {
         profile.setOnline(true);
 
         String joinMessage = Revsential.getInstance().getConfig("messages.yml").getString("on-join.messages.joined-the-game").replace("%player%", player.getName());
-        event.setJoinMessage(CC.translate(joinMessage));
+        String firstJoinMessage = Revsential.getInstance().getConfig("messages.yml").getString("on-join.messages.first-join").replace("%player%", player.getName());
+
+
+        if (player.hasPlayedBefore()) {
+            event.setJoinMessage(CC.translate(joinMessage));
+        } else {
+            event.setJoinMessage(CC.translate(firstJoinMessage));
+        }
 
         if (Revsential.getInstance().getConfig("messages.yml").getBoolean("on-join.messages.welcome-message.enabled", true)) {
             List<String> welcomeMessages = Revsential.getInstance().getConfig("messages.yml").getStringList("on-join.messages.welcome-message.message");
