@@ -1,6 +1,6 @@
 package dev.revere.revsentials.cooldown;
 
-import dev.revere.revsentials.util.TaskUtil;
+import dev.revere.revsentials.util.TaskUtils;
 import lombok.Getter;
 import org.bukkit.scheduler.BukkitTask;
 
@@ -61,7 +61,7 @@ public class Cooldown {
     }
 
     private void startNewCooldownTask() {
-        cooldownTask = TaskUtil.runLaterAsync(() -> {
+        cooldownTask = TaskUtils.runLaterAsync(() -> {
             if (actionToRun != null) {
                 actionToRun.run();
             }

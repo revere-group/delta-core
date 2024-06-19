@@ -8,10 +8,7 @@ import dev.revere.revsentials.command.admin.*;
 import dev.revere.revsentials.command.player.*;
 import dev.revere.revsentials.command.player.conversation.MessageCommand;
 import dev.revere.revsentials.command.player.conversation.ReplyCommand;
-import dev.revere.revsentials.command.staff.ClearInventoryCommand;
-import dev.revere.revsentials.command.staff.HealCommand;
-import dev.revere.revsentials.command.staff.StaffChatCommand;
-import dev.revere.revsentials.command.staff.SudoCommand;
+import dev.revere.revsentials.command.staff.*;
 import dev.revere.revsentials.command.staff.gamemode.GMACommand;
 import dev.revere.revsentials.command.staff.gamemode.GMCCommand;
 import dev.revere.revsentials.command.staff.gamemode.GMSCommand;
@@ -70,6 +67,7 @@ public class CommandService implements Service {
         new GMACommand();
         new GMSCommand();
         new GMCCommand();
+        new DayCommand();
     }
 
     private void registerAdminCommands() {

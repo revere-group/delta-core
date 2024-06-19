@@ -11,7 +11,7 @@ import org.bukkit.scheduler.BukkitTask;
  * @date 6/17/2024
  */
 @UtilityClass
-public class TaskUtil {
+public class TaskUtils {
 
     private static final Revsential plugin = Revsential.getInstance();
 
