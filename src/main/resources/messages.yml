@@ -106,6 +106,8 @@ staff:
     format: "&f&l[&b&lStaff&f&l] &fYou've made &b%target% &ftype &b%command%&f in chat!"
   invsee:
     format: "&f&l[&b&lStaff&f&l] &fViewing &b%target%'s &finventory."
+  endinvsee:
+    format: "&f&l[&b&lStaff&f&l] &fViewing &b%target%'s &fender chest."
   healed:
     format: "&f&l[&b&lStaff&f&l] &fYou've been healed."
   cleared-inventory:
