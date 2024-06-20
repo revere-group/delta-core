@@ -36,6 +36,12 @@ more-command:
   already-a-stack: "&cThis is already a stack of 64."
   no-item-held: "&cYou need to be holding an item!"
 
+fly-command:
+  player-not-found: "&cPlayer not found."
+  message: "&fYou've &b%status% &fflight."
+  message-target: "&fYou've &b%status% &fflight for &b%target%&f."
+  changed-by: "&fYour flight has been &b%status% &fby &b%player%&f."
+
 on-join:
   title-sender:
     enabled: true

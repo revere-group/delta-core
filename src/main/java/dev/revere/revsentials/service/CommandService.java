@@ -74,6 +74,7 @@ public class CommandService implements Service {
         new GMSCommand();
         new GMCCommand();
         new DayCommand();
+        new FlyCommand();
     }
 
     private void registerAdminCommands() {

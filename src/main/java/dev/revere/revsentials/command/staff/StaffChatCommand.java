@@ -22,7 +22,8 @@ public class StaffChatCommand extends BaseCommand {
         Profile profile = Revsential.getInstance().getServiceManager().getService(ProfileService.class).getProfile(player.getUniqueId());
 
         profile.getStaffOptions().setStaffChat(!profile.getStaffOptions().isStaffChat());
-        player.sendMessage(CC.translate(Revsential.getInstance().getConfig("messages.yml").getString("staff.chat.toggled")
-                .replace("%status%", profile.getStaffOptions().isStaffChat() ? "&aenabled" : "&cdisabled")));
+        player.sendMessage(CC.translate(Revsential.getInstance().getConfig("messages.yml").getString("staff.chat.toggled"))
+                .replace("%status%", profile.getStaffOptions().isStaffChat() ? CC.translate("&cdisabled") : CC.translate("&aenabled"))
+        );
     }
 }
