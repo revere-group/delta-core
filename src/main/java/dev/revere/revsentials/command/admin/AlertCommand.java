@@ -32,7 +32,7 @@ public class AlertCommand extends BaseCommand {
 
         for (String stringList : Revsential.getInstance().getConfig("messages.yml").getStringList("broadcasts.alert")) {
             player.getServer().getOnlinePlayers().forEach(online -> online.sendMessage(CC.translate(stringList)
-                    .replace("%message%", alertMessage))
+                    .replace("%message%", CC.translate(alertMessage)))
             );
         }
     }
