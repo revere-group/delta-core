@@ -66,6 +66,7 @@ public class CommandService implements Service {
         new ClearInventoryCommand();
         new StaffChatCommand();
         new InvSeeCommand();
+        new MoreCommand();
         new SudoCommand();
         new HealCommand();
         new GMSPCommand();
