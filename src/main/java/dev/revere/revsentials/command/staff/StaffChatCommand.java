@@ -23,7 +23,7 @@ public class StaffChatCommand extends BaseCommand {
 
         profile.getStaffOptions().setStaffChat(!profile.getStaffOptions().isStaffChat());
         player.sendMessage(CC.translate(Revsential.getInstance().getConfig("messages.yml").getString("staff.chat.toggled"))
-                .replace("%status%", profile.getStaffOptions().isStaffChat() ? CC.translate("&cdisabled") : CC.translate("&aenabled"))
+                .replace("%status%", profile.getStaffOptions().isStaffChat() ? CC.translate("&aenabled") : CC.translate("&cdisabled"))
         );
     }
 }

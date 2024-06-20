@@ -19,7 +19,7 @@ player:
   help-request-sent: "&aYour help request has been sent to staff. &8(Reason: &7%reason%&8)"
   location:
     shared: "&f[&bLocation&f] &fYou have shared your location with &b%target%&f."
-    received: "&f[&bLocation&f] &b%player% &fhas shared their location with you. &7(&b{x}&7, &b{y}&7, &b{z}&7)"
+    received: "&f[&bLocation&f] &b%player% &fhas shared their location with you. &7(&b%x%&7, &b%y%&7, &b%z%&7)"
 
 chat:
   format:
@@ -67,7 +67,7 @@ on-join:
         - "%bars%"
         - " "
     joined-the-game: "&f[&b+&f] &b%player% &fhas joined."
-    first-join: "&f[&b+&f] &fWelcome to &b%player%'s first time on the server!"
+    first-join: "&f[&b+&f] &fWelcome to &b%player%'s &ffirst time on the server!"
 
 on-leave:
   messages:
