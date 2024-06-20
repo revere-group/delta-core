@@ -1,5 +1,6 @@
 package dev.revere.revsentials.command.player;
 
+import dev.revere.revsentials.Revsential;
 import dev.revere.revsentials.api.command.BaseCommand;
 import dev.revere.revsentials.api.command.CommandArgs;
 import dev.revere.revsentials.api.command.annotation.Command;
@@ -25,7 +26,8 @@ public class PlayTimeCommand extends BaseCommand {
 
         if (args.length == 0) {
             long playTime = player.getStatistic(Statistic.valueOf(lookFor));
-            player.sendMessage(CC.translate("&fYour playtime is &b" + DateUtils.formatTimeMillis(playTime * 50L)));
+            player.sendMessage(CC.translate(Revsential.getInstance().getConfig("messages.yml").getString("player.playtime"))
+                    .replace("%playtime%", DateUtils.formatTimeMillis(playTime * 50L)));
             return;
         }
 
@@ -36,7 +38,10 @@ public class PlayTimeCommand extends BaseCommand {
         }
 
         long playTime = target.getStatistic(Statistic.valueOf(lookFor));
-        player.sendMessage(CC.translate("&b" + target.getName() + "'s &fplaytime is &b" + DateUtils.formatTimeMillis(playTime * 50L)));
+        player.sendMessage(CC.translate(Revsential.getInstance().getConfig("messages.yml").getString("player.playtime-target"))
+                .replace("%target%", target.getName())
+                .replace("%playtime%", DateUtils.formatTimeMillis(playTime * 50L))
+        );
 
     }
 }

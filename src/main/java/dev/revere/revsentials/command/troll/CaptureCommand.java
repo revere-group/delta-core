@@ -1,5 +1,6 @@
 package dev.revere.revsentials.command.troll;
 
+import dev.revere.revsentials.Revsential;
 import dev.revere.revsentials.api.command.BaseCommand;
 import dev.revere.revsentials.api.command.CommandArgs;
 import dev.revere.revsentials.api.command.annotation.Command;
@@ -52,6 +53,7 @@ public class CaptureCommand extends BaseCommand {
             }
         }
 
-        player.sendMessage(CC.translate("&fYou have captured &b" + target.getName()));
+        player.sendMessage(CC.translate(Revsential.getInstance().getConfig("messages.yml").getString("trolling.capture"))
+                .replace("%target%", target.getName()));
     }
 }

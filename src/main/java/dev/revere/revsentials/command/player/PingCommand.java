@@ -1,5 +1,6 @@
 package dev.revere.revsentials.command.player;
 
+import dev.revere.revsentials.Revsential;
 import dev.revere.revsentials.api.command.BaseCommand;
 import dev.revere.revsentials.api.command.annotation.Command;
 import dev.revere.revsentials.api.command.CommandArgs;
@@ -19,7 +20,9 @@ public class PingCommand extends BaseCommand {
         String[] args = command.getArgs();
 
         if (args.length == 0) {
-            player.sendMessage(CC.translate("&fYour ping is: &b" + player.getPing()));
+            player.sendMessage(CC.translate(Revsential.getInstance().getConfig("messages.yml").getString("player.ping"))
+                    .replace("%ping%", String.valueOf(player.getPing()))
+            );
             return;
         }
 
@@ -29,6 +32,9 @@ public class PingCommand extends BaseCommand {
             return;
         }
 
-        player.sendMessage(CC.translate("&b" + target.getName() + "'s &fping is: &b" + target.getPing()));
+        player.sendMessage(CC.translate(Revsential.getInstance().getConfig("messages.yml").getString("player.ping-target"))
+                .replace("%target%", target.getName())
+                .replace("%ping%", String.valueOf(target.getPing()))
+        );
     }
 }

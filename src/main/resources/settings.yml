@@ -1,2 +1,14 @@
 server-name: eu-smp-1
 server-region: Europe
+
+scoreboard:
+  enabled: true
+  title: "&b&lRevere SMP"
+  lines:
+    - ""
+    - "&fOnline: &b%online-players%&f/&b%max-players%"
+    - ""
+    - "&fKills: &b%kills%"
+    - "&fDeaths: &b%deaths%"
+    - ""
+    - "&bplay.revere.dev"

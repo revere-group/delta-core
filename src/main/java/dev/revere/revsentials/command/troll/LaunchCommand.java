@@ -1,5 +1,6 @@
 package dev.revere.revsentials.command.troll;
 
+import dev.revere.revsentials.Revsential;
 import dev.revere.revsentials.api.command.BaseCommand;
 import dev.revere.revsentials.api.command.CommandArgs;
 import dev.revere.revsentials.api.command.annotation.Command;
@@ -26,7 +27,14 @@ public class LaunchCommand extends BaseCommand {
 
         if (args[0].equalsIgnoreCase("all")) {
             player.getServer().getOnlinePlayers().forEach(target -> target.setVelocity(new Vector(0, 1, 0).multiply(15)));
-            player.sendMessage(CC.translate("&fYou have launched &ball players"));
+            player.sendMessage(CC.translate(Revsential.getInstance().getConfig("messages.yml").getString("trolling.launch-all.message")));
+
+            if (Revsential.getInstance().getConfig("messages.yml").getBoolean("trolling.launch-all.broadcast.enabled")) {
+                for (String stringList : Revsential.getInstance().getConfig("messages.yml").getStringList("trolling.launch-all.broadcast.message")) {
+                    player.getServer().getOnlinePlayers().forEach(online -> online.sendMessage(CC.translate(stringList)));
+                }
+            }
+
             return;
         }
 
@@ -37,6 +45,7 @@ public class LaunchCommand extends BaseCommand {
         }
 
         target.setVelocity(new Vector(0, 1, 0).multiply(15));
-        player.sendMessage(CC.translate("&fYou have launched &b" + target.getName()));
+        player.sendMessage(CC.translate(Revsential.getInstance().getConfig("messages.yml").getString("trolling.launch"))
+                .replace("%target%", target.getName()));
     }
 }

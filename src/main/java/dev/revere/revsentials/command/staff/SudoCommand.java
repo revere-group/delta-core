@@ -1,10 +1,12 @@
 package dev.revere.revsentials.command.staff;
 
+import dev.revere.revsentials.Revsential;
 import dev.revere.revsentials.api.command.BaseCommand;
 import dev.revere.revsentials.api.command.annotation.Command;
 import dev.revere.revsentials.api.command.CommandArgs;
 import dev.revere.revsentials.util.CC;
 import org.bukkit.entity.Player;
+import org.bukkit.event.raid.RaidEvent;
 
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
@@ -35,6 +37,8 @@ public class SudoCommand extends BaseCommand {
         String commandBuilder = IntStream.range(1, args.length).mapToObj(i -> args[i] + " ").collect(Collectors.joining());
 
         target.chat(CC.translate(commandBuilder));
-        player.sendMessage(CC.translate("&fYou have executed the command &b" + commandBuilder + "&fon &b" + target.getName() + "&f."));
+        player.sendMessage(CC.translate(Revsential.getInstance().getConfig("messages.yml").getString("staff.sudo.format"))
+                .replace("%target%", target.getName())
+                .replace("%command%", commandBuilder));
     }
 }

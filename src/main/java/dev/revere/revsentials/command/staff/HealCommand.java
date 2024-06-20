@@ -1,5 +1,6 @@
 package dev.revere.revsentials.command.staff;
 
+import dev.revere.revsentials.Revsential;
 import dev.revere.revsentials.api.command.BaseCommand;
 import dev.revere.revsentials.api.command.annotation.Command;
 import dev.revere.revsentials.api.command.CommandArgs;
@@ -21,7 +22,7 @@ public class HealCommand extends BaseCommand {
         if (args.length == 0) {
             player.setHealth(20);
             player.setFoodLevel(20);
-            player.sendMessage(CC.translate("&aYou have been healed."));
+            player.sendMessage(CC.translate(Revsential.getInstance().getConfig("messages.yml").getString("staff.healed.format")));
             return;
         }
 
@@ -33,6 +34,7 @@ public class HealCommand extends BaseCommand {
 
         target.setHealth(20);
         target.setFoodLevel(20);
-        target.sendMessage(CC.translate("&fYou have been healed by &b" + player.getName() + "&f."));
+        target.sendMessage(CC.translate(Revsential.getInstance().getConfig("messages.yml").getString("player.healed-by"))
+                .replace("%player%", player.getName()));
     }
 }

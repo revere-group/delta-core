@@ -1,5 +1,6 @@
 package dev.revere.revsentials.command.staff;
 
+import dev.revere.revsentials.Revsential;
 import dev.revere.revsentials.api.command.BaseCommand;
 import dev.revere.revsentials.api.command.annotation.Command;
 import dev.revere.revsentials.api.command.CommandArgs;
@@ -13,7 +14,7 @@ import org.bukkit.inventory.ItemStack;
  * @date 6/17/2024
  */
 public class ClearInventoryCommand extends BaseCommand {
-    @Command(name = "clearinventory", aliases = {"clearinv"}, permission = "revsentials.staff.clearinventory", inGameOnly = true, description = "Clears the inventory of a player", usage = "/clearinventory [player]")
+    @Command(name = "clearinventory", aliases = {"clearinv", "clear"}, permission = "revsentials.staff.clearinventory", inGameOnly = true, description = "Clears the inventory of a player", usage = "/clearinventory [player]")
     @Override
     public void onCommand(CommandArgs command) {
         Player player = command.getPlayer();
@@ -23,7 +24,7 @@ public class ClearInventoryCommand extends BaseCommand {
             player.getInventory().setContents(new ItemStack[36]);
             player.getInventory().setArmorContents(new ItemStack[4]);
             player.updateInventory();
-            player.sendMessage(CC.translate("&bYour inventory has been cleared."));
+            player.sendMessage(CC.translate(Revsential.getInstance().getConfig("messages.yml").getString("staff.cleared-inventory.format")));
             return;
         }
 
@@ -35,7 +36,8 @@ public class ClearInventoryCommand extends BaseCommand {
 
         target.getInventory().setContents(new ItemStack[36]);
         target.getInventory().setArmorContents(new ItemStack[4]);
-        target.sendMessage(CC.translate("&fYour inventory has been cleared by &b" + player.getName() + "&f."));
+        target.sendMessage(CC.translate(Revsential.getInstance().getConfig("messages.yml").getString("player.inventory-cleared-by"))
+                .replace("%player%", player.getName()));
         target.updateInventory();
     }
 }

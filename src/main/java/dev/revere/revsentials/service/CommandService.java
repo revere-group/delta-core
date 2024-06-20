@@ -65,6 +65,7 @@ public class CommandService implements Service {
         new ClearInventoryCommand();
         new StaffChatCommand();
         new InvSeeCommand();
+        new ListCommand();
         new SudoCommand();
         new HealCommand();
         new GMSPCommand();
@@ -75,6 +76,7 @@ public class CommandService implements Service {
     }
 
     private void registerAdminCommands() {
+        new BroadcastCommand();
         new InstanceCommand();
         new ClearLagCommand();
         new RebootCommand();

@@ -1,5 +1,6 @@
 package dev.revere.revsentials.command.staff;
 
+import dev.revere.revsentials.Revsential;
 import dev.revere.revsentials.api.command.BaseCommand;
 import dev.revere.revsentials.api.command.CommandArgs;
 import dev.revere.revsentials.api.command.annotation.Command;
@@ -30,6 +31,7 @@ public class InvSeeCommand extends BaseCommand {
         }
 
         player.openInventory(targetPlayer.getInventory());
-        player.sendMessage(CC.translate("&aViewing inventory of &b" + targetPlayer.getName() + "&a."));
+        player.sendMessage(CC.translate(Revsential.getInstance().getConfig("messages.yml").getString("staff.invsee.format"))
+                .replace("%target%", targetPlayer.getName()));
     }
 }

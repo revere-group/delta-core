@@ -44,7 +44,6 @@ public class ProfileListener implements Listener {
         String joinMessage = Revsential.getInstance().getConfig("messages.yml").getString("on-join.messages.joined-the-game").replace("%player%", player.getName());
         String firstJoinMessage = Revsential.getInstance().getConfig("messages.yml").getString("on-join.messages.first-join").replace("%player%", player.getName());
 
-
         if (player.hasPlayedBefore()) {
             event.setJoinMessage(CC.translate(joinMessage));
         } else {

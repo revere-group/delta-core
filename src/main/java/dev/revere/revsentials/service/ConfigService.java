@@ -26,7 +26,7 @@ public class ConfigService implements Service {
     private final Map<String, FileConfiguration> fileConfigurations = new HashMap<>();
 
     private final String[] configFileNames = {
-            "messages.yml", "settings.yml", "storage/homes.yml"
+            "messages.yml", "settings.yml", "storage/homes.yml", "menus/socials-menu.yml"
     };
 
     /**

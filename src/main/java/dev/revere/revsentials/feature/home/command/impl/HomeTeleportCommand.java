@@ -13,7 +13,7 @@ import org.bukkit.entity.Player;
  * @date 6/17/2024
  */
 public class HomeTeleportCommand extends BaseCommand {
-    @Command(name = "home.teleport", aliases = {"home.go"}, inGameOnly = true, description = "Teleport to a home")
+    @Command(name = "home.teleport", aliases = {"home.go", "home.tp"}, description = "Teleport to a home")
     @Override
     public void onCommand(CommandArgs command) {
         Player player = command.getPlayer();

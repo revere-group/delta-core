@@ -41,14 +41,16 @@ public class HelpopCommand extends BaseCommand {
         }
 
         String reason = String.join(" ", args);
-        player.sendMessage(CC.translate("&aYour help request has been sent to staff."));
+        player.sendMessage(CC.translate(Revsential.getInstance().getConfig("messages.yml").getString("player.help-request-sent")
+                .replace("%reason%", reason)
+        ));
 
         FileConfiguration config = Revsential.getInstance().getServiceManager().getService(ConfigService.class).getConfigByName("messages.yml");
 
         Bukkit.getOnlinePlayers().stream().filter(staff -> staff.hasPermission("revsentials.staff")).forEach(staff -> {
-            staff.sendMessage(CC.translate(config.getString("staff.help.format")
+            staff.sendMessage(CC.translate(config.getString("staff.help.format"))
                     .replace("%player%", player.getName())
-                    .replace("%message%", reason)));
+                    .replace("%message%", reason));
         });
 
         Cooldown cooldown = optionalCooldown.orElseGet(() -> {

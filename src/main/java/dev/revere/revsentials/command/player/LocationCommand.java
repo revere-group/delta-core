@@ -2,8 +2,8 @@ package dev.revere.revsentials.command.player;
 
 import dev.revere.revsentials.Revsential;
 import dev.revere.revsentials.api.command.BaseCommand;
-import dev.revere.revsentials.api.command.annotation.Command;
 import dev.revere.revsentials.api.command.CommandArgs;
+import dev.revere.revsentials.api.command.annotation.Command;
 import dev.revere.revsentials.cooldown.Cooldown;
 import dev.revere.revsentials.service.CooldownService;
 import dev.revere.revsentials.util.CC;
@@ -46,8 +46,15 @@ public class LocationCommand extends BaseCommand {
             return;
         }
 
-        player.sendMessage(CC.translate("&fYou have shared your location with &b" + target.getName()));
-        target.sendMessage(CC.translate("&b" + player.getName() + " &fhas shared their location with you. [&bX: " + x + ", Y: " + y + ", Z: " + z+ "&f]"));
+        player.sendMessage(CC.translate(Revsential.getInstance().getConfig("messages.yml").getString("player.location.shared"))
+                .replace("%target%", target.getName()));
+
+        target.sendMessage(CC.translate(Revsential.getInstance().getConfig("messages.yml").getString("player.location.received"))
+                .replace("%player%", player.getName())
+                .replace("{x}", String.valueOf(x)
+                .replace("{y}", String.valueOf(y)
+                .replace("{z}", String.valueOf(z))))
+        );
 
         Cooldown cooldown = optionalCooldown.orElseGet(() -> {
             Cooldown newCooldown = new Cooldown(15 * 1000L, null);

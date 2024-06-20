@@ -1,0 +1,34 @@
+menu:
+  title: "&8Social Media Links"
+  rows: 27
+  items:
+    discord:
+      name: "&bDiscord"
+      slot: 13
+      material: "COMPASS"
+      data: 0
+      lore:
+        - ""
+        - "&7Join our Discord server"
+        - "&7for announcements and events!"
+        - ""
+    twitter:
+      name: "&bTwitter"
+      slot: 11
+      material: "PAPER"
+      data: 0
+      lore:
+        - ""
+        - "&7Follow us on Twitter"
+        - "&7for updates and giveaways!"
+        - ""
+    website:
+      name: "&bWebsite"
+      slot: 15
+      material: "BOOK"
+      data: 0
+      lore:
+        - ""
+        - "&7Visit our website"
+        - "&7for more information and resources!"
+        - ""

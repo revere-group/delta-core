@@ -5,8 +5,10 @@ import dev.revere.revsentials.feature.home.HomeRepository;
 import dev.revere.revsentials.service.*;
 import dev.revere.revsentials.util.CC;
 import dev.revere.revsentials.util.ServerUtil;
+import dev.revere.revsentials.api.scoreboard.Assemble;
+import dev.revere.revsentials.api.scoreboard.AssembleStyle;
+import dev.revere.revsentials.visual.ScoreboardVisualizer;
 import lombok.Getter;
-import org.bukkit.Server;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.plugin.java.JavaPlugin;
@@ -31,6 +33,7 @@ public class Revsential extends JavaPlugin {
     @Override
     public void onEnable() {
         instance = this;
+        registerScoreboard();
         setupInitializationTasks();
         measureAndExecuteInitializationTasks();
     }
@@ -38,6 +41,12 @@ public class Revsential extends JavaPlugin {
     @Override
     public void onDisable() {
         ServerUtil.disconnectPlayers();
+    }
+
+    private void registerScoreboard() {
+        Assemble assemble = new Assemble(this, new ScoreboardVisualizer());
+        assemble.setTicks(2);
+        assemble.setAssembleStyle(AssembleStyle.MODERN);
     }
 
     private void registerRepositories() {
