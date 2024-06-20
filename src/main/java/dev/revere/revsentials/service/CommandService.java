@@ -63,6 +63,7 @@ public class CommandService implements Service {
     }
 
     private void registerStaffCommands() {
+        new SeeEnderInventoryCommand();
         new ClearInventoryCommand();
         new StaffChatCommand();
         new InvSeeCommand();
