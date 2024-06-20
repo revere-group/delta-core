@@ -1,6 +1,7 @@
 package dev.revere.revsentials.util;
 
 import dev.revere.revsentials.Revsential;
+import dev.revere.revsentials.api.color.ColorAPI;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 
@@ -20,7 +21,8 @@ public class CC {
      * @return the translated text
      */
     public static String translate(String text) {
-        return ChatColor.translateAlternateColorCodes('&', text);
+        return ColorAPI.colorize(text);
+        //return ChatColor.translateAlternateColorCodes('&', text);
     }
 
     /**

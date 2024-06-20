@@ -45,8 +45,8 @@ fly-command:
 on-join:
   title-sender:
     enabled: true
-    main-title: "&b&lRevere SMP"
-    sub-title: "&fWelcome to your SMP server, &b%player%&f!"
+    main-title: "{#0544AC>}&lRevere{#2188EB<}"
+    sub-title: "&fWelcome to the SMP, &b%player%&f!"
   messages:
     bars-format: "&8&m-----------------------------------"
     welcome-message:

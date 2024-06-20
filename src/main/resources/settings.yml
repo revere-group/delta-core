@@ -3,12 +3,10 @@ server-region: Europe
 
 scoreboard:
   enabled: true
-  title: "&b&lRevere SMP"
+  title: "{#0544AC>}&lRevere{#2188EB<}"
   lines:
     - ""
-    - "&fOnline: &b%online-players%&f/&b%max-players%"
+    - " &fKills: &b%kills%"
+    - " &fDeaths: &b%deaths%"
     - ""
-    - "&fKills: &b%kills%"
-    - "&fDeaths: &b%deaths%"
-    - ""
-    - "&bplay.revere.dev"
+    - "&7play.revere.dev"
