@@ -50,12 +50,14 @@ public class CommandService implements Service {
         new RevsentialsCommand();
         new LocationCommand();
         new PlayTimeCommand();
+        new VersionCommand();
         new MessageCommand();
         new ReportCommand();
         new HelpopCommand();
         new SocialCommand();
         new ReplyCommand();
         new RulesCommand();
+        new ListCommand();
         new PingCommand();
     }
 

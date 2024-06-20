@@ -10,6 +10,7 @@ import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.entity.Player;
 
 import java.util.*;
+import java.util.regex.Pattern;
 
 /**
  * @author Remi
@@ -18,8 +19,10 @@ import java.util.*;
  */
 public class HomeRepository {
 
-    private final FileConfiguration homesConfig;
+    private static final Pattern VALID_HOME_NAME = Pattern.compile("^[a-zA-Z0-9]+$");
+
     private final Map<String, Map<String, Home>> playerHomes;
+    private final FileConfiguration homesConfig;
 
     public HomeRepository() {
         this.homesConfig = Revsential.getInstance().getServiceManager().getService(ConfigService.class).getConfigByName("storage/homes.yml");
@@ -95,16 +98,25 @@ public class HomeRepository {
         String playerName = player.getName().toLowerCase();
         Map<String, Home> homes = playerHomes.getOrDefault(playerName, new HashMap<>());
 
+        if (!VALID_HOME_NAME.matcher(homeName).matches()) {
+            player.sendMessage(CC.translate("&cHome names can only contain letters and numbers."));
+            return;
+        }
+
         if (homes.size() >= 7) {
             player.sendMessage(CC.translate("&cYou have reached the maximum limit of 7 homes."));
             return;
+        }
+
+        if (homes.containsKey(homeName.toLowerCase())) {
+            player.sendMessage(CC.translate("&bEditing the location of home '&f" + homeName + "&b'."));
         }
 
         Location location = player.getLocation();
         Home home = new Home(homeName, location);
         homes.put(homeName.toLowerCase(), home);
         playerHomes.put(playerName, homes);
-        saveHome(player, homeName);
+        saveHome(player, homeName.toLowerCase());
         player.sendMessage(CC.translate("&bHome '&f" + homeName + "&b' set successfully!"));
     }
 
@@ -118,7 +130,7 @@ public class HomeRepository {
         String playerName = player.getName().toLowerCase();
         Map<String, Home> homes = playerHomes.get(playerName);
 
-        if (homes == null) {
+        if (homes == null || homes.get(homeName.toLowerCase()) == null) {
             player.sendMessage(CC.translate("&cYou don't have a home named '&f" + homeName + "&c'."));
             return;
         }

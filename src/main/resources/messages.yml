@@ -60,7 +60,6 @@ staff:
   help:
     format: "&f[&bRequest&f] &b%player% &fhas requested help from staff. &7(&b%message%&7)"
 
-
 reload:
   reloading:
     - "&r"
@@ -106,4 +105,15 @@ instance-command:
     - "&b&lInstalled Plugins: &f(&b%plugins%&f)"
     - " &f- &b%plugins-name%"
     - " "
+    - "&8&m-----------------------------------"
+
+list-command:
+  staff-format: "   &f- &f%staff%"
+  player-format: "   &f- &f%player%"
+  lines:
+    - "&8&m-----------------------------------"
+    - "&b&lOnline Staff"
+    - "%staffs%"
+    - " "
+    - '&7[&f%online%&f/&f%max%&7] %players%'
     - "&8&m-----------------------------------"

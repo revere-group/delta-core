@@ -20,7 +20,7 @@ public class HomeTeleportCommand extends BaseCommand {
         String[] args = command.getArgs();
 
         if (args.length == 0) {
-            player.sendMessage(CC.translate("Usage: /home teleport <homeName>"));
+            player.sendMessage(CC.translate("&cUsage: /home go <homeName>"));
             return;
         }
 

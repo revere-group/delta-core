@@ -20,7 +20,7 @@ public class HomeDeleteCommand extends BaseCommand {
         String[] args = command.getArgs();
 
         if (args.length == 0) {
-            player.sendMessage(CC.translate("Usage: /home delete <homeName>"));
+            player.sendMessage(CC.translate("&cUsage: /home delete <homeName>"));
             return;
         }
 

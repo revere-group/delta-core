@@ -20,7 +20,7 @@ public class HomeSetCommand extends BaseCommand {
         String[] args = command.getArgs();
 
         if (args.length == 0) {
-            player.sendMessage(CC.translate("Usage: /home set <homeName>"));
+            player.sendMessage(CC.translate("&cUsage: /home set <homeName>"));
             return;
         }
 
