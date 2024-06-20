@@ -1,17 +1,23 @@
+alert-format:
+  - ""
+  - "&c&lALERT &8- &f%message%"
+  - ""
+
 chat:
   format:
     regular: "&f%player%&f: &f%message%"
     staff: "&b%player%&f: &f%message%"
 
 conversation:
+  cant-msg-self: "&cYou cannot message yourself!"
   from: "&f(&bFrom %sender%&f) %message%"
   to: "&f(&bTo %receiver%&f) %message%"
 
 on-join:
   title-sender:
     enabled: true
-    main-title: "&4❤"
-    sub-title: "&fWelcome to the Flower Network, &b%player%&f!"
+    main-title: "&b&lRevere SMP"
+    sub-title: "&fWelcome to Revere's SMP server, &b%player%&f!"
   messages:
     bars-format: "&8&m-----------------------------------"
     welcome-message:
@@ -25,6 +31,9 @@ on-join:
         - "   ● Website: &bhttps://www.revere.dev"
         - "   ● Discord: &bhttps://discord.revere.dev"
         - "   ● Store: &bhttps://store.revere.dev"
+        - "   ● Vote: &bhttps://minecraft-mp.com/server-s333120"
+        - " "
+        - " &fNew to the server? &b[Type /rules]"
         - " "
         - "%bars%"
         - " "

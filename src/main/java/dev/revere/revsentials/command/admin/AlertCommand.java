@@ -1,8 +1,9 @@
 package dev.revere.revsentials.command.admin;
 
+import dev.revere.revsentials.Revsential;
 import dev.revere.revsentials.api.command.BaseCommand;
-import dev.revere.revsentials.api.command.annotation.Command;
 import dev.revere.revsentials.api.command.CommandArgs;
+import dev.revere.revsentials.api.command.annotation.Command;
 import dev.revere.revsentials.util.CC;
 import org.bukkit.entity.Player;
 
@@ -29,6 +30,10 @@ public class AlertCommand extends BaseCommand {
         List<String> message = Arrays.asList(args);
         String alertMessage = String.join(" ", message);
 
-        player.getServer().getOnlinePlayers().forEach(online -> online.sendMessage(CC.translate("&c&lALERT &8- &f" + alertMessage)));
+        for (String stringList : Revsential.getInstance().getConfig("messages.yml").getStringList("alert-format")) {
+            player.getServer().getOnlinePlayers().forEach(online -> online.sendMessage(CC.translate(stringList)
+                    .replace("%message%", alertMessage))
+            );
+        }
     }
 }

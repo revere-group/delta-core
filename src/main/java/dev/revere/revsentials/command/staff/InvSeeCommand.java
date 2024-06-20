@@ -25,7 +25,7 @@ public class InvSeeCommand extends BaseCommand {
         }
         Player targetPlayer = Bukkit.getPlayer(args[0]);
         if (targetPlayer == null) {
-            player.sendMessage(CC.translate("&cNo player matching &4" + args[0] + " &cis connected to this server."));
+            player.sendMessage(CC.translate("&cPlayer not found."));
             return;
         }
 

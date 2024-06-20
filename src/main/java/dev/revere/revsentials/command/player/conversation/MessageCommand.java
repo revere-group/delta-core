@@ -31,12 +31,12 @@ public class MessageCommand extends BaseCommand {
         Player target = player.getServer().getPlayer(targetName);
 
         if (target == null) {
-            player.sendMessage(CC.translate("&cThat player is not online."));
+            player.sendMessage(CC.translate("&cPlayer not found."));
             return;
         }
 
         if (player.equals(target)) {
-            player.sendMessage(CC.translate("&cYou cannot message yourself."));
+            player.sendMessage(CC.translate(Revsential.getInstance().getConfig("messages.yml").getString("conversation.cant-msg-self")));
             return;
         }
 

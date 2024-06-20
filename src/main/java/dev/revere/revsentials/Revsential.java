@@ -4,7 +4,9 @@ import dev.revere.revsentials.api.service.ServiceManager;
 import dev.revere.revsentials.feature.home.HomeRepository;
 import dev.revere.revsentials.service.*;
 import dev.revere.revsentials.util.CC;
+import dev.revere.revsentials.util.ServerUtil;
 import lombok.Getter;
+import org.bukkit.Server;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.plugin.java.JavaPlugin;
@@ -35,7 +37,7 @@ public class Revsential extends JavaPlugin {
 
     @Override
     public void onDisable() {
-
+        ServerUtil.disconnectPlayers();
     }
 
     private void registerRepositories() {

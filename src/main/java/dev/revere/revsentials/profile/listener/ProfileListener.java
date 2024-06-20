@@ -55,6 +55,13 @@ public class ProfileListener implements Listener {
             List<String> welcomeMessages = Revsential.getInstance().getConfig("messages.yml").getStringList("on-join.messages.welcome-message.message");
             sendWelcomeMessage(player, welcomeMessages);
         }
+
+        if (Revsential.getInstance().getConfig("messages.yml").getBoolean("on-join.title-sender.enabled")) {
+            String mainTitle = Revsential.getInstance().getConfig("messages.yml").getString("on-join.title-sender.main-title").replace("%player%", player.getName());
+            String subTitle = Revsential.getInstance().getConfig("messages.yml").getString("on-join.title-sender.sub-title").replace("%player%", player.getName());
+
+            player.sendTitle(CC.translate(mainTitle), CC.translate(subTitle));
+        }
     }
 
     @EventHandler
