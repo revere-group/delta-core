@@ -22,7 +22,7 @@ public class RevsentialsCommand extends BaseCommand {
         if (args.length == 0) {
             player.sendMessage(" ");
             player.sendMessage(CC.translate("  &b&l   Revsentials"));
-            player.sendMessage(CC.translate("      &f┃ Author: &b" + Revsential.getInstance().getDescription().getAuthors().get(0)));
+            player.sendMessage(CC.translate("      &f┃ Author: &b" + Revsential.getInstance().getDescription().getAuthors()).replace("[", "").replace("]", ""));
             player.sendMessage(CC.translate("      &f┃ Version: &b" + Revsential.getInstance().getDescription().getVersion()));
             player.sendMessage(CC.translate(" "));
             player.sendMessage(CC.translate("  &b&l   Description:"));

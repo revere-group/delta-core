@@ -1,5 +1,5 @@
 name: Revsentials
-author: Revere Development
+authors: ["Remi", "Emmy"]
 version: '${project.version}'
 main: dev.revere.revsentials.Revsential
 description: 'A plugin that adds essential features to the server.'
