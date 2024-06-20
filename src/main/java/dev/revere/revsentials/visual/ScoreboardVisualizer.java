@@ -1,8 +1,10 @@
 package dev.revere.revsentials.visual;
 
 import dev.revere.revsentials.Revsential;
+import dev.revere.revsentials.api.color.ColorAPI;
 import dev.revere.revsentials.util.CC;
 import dev.revere.revsentials.api.scoreboard.AssembleAdapter;
+import org.bukkit.Statistic;
 import org.bukkit.entity.Player;
 
 import java.util.ArrayList;
@@ -17,7 +19,7 @@ public class ScoreboardVisualizer implements AssembleAdapter {
 
     @Override
     public String getTitle(Player player) {
-        return CC.translate(Revsential.getInstance().getConfig("settings.yml").getString("scoreboard.title"));
+        return ColorAPI.colorizeGradient(Revsential.getInstance().getConfig("settings.yml").getString("scoreboard.title"));
     }
 
     @Override
@@ -40,8 +42,8 @@ public class ScoreboardVisualizer implements AssembleAdapter {
                 String formattedLine = CC.translate(line
                         .replace("%online-players%", String.valueOf(player.getServer().getOnlinePlayers().size()))
                         .replace("%max-players%", String.valueOf(player.getServer().getMaxPlayers()))
-                        .replace("%deaths%", player.getStatistic(org.bukkit.Statistic.DEATHS) + "")
-                        .replace("%kills%", player.getStatistic(org.bukkit.Statistic.PLAYER_KILLS) + "")
+                        .replace("%deaths%", player.getStatistic(Statistic.DEATHS) + "")
+                        .replace("%kills%", player.getStatistic(Statistic.PLAYER_KILLS) + "")
                 );
 
                 toReturn.add(formattedLine);
