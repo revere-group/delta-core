@@ -1,7 +1,25 @@
-alert-format:
-  - ""
-  - "&c&lALERT &8- &f%message%"
-  - ""
+broadcasts:
+  alert:
+    - ""
+    - "&4&lALERT &8- &cAttention!"
+    - " &f%message%"
+    - ""
+  broadcast:
+    - ""
+    - "&7[&bBroadcast&7] &f%message%"
+    - ""
+
+player:
+  ping: "&fYour ping is &b%ping%&f."
+  ping-target: "&f%target%'s ping is &b%ping%&f."
+  playtime: "&fYour playtime is &b%playtime%&f."
+  playtime-target: "&f%target%'s playtime is &b%playtime%&f."
+  healed-by: "&fYou've been healed by &b%player%&f!"
+  inventory-cleared-by: "&fYour inventory has been cleared by &b%player%&f!"
+  help-request-sent: "&aYour help request has been sent to staff. &8(Reason: &7%reason%&8)"
+  location:
+    shared: "&f[&bLocation&f] &fYou have shared your location with &b%target%&f."
+    received: "&f[&bLocation&f] &b%player% &fhas shared their location with you. &7(&b{x}&7, &b{y}&7, &b{z}&7)"
 
 chat:
   format:
@@ -17,7 +35,7 @@ on-join:
   title-sender:
     enabled: true
     main-title: "&b&lRevere SMP"
-    sub-title: "&fWelcome to Revere's SMP server, &b%player%&f!"
+    sub-title: "&fWelcome to your SMP server, &b%player%&f!"
   messages:
     bars-format: "&8&m-----------------------------------"
     welcome-message:
@@ -44,6 +62,19 @@ on-leave:
   messages:
     left-the-game: "&f[&c-&f] &c%player% &fhas left."
 
+trolling:
+  launch: "&f&l[&b&lTrolling&f&l] &b%target% &fhas been launched into the air!"
+  launch-all:
+    message: "&f&l[&b&lTrolling&f&l] &bAll players &fhave been launched into the air!"
+    broadcast:
+      enabled: true
+      message: "&f&l[&b&lTrolling&f&l] &bAll players &fhave been launched into the air!"
+  capture:
+    message: "&f&l[&b&lTrolling&f&l] &fYou've captured &b%target%&f!"
+    broadcast:
+      enabled: false
+      message: "&f&l[&b&lTrolling&f&l] &b%target% &fhas been captured by &b%player%&f!"
+
 staff:
   ore-notify:
     delay: 10
@@ -54,11 +85,20 @@ staff:
     commands: ["gamemode", "teleport", "tp", "give"]
     message: "&f&l[&b&lStaff&f&l] &b%player% &fhas executed command: &b%command%&f."
   chat:
-    format: "&f[&bStaff&f] &b%player%&f: &7%message%"
+    toggled: "&f[&bSC&f] &fYou've &r%status% &fstaff chat."
+    format: "&f[&bSC&f] &b%player%&f: &7%message%"
   report:
     format: "&f[&bReport&f] &b%player% &fhas reported &b%target% &ffor &b%reason%&f."
   help:
     format: "&f[&bRequest&f] &b%player% &fhas requested help from staff. &7(&b%message%&7)"
+  sudo:
+    format: "&f&l[&b&lStaff&f&l] &fYou've made &b%target% &ftype &b%command%&f in chat!"
+  invsee:
+    format: "&f&l[&b&lStaff&f&l] &fViewing &b%target%'s &finventory."
+  healed:
+    format: "&f&l[&b&lStaff&f&l] &fYou've been healed."
+  cleared-inventory:
+    format: "&f&l[&b&lStaff&f&l] &fYou've cleared your inventory."
 
 reload:
   reloading:

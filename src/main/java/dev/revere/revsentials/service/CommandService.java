@@ -6,6 +6,7 @@ import dev.revere.revsentials.api.service.Service;
 import dev.revere.revsentials.command.RevsentialsCommand;
 import dev.revere.revsentials.command.admin.*;
 import dev.revere.revsentials.command.player.*;
+import dev.revere.revsentials.command.player.ListCommand;
 import dev.revere.revsentials.command.player.conversation.MessageCommand;
 import dev.revere.revsentials.command.player.conversation.ReplyCommand;
 import dev.revere.revsentials.command.staff.*;
@@ -65,7 +66,6 @@ public class CommandService implements Service {
         new ClearInventoryCommand();
         new StaffChatCommand();
         new InvSeeCommand();
-        new ListCommand();
         new SudoCommand();
         new HealCommand();
         new GMSPCommand();
