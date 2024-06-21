@@ -51,9 +51,9 @@ public class LocationCommand extends BaseCommand {
 
         target.sendMessage(CC.translate(Revsential.getInstance().getConfig("messages.yml").getString("player.location.received"))
                 .replace("%player%", player.getName())
-                .replace("%x%", String.valueOf(x)
-                .replace("%y%", String.valueOf(y)
-                .replace("%z%", String.valueOf(z))))
+                .replace("%x%", String.valueOf(x))
+                .replace("%y%", String.valueOf(y))
+                .replace("%z%", String.valueOf(z))
         );
 
         Cooldown cooldown = optionalCooldown.orElseGet(() -> {
