@@ -8,7 +8,7 @@ import org.bukkit.entity.Player;
  * Project: Revsentials
  * Date: 20/06/2024 - 01:32
  */
-public class ServerUtil {
+public class ServerUtils {
     public static void disconnectPlayers() {
         for (Player player : Bukkit.getOnlinePlayers()) {
             player.kickPlayer(CC.translate("&cServer is restarting, please rejoin in a few minutes."));

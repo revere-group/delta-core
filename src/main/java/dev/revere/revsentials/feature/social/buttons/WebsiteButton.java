@@ -1,4 +1,4 @@
-package dev.revere.revsentials.menu.social.buttons;
+package dev.revere.revsentials.feature.social.buttons;
 
 import dev.revere.revsentials.Revsential;
 import dev.revere.revsentials.service.ConfigService;

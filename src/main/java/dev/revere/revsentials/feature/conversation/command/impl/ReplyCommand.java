@@ -1,10 +1,10 @@
-package dev.revere.revsentials.command.player.conversation;
+package dev.revere.revsentials.feature.conversation.command.impl;
 
 import dev.revere.revsentials.Revsential;
 import dev.revere.revsentials.api.command.BaseCommand;
 import dev.revere.revsentials.api.command.CommandArgs;
 import dev.revere.revsentials.api.command.annotation.Command;
-import dev.revere.revsentials.service.ConversationService;
+import dev.revere.revsentials.feature.conversation.ConversationService;
 import dev.revere.revsentials.util.CC;
 import org.bukkit.entity.Player;
 

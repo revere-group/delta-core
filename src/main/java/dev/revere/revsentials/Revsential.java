@@ -1,10 +1,16 @@
 package dev.revere.revsentials;
 
 import dev.revere.revsentials.api.service.ServiceManager;
+import dev.revere.revsentials.command.CommandService;
+import dev.revere.revsentials.feature.clan.ClanRepository;
+import dev.revere.revsentials.feature.combat.CombatLogService;
+import dev.revere.revsentials.feature.conversation.ConversationService;
+import dev.revere.revsentials.feature.cooldown.CooldownService;
 import dev.revere.revsentials.feature.home.HomeRepository;
+import dev.revere.revsentials.profile.ProfileService;
 import dev.revere.revsentials.service.*;
 import dev.revere.revsentials.util.CC;
-import dev.revere.revsentials.util.ServerUtil;
+import dev.revere.revsentials.util.ServerUtils;
 import dev.revere.revsentials.api.scoreboard.Assemble;
 import dev.revere.revsentials.api.scoreboard.AssembleStyle;
 import dev.revere.revsentials.visual.ScoreboardVisualizer;
@@ -29,6 +35,7 @@ public class Revsential extends JavaPlugin {
     private final List<Runnable> initializationTasks = new ArrayList<>();
 
     private HomeRepository homeRepository;
+    private ClanRepository clanRepository;
 
     @Override
     public void onEnable() {
@@ -40,7 +47,7 @@ public class Revsential extends JavaPlugin {
 
     @Override
     public void onDisable() {
-        ServerUtil.disconnectPlayers();
+        ServerUtils.disconnectPlayers();
     }
 
     private void registerScoreboard() {
@@ -51,6 +58,7 @@ public class Revsential extends JavaPlugin {
 
     private void registerRepositories() {
         homeRepository = new HomeRepository();
+        clanRepository = new ClanRepository();
     }
 
     private void registerServices() {
@@ -59,6 +67,7 @@ public class Revsential extends JavaPlugin {
         serviceManager.registerService(new CooldownService(this));
         serviceManager.registerService(new ListenerService(this));
         serviceManager.registerService(new CommandService(this));
+        serviceManager.registerService(new CombatLogService(this));
         serviceManager.registerService(new ConversationService(this));
     }
 

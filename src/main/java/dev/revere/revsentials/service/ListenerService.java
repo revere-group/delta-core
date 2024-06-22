@@ -29,7 +29,6 @@ public class ListenerService implements Service {
 
     @Override
     public void register() {
-        Bukkit.getPluginManager().registerEvents(new ProfileListener(), plugin);
         Bukkit.getPluginManager().registerEvents(new StaffListener(), plugin);
         Bukkit.getPluginManager().registerEvents(new ChatListener(), plugin);
         Bukkit.getPluginManager().registerEvents(new MenuListener(), plugin);

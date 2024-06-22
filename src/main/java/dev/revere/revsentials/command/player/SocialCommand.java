@@ -3,7 +3,7 @@ package dev.revere.revsentials.command.player;
 import dev.revere.revsentials.api.command.BaseCommand;
 import dev.revere.revsentials.api.command.CommandArgs;
 import dev.revere.revsentials.api.command.annotation.Command;
-import dev.revere.revsentials.menu.social.SocialMenu;
+import dev.revere.revsentials.feature.social.SocialMenu;
 import org.bukkit.entity.Player;
 
 /**

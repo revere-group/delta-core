@@ -3,7 +3,7 @@ package dev.revere.revsentials.profile.staff.listener;
 import dev.revere.revsentials.Revsential;
 import dev.revere.revsentials.profile.Profile;
 import dev.revere.revsentials.service.ConfigService;
-import dev.revere.revsentials.service.ProfileService;
+import dev.revere.revsentials.profile.ProfileService;
 import dev.revere.revsentials.util.CC;
 import org.bukkit.Bukkit;
 import org.bukkit.configuration.file.FileConfiguration;

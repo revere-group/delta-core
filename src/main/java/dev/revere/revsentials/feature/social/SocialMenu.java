@@ -1,9 +1,9 @@
-package dev.revere.revsentials.menu.social;
+package dev.revere.revsentials.feature.social;
 
 import dev.revere.revsentials.Revsential;
-import dev.revere.revsentials.menu.social.buttons.DiscordButton;
-import dev.revere.revsentials.menu.social.buttons.TwitterButton;
-import dev.revere.revsentials.menu.social.buttons.WebsiteButton;
+import dev.revere.revsentials.feature.social.buttons.DiscordButton;
+import dev.revere.revsentials.feature.social.buttons.TwitterButton;
+import dev.revere.revsentials.feature.social.buttons.WebsiteButton;
 import dev.revere.revsentials.service.ConfigService;
 import dev.revere.revsentials.util.menu.Button;
 import dev.revere.revsentials.util.menu.Menu;

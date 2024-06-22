@@ -23,8 +23,8 @@ player:
 
 chat:
   format:
-    regular: "&f%player%&f: &f%message%"
-    staff: "&b%player%&f: &f%message%"
+    regular: "%clan%%player%&f: &f%message%"
+    staff: "%clan%&b%player%&f: &f%message%"
 
 conversation:
   cant-msg-self: "&cYou cannot message yourself!"
@@ -93,7 +93,7 @@ staff:
     message: "&f&l[&b&lStaff&f&l] &b%player% &fmined &b%total% &f%ore% ores in the last &b%time% &fseconds."
   logger:
     enabled: true
-    commands: ["gamemode", "teleport", "tp", "give"]
+    commands: ["gamemode", "teleport", "tp", "give", "vanish", "v"]
     message: "&f&l[&b&lStaff&f&l] &b%player% &fhas executed command: &b%command%&f."
   chat:
     toggled: "&f[&bSC&f] &fYou've &r%status% &fstaff chat."
@@ -112,6 +112,11 @@ staff:
     format: "&f&l[&b&lStaff&f&l] &fYou've been healed."
   cleared-inventory:
     format: "&f&l[&b&lStaff&f&l] &fYou've cleared your inventory."
+  vanish:
+      toggle: "&f&l[&b&lStaff&f&l] &fYou've &b%status% &fvanished."
+      toggle-target: "&f&l[&b&lStaff&f&l] &fYou have &b%status% &b%target%'s &fvanish."
+      toggled-by: "&f&l[&b&lStaff&f&l] &b%player% &fhas &b%status% &f your vanish."
+
 
 reload:
   reloading:

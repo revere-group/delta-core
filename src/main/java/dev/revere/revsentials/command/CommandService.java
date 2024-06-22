@@ -1,14 +1,20 @@
-package dev.revere.revsentials.service;
+package dev.revere.revsentials.command;
 
 import dev.revere.revsentials.Revsential;
 import dev.revere.revsentials.api.command.CommandManager;
 import dev.revere.revsentials.api.service.Service;
-import dev.revere.revsentials.command.RevsentialsCommand;
+import dev.revere.revsentials.command.player.RevsentialsCommand;
 import dev.revere.revsentials.command.admin.*;
 import dev.revere.revsentials.command.player.*;
 import dev.revere.revsentials.command.player.ListCommand;
-import dev.revere.revsentials.command.player.conversation.MessageCommand;
-import dev.revere.revsentials.command.player.conversation.ReplyCommand;
+import dev.revere.revsentials.feature.clan.command.ClanCommand;
+import dev.revere.revsentials.feature.clan.command.impl.*;
+import dev.revere.revsentials.feature.combat.command.CombatLogCommand;
+import dev.revere.revsentials.feature.combat.command.CombatLogResetCommand;
+import dev.revere.revsentials.feature.combat.command.CombatLogStatusCommand;
+import dev.revere.revsentials.feature.combat.command.CombatLogTimeCommand;
+import dev.revere.revsentials.feature.conversation.command.impl.MessageCommand;
+import dev.revere.revsentials.feature.conversation.command.impl.ReplyCommand;
 import dev.revere.revsentials.command.staff.*;
 import dev.revere.revsentials.command.staff.gamemode.GMACommand;
 import dev.revere.revsentials.command.staff.gamemode.GMCCommand;
@@ -41,10 +47,12 @@ public class CommandService implements Service {
     public void register() {
         new CommandManager(plugin);
         registerPlayerCommands();
+        registerCombatCommands();
         registerTrollCommands();
         registerStaffCommands();
         registerAdminCommands();
         registerHomeCommands();
+        registerClanCommands();
     }
 
     private void registerPlayerCommands() {
@@ -67,6 +75,7 @@ public class CommandService implements Service {
         new ClearInventoryCommand();
         new StaffChatCommand();
         new InvSeeCommand();
+        new VanishCommand();
         new MoreCommand();
         new SudoCommand();
         new HealCommand();
@@ -85,6 +94,29 @@ public class CommandService implements Service {
         new RebootCommand();
         new ReloadCommand();
         new AlertCommand();
+    }
+
+    private void registerCombatCommands() {
+        new CombatLogStatusCommand();
+        new CombatLogResetCommand();
+        new CombatLogTimeCommand();
+        new CombatLogCommand();
+    }
+
+    private void registerClanCommands() {
+        new ClanSetColorCommand();
+        new ClanSetHomeCommand();
+        new ClanCreateCommand();
+        new ClanDeleteCommand();
+        new ClanInviteCommand();
+        new ClanLeaveCommand();
+        new ClanHomeCommand();
+        new ClanJoinCommand();
+        new ClanInfoCommand();
+        new ClanKickCommand();
+        new ClanListCommand();
+        new ClanChatCommand();
+        new ClanCommand();
     }
 
     private void registerHomeCommands() {

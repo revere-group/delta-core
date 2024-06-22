@@ -2,8 +2,9 @@ package dev.revere.revsentials.feature.home;
 
 import dev.revere.revsentials.Revsential;
 import dev.revere.revsentials.cooldown.Cooldown;
+import dev.revere.revsentials.feature.combat.CombatLogService;
 import dev.revere.revsentials.service.ConfigService;
-import dev.revere.revsentials.service.CooldownService;
+import dev.revere.revsentials.feature.cooldown.CooldownService;
 import dev.revere.revsentials.util.CC;
 import org.bukkit.Location;
 import org.bukkit.configuration.file.FileConfiguration;
@@ -129,6 +130,12 @@ public class HomeRepository {
     public void teleportHome(Player player, String homeName) {
         String playerName = player.getName().toLowerCase();
         Map<String, Home> homes = playerHomes.get(playerName);
+
+        boolean inCombat = Revsential.getInstance().getServiceManager().getService(CombatLogService.class).isPlayerInCombat(player);
+        if (inCombat) {
+            player.sendMessage(CC.translate("&cYou cannot teleport while in combat."));
+            return;
+        }
 
         if (homes == null || homes.get(homeName.toLowerCase()) == null) {
             player.sendMessage(CC.translate("&cYou don't have a home named '&f" + homeName + "&c'."));

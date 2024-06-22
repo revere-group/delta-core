@@ -29,6 +29,7 @@ public class ChatListener implements Listener {
 
         chatFormat = chatFormat.replace("%player%", player.getDisplayName());
         chatFormat = translate ? chatFormat.replace("%message%", CC.translate(event.getMessage())) : chatFormat.replace("%message%", event.getMessage());
+        chatFormat = chatFormat.replace("%clan%", CC.translate(Revsential.getInstance().getClanRepository().getPlayerClan(player.getUniqueId()) != null ? "&f[" + Revsential.getInstance().getClanRepository().getPlayerClan(player.getUniqueId()).getColoredName() + "&f] ": ""));
 
         event.setFormat(chatFormat);
     }

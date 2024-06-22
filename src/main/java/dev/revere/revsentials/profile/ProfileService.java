@@ -1,9 +1,10 @@
-package dev.revere.revsentials.service;
+package dev.revere.revsentials.profile;
 
 import dev.revere.revsentials.Revsential;
 import dev.revere.revsentials.api.service.Service;
-import dev.revere.revsentials.profile.Profile;
+import dev.revere.revsentials.profile.listener.ProfileListener;
 import lombok.Getter;
+import org.bukkit.Bukkit;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -32,6 +33,7 @@ public class ProfileService implements Service {
 
     @Override
     public void register() {
+        Bukkit.getPluginManager().registerEvents(new ProfileListener(), plugin);
     }
 
     /**

@@ -4,6 +4,8 @@ import dev.revere.revsentials.Revsential;
 import dev.revere.revsentials.api.command.BaseCommand;
 import dev.revere.revsentials.api.command.CommandArgs;
 import dev.revere.revsentials.api.command.annotation.Command;
+import dev.revere.revsentials.profile.Profile;
+import dev.revere.revsentials.profile.ProfileService;
 import dev.revere.revsentials.service.ConfigService;
 import dev.revere.revsentials.util.CC;
 import org.bukkit.Bukkit;
@@ -29,6 +31,12 @@ public class ListCommand extends BaseCommand {
 
         List<Player> onlinePlayers = new ArrayList<>(Bukkit.getOnlinePlayers());
 
+        if (!isVanished(player)) {
+            onlinePlayers = onlinePlayers.stream()
+                    .filter(p -> !isVanished(p))
+                    .toList();
+        };
+
         String formattedStaffList = onlinePlayers.stream()
                 .filter(p -> p.hasPermission("revsentials.staff"))
                 .map(Player::getName)
@@ -44,6 +52,17 @@ public class ListCommand extends BaseCommand {
         config.getStringList("list-command.lines").forEach(line -> {
             player.sendMessage(CC.translate(replacePlaceholders(line, formattedStaffList, formattedPlayerList, totalPlayers, maxPlayers)));
         });
+    }
+
+    /**
+     * Checks if a player is in vanish.
+     *
+     * @param player the player to check
+     * @return true if the player is in vanish, false otherwise
+     */
+    private boolean isVanished(Player player) {
+        Profile profile = Revsential.getInstance().getServiceManager().getService(ProfileService.class).getProfile(player.getUniqueId());
+        return profile.getStaffOptions().isVanish();
     }
 
     /**

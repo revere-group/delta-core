@@ -1,10 +1,9 @@
-package dev.revere.revsentials.service;
+package dev.revere.revsentials.feature.conversation;
 
 import dev.revere.revsentials.Revsential;
 import dev.revere.revsentials.api.service.Service;
-import dev.revere.revsentials.cooldown.Cooldown;
+import dev.revere.revsentials.service.ConfigService;
 import dev.revere.revsentials.util.CC;
-import dev.revere.revsentials.util.triple.MutableTriple;
 import lombok.Getter;
 import org.bukkit.Bukkit;
 import org.bukkit.Sound;

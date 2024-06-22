@@ -6,13 +6,12 @@ import dev.revere.revsentials.api.command.CommandArgs;
 import dev.revere.revsentials.api.command.annotation.Command;
 import dev.revere.revsentials.cooldown.Cooldown;
 import dev.revere.revsentials.service.ConfigService;
-import dev.revere.revsentials.service.CooldownService;
+import dev.revere.revsentials.feature.cooldown.CooldownService;
 import dev.revere.revsentials.util.CC;
 import org.bukkit.Bukkit;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.entity.Player;
 
-import java.util.Arrays;
 import java.util.Optional;
 
 /**

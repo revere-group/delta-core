@@ -2,8 +2,9 @@ package dev.revere.revsentials.visual;
 
 import dev.revere.revsentials.Revsential;
 import dev.revere.revsentials.api.color.ColorAPI;
-import dev.revere.revsentials.util.CC;
 import dev.revere.revsentials.api.scoreboard.AssembleAdapter;
+import dev.revere.revsentials.feature.combat.CombatLogService;
+import dev.revere.revsentials.util.CC;
 import org.bukkit.Statistic;
 import org.bukkit.entity.Player;
 
@@ -37,16 +38,29 @@ public class ScoreboardVisualizer implements AssembleAdapter {
             return toReturn;
         }
 
+        CombatLogService combatLogService = Revsential.getInstance().getServiceManager().getService(CombatLogService.class);
+
         if (Revsential.getInstance().getConfig("settings.yml").getBoolean("scoreboard.enabled")) {
             for (String line : lines) {
-                String formattedLine = CC.translate(line
-                        .replace("%online-players%", String.valueOf(player.getServer().getOnlinePlayers().size()))
-                        .replace("%max-players%", String.valueOf(player.getServer().getMaxPlayers()))
-                        .replace("%deaths%", player.getStatistic(Statistic.DEATHS) + "")
-                        .replace("%kills%", player.getStatistic(Statistic.PLAYER_KILLS) + "")
-                );
+                if (line.contains("%combat-tag%")) {
+                    if (combatLogService.isPlayerInCombat(player)) {
+                        long remainingTime = combatLogService.getRemainingCombatTime(player);
+                        List<String> combatTagLines = Revsential.getInstance().getConfig("settings.yml").getStringList("scoreboard.combat-tag.lines");
 
-                toReturn.add(formattedLine);
+                        for (String combatLine : combatTagLines) {
+                            String formattedCombatLine = CC.translate(combatLine.replace("%tag%", String.valueOf(remainingTime)));
+                            toReturn.add(formattedCombatLine);
+                        }
+                    }
+                } else {
+                    String formattedLine = CC.translate(line
+                            .replace("%online-players%", String.valueOf(player.getServer().getOnlinePlayers().size()))
+                            .replace("%max-players%", String.valueOf(player.getServer().getMaxPlayers()))
+                            .replace("%deaths%", player.getStatistic(Statistic.DEATHS) + "")
+                            .replace("%kills%", player.getStatistic(Statistic.PLAYER_KILLS) + "")
+                    );
+                    toReturn.add(formattedLine);
+                }
             }
         }
 

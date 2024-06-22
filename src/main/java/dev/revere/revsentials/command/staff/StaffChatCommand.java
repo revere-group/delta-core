@@ -5,7 +5,7 @@ import dev.revere.revsentials.api.command.BaseCommand;
 import dev.revere.revsentials.api.command.CommandArgs;
 import dev.revere.revsentials.api.command.annotation.Command;
 import dev.revere.revsentials.profile.Profile;
-import dev.revere.revsentials.service.ProfileService;
+import dev.revere.revsentials.profile.ProfileService;
 import dev.revere.revsentials.util.CC;
 import org.bukkit.entity.Player;
 

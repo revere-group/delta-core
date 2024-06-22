@@ -3,10 +3,17 @@ server-region: Europe
 
 scoreboard:
   enabled: true
-  title: "{#0544AC>}&lRevere{#2188EB<}"
+  title: "&b&lRevere &7┃ &fSMP"
   lines:
     - ""
+    - "&b&lStats"
     - " &fKills: &b%kills%"
     - " &fDeaths: &b%deaths%"
+    - " %combat-tag%"
     - ""
     - "&7play.revere.dev"
+  combat-tag:
+    lines:
+      - ""
+      - "&b&lCombat Log"
+      - " &fDuration: &b%tag%s"

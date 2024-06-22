@@ -13,5 +13,6 @@ import lombok.Setter;
 public class StaffOptions {
 
     public boolean staffChat = false;
+    public boolean vanish = false;
 
 }

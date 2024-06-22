@@ -1,4 +1,4 @@
-package dev.revere.revsentials.command;
+package dev.revere.revsentials.command.player;
 
 import dev.revere.revsentials.Revsential;
 import dev.revere.revsentials.api.command.BaseCommand;

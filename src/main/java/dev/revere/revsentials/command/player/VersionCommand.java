@@ -13,7 +13,7 @@ import org.bukkit.entity.Player;
  * @date 6/20/2024
  */
 public class VersionCommand extends BaseCommand {
-    @Command(name = "version", aliases = {"ver", "v", "about"}, usage = "/version")
+    @Command(name = "version", aliases = {"ver", "about"}, usage = "/version")
     @Override
     public void onCommand(CommandArgs command) {
         Player player = command.getPlayer();

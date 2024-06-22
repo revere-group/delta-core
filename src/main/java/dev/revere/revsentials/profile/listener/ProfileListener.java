@@ -2,7 +2,7 @@ package dev.revere.revsentials.profile.listener;
 
 import dev.revere.revsentials.Revsential;
 import dev.revere.revsentials.profile.Profile;
-import dev.revere.revsentials.service.ProfileService;
+import dev.revere.revsentials.profile.ProfileService;
 import dev.revere.revsentials.util.CC;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
@@ -68,6 +68,12 @@ public class ProfileListener implements Listener {
         Player player = event.getPlayer();
         Profile profile = Revsential.getInstance().getServiceManager().getService(ProfileService.class).getProfile(player.getUniqueId());
         profile.setOnline(false);
+
+        if (profile.getStaffOptions().isVanish()) {
+            profile.getStaffOptions().setVanish(false);
+            event.setQuitMessage(null);
+            return;
+        }
 
         String quitMessage = Revsential.getInstance().getConfig("messages.yml").getString("on-leave.messages.left-the-game").replace("%player%", player.getName());
         event.setQuitMessage(CC.translate(quitMessage));

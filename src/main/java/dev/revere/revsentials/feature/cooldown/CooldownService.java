@@ -1,4 +1,4 @@
-package dev.revere.revsentials.service;
+package dev.revere.revsentials.feature.cooldown;
 
 import dev.revere.revsentials.Revsential;
 import dev.revere.revsentials.api.service.Service;
@@ -29,7 +29,6 @@ public class CooldownService implements Service {
         this.plugin = plugin;
         this.cooldowns = new ArrayList<>();
     }
-
 
     @Override
     public void register() {
