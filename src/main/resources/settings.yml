@@ -3,17 +3,15 @@ server-region: Europe
 
 scoreboard:
   enabled: true
-  title: "&b&lRevere &7┃ &fSMP"
+  title: "&b&lᴅᴇʟᴛᴀ &7︱ &fѕᴍᴘ"
   lines:
     - ""
-    - "&b&lStats"
-    - " &fKills: &b%kills%"
-    - " &fDeaths: &b%deaths%"
-    - " %combat-tag%"
+    - " &b❚ &fᴋɪʟʟѕ: &b%kills%"
+    - " &b❚ &fᴅᴇᴀᴛʜѕ: &b%deaths%"
+    - " &b❚ %combat-tag%"
     - ""
-    - "&7play.revere.dev"
+    - "&7ᴘʟᴀʏ.ʀᴇᴠᴇʀᴇ.ᴅᴇᴠ"
   combat-tag:
     lines:
       - ""
-      - "&b&lCombat Log"
-      - " &fDuration: &b%tag%s"
+      - " &fᴄᴏᴍʙᴀᴛ ʟᴏɢ: &b%tag%ѕ"

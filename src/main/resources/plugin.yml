@@ -1,6 +1,6 @@
-name: Revsentials
+name: Delta
 authors: ["Remi", "Emmy"]
 version: '${project.version}'
-main: dev.revere.revsentials.Revsential
-description: 'A plugin that adds essential features to the server.'
+main: dev.revere.delta.Delta
+description: 'A server core for newer versions of Minecraft.'
 api-version: '1.20'
