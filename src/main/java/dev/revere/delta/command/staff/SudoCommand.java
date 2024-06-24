@@ -8,6 +8,7 @@ import dev.revere.delta.service.ConfigService;
 import dev.revere.delta.util.CC;
 import org.bukkit.entity.Player;
 
+import java.util.Arrays;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 
@@ -34,8 +35,7 @@ public class SudoCommand extends BaseCommand {
             return;
         }
 
-        String commandBuilder = IntStream.range(1, args.length).mapToObj(i -> args[i] + " ").collect(Collectors.joining());
-
+        String commandBuilder = String.join(" ", Arrays.copyOfRange(args, 1, args.length));
         target.chat(CC.translate(commandBuilder));
         player.sendMessage(CC.translate(Delta.getInstance().getServiceManager().getService(ConfigService.class).getConfig("messages.yml").getString("staff.sudo.format"))
                 .replace("%target%", target.getName())
