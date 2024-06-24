@@ -5,6 +5,8 @@ import dev.revere.delta.api.command.BaseCommand;
 import dev.revere.delta.api.command.CommandArgs;
 import dev.revere.delta.api.command.annotation.Command;
 import dev.revere.delta.feature.conversation.ConversationService;
+import dev.revere.delta.profile.Profile;
+import dev.revere.delta.profile.ProfileService;
 import dev.revere.delta.service.ConfigService;
 import dev.revere.delta.util.CC;
 import org.bukkit.entity.Player;
@@ -33,6 +35,12 @@ public class MessageCommand extends BaseCommand {
 
         if (target == null) {
             player.sendMessage(CC.translate("&cPlayer not found."));
+            return;
+        }
+
+        Profile targetProfile = Delta.getInstance().getServiceManager().getService(ProfileService.class).getProfile(target.getUniqueId());
+        if (targetProfile.getStaffOptions().isVanish()) {
+            player.sendMessage(CC.translate("&cThat player is not online."));
             return;
         }
 
