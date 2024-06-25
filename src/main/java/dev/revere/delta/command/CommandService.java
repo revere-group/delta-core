@@ -7,6 +7,7 @@ import dev.revere.delta.command.player.DeltaCommand;
 import dev.revere.delta.command.admin.*;
 import dev.revere.delta.command.player.*;
 import dev.revere.delta.command.player.ListCommand;
+import dev.revere.delta.command.troll.HurtCommand;
 import dev.revere.delta.feature.clan.command.ClanCommand;
 import dev.revere.delta.feature.clan.command.impl.*;
 import dev.revere.delta.feature.combat.command.CombatLogCommand;
@@ -151,5 +152,6 @@ public class CommandService implements IService {
     private void registerTrollCommands() {
         new CaptureCommand();
         new LaunchCommand();
+        new HurtCommand();
     }
 }

@@ -74,6 +74,7 @@ on-leave:
     left-the-game: "&f[&c-&f] &c%player% &fhas left."
 
 trolling:
+  hurt:
   launch: "&f&l[&b&lTrolling&f&l] &b%target% &fhas been launched into the air!"
   launch-all:
     message: "&f&l[&b&lTrolling&f&l] &bAll players &fhave been launched into the air!"
@@ -82,9 +83,6 @@ trolling:
       message: "&f&l[&b&lTrolling&f&l] &bAll players &fhave been launched into the air!"
   capture:
     message: "&f&l[&b&lTrolling&f&l] &fYou've captured &b%target%&f!"
-    broadcast:
-      enabled: false
-      message: "&f&l[&b&lTrolling&f&l] &b%target% &fhas been captured by &b%player%&f!"
 
 staff:
   ore-notify:
