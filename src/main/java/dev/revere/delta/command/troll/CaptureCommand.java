@@ -54,7 +54,7 @@ public class CaptureCommand extends BaseCommand {
             }
         }
 
-        player.sendMessage(CC.translate(Delta.getInstance().getServiceManager().getService(ConfigService.class).getConfig("messages.yml").getString("trolling.capture"))
+        player.sendMessage(CC.translate(Delta.getInstance().getServiceManager().getService(ConfigService.class).getConfig("messages.yml").getString("trolling.capture.message"))
                 .replace("%target%", target.getName()));
     }
 }
