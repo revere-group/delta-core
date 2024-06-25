@@ -7,7 +7,7 @@ import dev.revere.delta.command.player.DeltaCommand;
 import dev.revere.delta.command.admin.*;
 import dev.revere.delta.command.player.*;
 import dev.revere.delta.command.player.ListCommand;
-import dev.revere.delta.command.troll.HurtCommand;
+import dev.revere.delta.command.troll.*;
 import dev.revere.delta.feature.clan.command.ClanCommand;
 import dev.revere.delta.feature.clan.command.impl.*;
 import dev.revere.delta.feature.combat.command.CombatLogCommand;
@@ -21,8 +21,6 @@ import dev.revere.delta.command.staff.gamemode.GMACommand;
 import dev.revere.delta.command.staff.gamemode.GMCCommand;
 import dev.revere.delta.command.staff.gamemode.GMSCommand;
 import dev.revere.delta.command.staff.gamemode.GMSPCommand;
-import dev.revere.delta.command.troll.CaptureCommand;
-import dev.revere.delta.command.troll.LaunchCommand;
 import dev.revere.delta.feature.home.command.HomeCommand;
 import dev.revere.delta.feature.home.command.impl.*;
 import dev.revere.delta.feature.rank.command.RankCommand;
@@ -151,6 +149,8 @@ public class CommandService implements IService {
 
     private void registerTrollCommands() {
         new CaptureCommand();
+        new StrikeCommand();
+        new PushCommand();
         new LaunchCommand();
         new HurtCommand();
     }

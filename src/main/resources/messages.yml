@@ -74,13 +74,22 @@ on-leave:
     left-the-game: "&f[&c-&f] &c%player% &fhas left."
 
 trolling:
-  hurt:
-  launch: "&f&l[&b&lTrolling&f&l] &b%target% &fhas been launched into the air!"
-  launch-all:
-    message: "&f&l[&b&lTrolling&f&l] &bAll players &fhave been launched into the air!"
+  strike: "&f&l[&b&lTrolling&f&l] &fYou've struck &b%target% &fwith lightning!"
+  strike-all:
+    message: "&f&l[&b&lTrolling&f&l] &fYou've struck all players with lightning!"
     broadcast:
       enabled: true
-      message: "&f&l[&b&lTrolling&f&l] &bAll players &fhave been launched into the air!"
+      message:
+        - ""
+        - "&f&l[&b&lTrolling&f&l] &fAll players &bhave been struck by lightning!"
+        - ""
+  hurt: "&f&l[&b&lTrolling&f&l] &fYou've hurt &b%target%&f! &f(&c- %damage%&c❤&f)"
+  launch: "&f&l[&b&lTrolling&f&l] &b%target% &fhas been launched into the air!"
+  launch-all:
+    message: "&f&l[&b&lTrolling&f&l] &fAll players &bhave &fbeen launched into the air!"
+    broadcast:
+      enabled: true
+      message: "&f&l[&b&lTrolling&f&l] &fAll players &bhave been launched into the air!"
   capture:
     message: "&f&l[&b&lTrolling&f&l] &fYou've captured &b%target%&f!"
 
