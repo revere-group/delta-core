@@ -4,6 +4,7 @@ import com.mongodb.client.model.Filters;
 import com.mongodb.client.model.ReplaceOptions;
 import dev.revere.delta.Delta;
 import dev.revere.delta.database.profile.IProfile;
+import dev.revere.delta.feature.grant.GrantSerializer;
 import dev.revere.delta.profile.Profile;
 import dev.revere.delta.profile.ProfileService;
 import org.bson.Document;
@@ -41,6 +42,7 @@ public class MongoProfile implements IProfile {
         Document document = new Document();
         document.put("uuid", profile.getUuid().toString());
         document.put("name", profile.getName());
+        document.put("grants", GrantSerializer.serialize(profile.getGrants()));
 
         Delta.getInstance().getServiceManager().getService(ProfileService.class).getCollection().replaceOne(Filters.eq("uuid", profile.getUuid().toString()), document, new ReplaceOptions().upsert(true));
     }

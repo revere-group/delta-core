@@ -3,12 +3,15 @@ package dev.revere.delta.profile;
 import com.mongodb.client.MongoCollection;
 import dev.revere.delta.Delta;
 import dev.revere.delta.database.profile.IProfile;
+import dev.revere.delta.feature.grant.Grant;
 import dev.revere.delta.profile.staff.setting.StaffOptions;
 import lombok.Getter;
 import lombok.Setter;
 import org.bson.Document;
 import org.bukkit.Bukkit;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.UUID;
 
 /**
@@ -25,6 +28,7 @@ public class Profile {
 
     private String name;
     private UUID uuid;
+    private List<Grant> grants;
 
     private boolean online;
 
@@ -37,6 +41,7 @@ public class Profile {
         this.uuid = uuid;
         this.name = Bukkit.getOfflinePlayer(this.uuid).getName();
         this.staffOptions = new StaffOptions();
+        this.grants = new ArrayList<>();
     }
 
     public void loadProfile() {
