@@ -20,10 +20,10 @@ grant-button:
     name: "&c&m%rank%"
     lore:
       - ""
-      - "&f● &bAdded by: &f%added_by%"
-      - "&f● &bAdded at: &f%added_at%"
+      - "&f● &cAdded by: &f%added_by%"
+      - "&f● &cAdded at: &f%added_at%"
       - ""
-      - "&f● &bServer: &f%server%"
+      - "&f● &cServer: &f%server%"
       - ""
       - "&f● &cRemoved by: &f%removed_by%"
       - "&f● &cRemoved at: &f%removed_at%"
