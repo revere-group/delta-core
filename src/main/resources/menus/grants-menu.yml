@@ -1,0 +1,50 @@
+grant-button:
+  active:
+    material: LIME_WOOL
+    data: 0
+    name: "&b{rank}"
+    lore:
+      - ""
+      - "&f● &bAdded by: &f{added_by}"
+      - "&f● &bAdded at: &f{added_at}"
+      - ""
+      - "&f● &bServer: &f{server}"
+      - "&f● &bDuration: &f{duration}"
+      - "&f● &bReason: &f{reason}"
+      - "&f● &bExpired: &f{expired}"
+      - ""
+      - "&b&l[!] &fClick to remove this grant."
+  inactive:
+    material: RED_WOOL
+    data: 0
+    name: "&c&m{rank}"
+    lore:
+      - ""
+      - "&f● &bAdded by: &f{added_by}"
+      - "&f● &bAdded at: &f{added_at}"
+      - ""
+      - "&f● &bServer: &f{server}"
+      - ""
+      - "&f● &cRemoved by: &f{removed_by}"
+      - "&f● &cRemoved at: &f{removed_at}"
+      - "&f● &cReason: &f{removed_reason}"
+      - ""
+      - "&c&l[!] &fThis grant has been removed."
+
+refresh-button:
+  show-inactive:
+    name: "&aShow Inactive Grants"
+    lore:
+      - ""
+      - "&fClick to show inactive grants."
+      - ""
+    material: LIME_WOOL
+    data: 0
+  show-active:
+    name: "&cHide Inactive Grants"
+    lore:
+      - ""
+      - "&fClick to hide inactive grants."
+      - ""
+    material: RED_WOOL
+    data: 0

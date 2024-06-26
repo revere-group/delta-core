@@ -1,8 +1,10 @@
-package dev.revere.delta.feature.grant.menu;
+package dev.revere.delta.feature.grant.menu.grants;
 
 import dev.revere.delta.Delta;
 import dev.revere.delta.feature.grant.Grant;
 import dev.revere.delta.feature.grant.GrantService;
+import dev.revere.delta.feature.grant.menu.grants.button.GrantsButton;
+import dev.revere.delta.feature.grant.menu.grants.button.RefreshGrantsButton;
 import dev.revere.delta.profile.Profile;
 import dev.revere.delta.profile.ProfileService;
 import dev.revere.delta.util.menu.Button;
@@ -21,7 +23,7 @@ import java.util.Map;
  * @date 6/26/2024
  */
 @AllArgsConstructor
-public class GrantMenu extends PaginatedMenu {
+public class GrantsMenu extends PaginatedMenu {
 
     private boolean showingActiveGrants;
     private final OfflinePlayer target;
@@ -53,7 +55,7 @@ public class GrantMenu extends PaginatedMenu {
 
         int index = 0;
         for (Grant grant : filteredGrants) {
-            buttons.put(index++, new GrantButton(target, grant, showingActiveGrants));
+            buttons.put(index++, new GrantsButton(target, grant, showingActiveGrants));
         }
 
         return buttons;

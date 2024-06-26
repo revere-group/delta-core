@@ -2,6 +2,7 @@ package dev.revere.delta.util.menu;
 
 import dev.revere.delta.Delta;
 import dev.revere.delta.util.CC;
+import dev.revere.delta.util.menu.button.PageGlassButton;
 import lombok.Getter;
 import lombok.Setter;
 import org.bukkit.Bukkit;
@@ -111,6 +112,19 @@ public abstract class Menu {
         for (int i = 0; i < rows; i++) {
             buttons.putIfAbsent(i * 9, Button.placeholder(Material.BLACK_STAINED_GLASS_PANE, data, ""));
             buttons.putIfAbsent(i * 9 + 8, Button.placeholder(Material.BLACK_STAINED_GLASS_PANE, data, ""));
+        }
+    }
+
+    /**
+     * Adds a glass header to the paginated menu.
+     *
+     * @param buttons the buttons
+     */
+    public void addGlassHeader(Map<Integer, Button> buttons) {
+        for (int i = 1; i < 9; i++) {
+            if (i != 8) {
+                buttons.put(i, new PageGlassButton());
+            }
         }
     }
 
