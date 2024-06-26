@@ -2,32 +2,32 @@ grant-button:
   active:
     material: LIME_WOOL
     data: 0
-    name: "&b{rank}"
+    name: "&b%rank%"
     lore:
       - ""
-      - "&f● &bAdded by: &f{added_by}"
-      - "&f● &bAdded at: &f{added_at}"
+      - "&f● &bAdded by: &f%added_by%"
+      - "&f● &bAdded at: &f%added_at%"
       - ""
-      - "&f● &bServer: &f{server}"
-      - "&f● &bDuration: &f{duration}"
-      - "&f● &bReason: &f{reason}"
-      - "&f● &bExpired: &f{expired}"
+      - "&f● &bServer: &f%server%"
+      - "&f● &bDuration: &f%duration%"
+      - "&f● &bReason: &f%reason%"
+      - "&f● &bExpired: &f%expired%"
       - ""
       - "&b&l[!] &fClick to remove this grant."
   inactive:
     material: RED_WOOL
     data: 0
-    name: "&c&m{rank}"
+    name: "&c&m%rank%"
     lore:
       - ""
-      - "&f● &bAdded by: &f{added_by}"
-      - "&f● &bAdded at: &f{added_at}"
+      - "&f● &bAdded by: &f%added_by%"
+      - "&f● &bAdded at: &f%added_at%"
       - ""
-      - "&f● &bServer: &f{server}"
+      - "&f● &bServer: &f%server%"
       - ""
-      - "&f● &cRemoved by: &f{removed_by}"
-      - "&f● &cRemoved at: &f{removed_at}"
-      - "&f● &cReason: &f{removed_reason}"
+      - "&f● &cRemoved by: &f%removed_by%"
+      - "&f● &cRemoved at: &f%removed_at%"
+      - "&f● &cReason: &f%removed_reason%"
       - ""
       - "&c&l[!] &fThis grant has been removed."
 
