@@ -8,6 +8,8 @@ import dev.revere.delta.feature.rank.RankService;
 import dev.revere.delta.util.CC;
 import org.bukkit.entity.Player;
 
+import java.util.Comparator;
+
 /**
  * @author Remi
  * @project Delta
@@ -28,14 +30,9 @@ public class RankListCommand extends BaseCommand {
         }
 
         rankService.getRanks().stream()
-                .sorted((rank1, rank2) -> {
-                    if (rank1.getWeight() == rank2.getWeight()) {
-                        return rank1.getName().compareTo(rank2.getName());
-                    }
-                    return rank1.getWeight() - rank2.getWeight();
-                })
+                .sorted(Comparator.comparingInt(rank -> -rank.getWeight()))
                 .forEach(rank -> {
-                    player.sendMessage(CC.translate("      &f● &b" + rank.getName() + " &f- &7" + rank.getPrefix() + " &8(&7" + rank.getWeight() + "&8)") + (rank.isDefaultRank() ? " &8(&7Default&8)" : ""));
+                    player.sendMessage(CC.translate("      &f● &b" + rank.getName() + " &f- &7" + rank.getPrefix() + " &8(&7" + rank.getWeight() + "&8)" + (rank.isDefaultRank() ? " &8(&7Default&8)" : "")));
                 });
 
 

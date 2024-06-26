@@ -24,6 +24,7 @@ public class RankCommand extends BaseCommand {
         player.sendMessage(CC.translate(" &f● &b/rank setprefix &8(&7name&8) &8(&7prefix&8) &7| Set a rank's prefix"));
         player.sendMessage(CC.translate(" &f● &b/rank setsuffix &8(&7name&8) &8(&7suffix&8) &7| Set a rank's suffix"));
         player.sendMessage(CC.translate(" &f● &b/rank setweight &8(&7name&8) &8(&7weight&8) &7| Set a rank's weight"));
+        player.sendMessage(CC.translate(" &f● &b/rank setcolor &8(&7name&8) &8(&7color&8) &7| Set a rank's color"));
         player.sendMessage(CC.translate(" &f● &b/rank setdefault &8(&7name&8) &7| Set a rank as the default rank"));
         player.sendMessage(CC.translate(" &f● &b/rank addpermission &8(&7name&8) &8(&7permission&8) &7| Add a permission to a rank"));
         player.sendMessage(CC.translate(" &f● &b/rank removepermission &8(&7name&8) &8(&7permission&8) &7| Remove a permission from a rank"));

@@ -1,5 +1,7 @@
 package dev.revere.delta;
 
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 import dev.revere.delta.api.scoreboard.Assemble;
 import dev.revere.delta.api.scoreboard.AssembleStyle;
 import dev.revere.delta.api.service.ServiceManager;
@@ -9,6 +11,7 @@ import dev.revere.delta.feature.clan.ClanRepository;
 import dev.revere.delta.feature.combat.CombatLogService;
 import dev.revere.delta.feature.conversation.ConversationService;
 import dev.revere.delta.feature.cooldown.CooldownService;
+import dev.revere.delta.feature.grant.GrantService;
 import dev.revere.delta.feature.home.HomeRepository;
 import dev.revere.delta.feature.rank.RankService;
 import dev.revere.delta.profile.ProfileService;
@@ -28,6 +31,9 @@ public class Delta extends JavaPlugin {
 
     @Getter
     private static Delta instance;
+
+    @Getter
+    private final Gson gson = new GsonBuilder().setPrettyPrinting().create();
 
     @Getter
     private final ServiceManager serviceManager = new ServiceManager();
@@ -66,6 +72,7 @@ public class Delta extends JavaPlugin {
         serviceManager.registerService(new MongoService(this));
         serviceManager.registerService(new ProfileService(this));
         serviceManager.registerService(new RankService(this));
+        serviceManager.registerService(new GrantService(this));;
         serviceManager.registerService(new CooldownService(this));
         serviceManager.registerService(new ListenerService(this));
         serviceManager.registerService(new CommandService(this));

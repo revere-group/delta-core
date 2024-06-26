@@ -31,6 +31,7 @@ public class RankButton extends Button {
                 .lore(" &f● &bPrefix: &7" + rank.getPrefix())
                 .lore(" &f● &bSuffix: &7" + rank.getSuffix())
                 .lore(" &f● &bWeight: &7" + rank.getWeight())
+                .lore(" &f● &bColor: &7" + rank.getNameColor() + rank.getNameColor().name())
                 .lore(" &f● &bStaff: &7" + rank.isStaffRank())
                 .lore(" &f● &bDefault: &7" + rank.isDefaultRank())
                 .lore(" &f● &bPermissions: &7" + rank.getPermissions().size())

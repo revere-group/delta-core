@@ -1,5 +1,9 @@
 package dev.revere.delta.feature.grant;
 
+import dev.revere.delta.Delta;
+import dev.revere.delta.feature.rank.Rank;
+import dev.revere.delta.feature.rank.RankService;
+import dev.revere.delta.util.DateUtils;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -11,7 +15,7 @@ import lombok.Setter;
 @Getter
 @Setter
 public class Grant {
-    private String rank;
+    private String rankName;
     private String server;
     private String reason;
     private String addedBy;
@@ -22,4 +26,48 @@ public class Grant {
     private long duration;
     private boolean active;
     private boolean permanent;
+
+    /**
+     * Get the rank of the grant
+     *
+     * @return the rank of the grant
+     */
+    public Rank getRank() {
+        return Delta.getInstance().getServiceManager().getService(RankService.class).getRank(rankName);
+    }
+
+    /**
+     * Check if the grant has expired
+     *
+     * @return true if the grant has expired, false otherwise
+     */
+    public boolean hasExpired() {
+        return !permanent && System.currentTimeMillis() >= addedAt + duration;
+    }
+
+    /**
+     * Get the expiration of the grant
+     *
+     * @return the expiration of the grant
+     */
+    public String getExpiration() {
+        if (permanent) {
+            return "Permanent";
+        }
+        long time = addedAt + duration - System.currentTimeMillis();
+        long days = time / 86400000;
+        long hours = (time % 86400000) / 3600000;
+        long minutes = (time % 3600000) / 60000;
+        long seconds = (time % 60000) / 1000;
+        return days + "d " + hours + "h " + minutes + "m " + seconds + "s";
+    }
+
+    /**
+     * Get the expiration date of the grant
+     *
+     * @return the expiration date of the grant
+     */
+    public String getExpirationDate() {
+        return DateUtils.formatDate(addedAt + duration);
+    }
 }

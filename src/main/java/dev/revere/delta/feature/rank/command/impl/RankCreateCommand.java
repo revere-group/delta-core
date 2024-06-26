@@ -7,6 +7,7 @@ import dev.revere.delta.api.command.annotation.Command;
 import dev.revere.delta.feature.rank.Rank;
 import dev.revere.delta.feature.rank.RankService;
 import dev.revere.delta.util.CC;
+import org.bukkit.ChatColor;
 import org.bukkit.entity.Player;
 
 import java.util.Collections;
@@ -38,7 +39,7 @@ public class RankCreateCommand extends BaseCommand {
         }
 
         List<String> permissions = Collections.emptyList();
-        Rank rank = new Rank(name, "&7" + name, "&7", 0, false, false, permissions);
+        Rank rank = new Rank(name, "&7" + name, "&7", 0, false, false, permissions, ChatColor.GRAY);
         rankService.createRank(rank);
         rankService.saveRank(rank);
 

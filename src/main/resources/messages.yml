@@ -23,8 +23,8 @@ player:
 
 chat:
   format:
-    regular: "%clan%%player%&f: &f%message%"
-    staff: "%clan%&b%player%&f: &f%message%"
+    regular: "%rank% %clan%%color%%player%&f: &f%message%"
+    staff: "%rank% %clan%%color%%player%&f: &f%message%"
 
 conversation:
   cant-msg-self: "&cYou cannot message yourself!"

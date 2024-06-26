@@ -4,11 +4,14 @@ import com.mongodb.client.MongoCollection;
 import dev.revere.delta.Delta;
 import dev.revere.delta.database.profile.IProfile;
 import dev.revere.delta.feature.grant.Grant;
+import dev.revere.delta.feature.rank.Rank;
+import dev.revere.delta.feature.rank.RankService;
 import dev.revere.delta.profile.staff.setting.StaffOptions;
 import lombok.Getter;
 import lombok.Setter;
 import org.bson.Document;
 import org.bukkit.Bukkit;
+import org.bukkit.ChatColor;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -26,9 +29,9 @@ public class Profile {
 
     private final StaffOptions staffOptions;
 
+    private List<Grant> grants;
     private String name;
     private UUID uuid;
-    private List<Grant> grants;
 
     private boolean online;
 
@@ -42,6 +45,26 @@ public class Profile {
         this.name = Bukkit.getOfflinePlayer(this.uuid).getName();
         this.staffOptions = new StaffOptions();
         this.grants = new ArrayList<>();
+    }
+
+    /**
+     * Get the name color of the player
+     *
+     * @return the name color of the player
+     */
+    public String getNameColor() {
+        RankService rankService = Delta.getInstance().getServiceManager().getService(RankService.class);
+        Rank rank = rankService.getHighestRank(this);
+        if (rank == null) {
+            Rank defaultRank = rankService.getDefaultRank();
+            return defaultRank.getNameColor().toString();
+        }
+
+        if (rank.getNameColor() == null) {
+            return ChatColor.GRAY.toString();
+        }
+
+        return rank.getNameColor().toString();
     }
 
     public void loadProfile() {

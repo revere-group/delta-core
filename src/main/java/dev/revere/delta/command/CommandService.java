@@ -22,6 +22,8 @@ import dev.revere.delta.command.staff.gamemode.GMCCommand;
 import dev.revere.delta.command.staff.gamemode.GMSCommand;
 import dev.revere.delta.command.staff.gamemode.GMSPCommand;
 import dev.revere.delta.feature.grant.command.GrantCommand;
+import dev.revere.delta.feature.grant.command.GrantsCommand;
+import dev.revere.delta.feature.grant.command.RemoveRankCommand;
 import dev.revere.delta.feature.grant.command.SetRankCommand;
 import dev.revere.delta.feature.home.command.HomeCommand;
 import dev.revere.delta.feature.home.command.impl.*;
@@ -108,6 +110,7 @@ public class CommandService implements IService {
         new RankSetWeightCommand();
         new RankSetPrefixCommand();
         new RankSetSuffixCommand();
+        new RankSetColorCommand();
         new RankSetStaffCommand();
         new RankCreateCommand();
         new RankDeleteCommand();
@@ -116,7 +119,9 @@ public class CommandService implements IService {
         new RankMenuCommand();
         new RankCommand();
 
+        new RemoveRankCommand();
         new SetRankCommand();
+        new GrantsCommand();
         new GrantCommand();
     }
 

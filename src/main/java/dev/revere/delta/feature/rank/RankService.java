@@ -5,11 +5,17 @@ import com.mongodb.client.model.Filters;
 import dev.revere.delta.Delta;
 import dev.revere.delta.api.service.IService;
 import dev.revere.delta.database.MongoService;
+import dev.revere.delta.feature.grant.Grant;
+import dev.revere.delta.feature.grant.GrantService;
+import dev.revere.delta.profile.Profile;
 import lombok.Getter;
 import org.bson.Document;
+import org.bukkit.ChatColor;
 
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.List;
+import java.util.Objects;
 
 /**
  * @author Remi
@@ -37,6 +43,11 @@ public class RankService implements IService {
     public void register() {
         this.collection = Delta.getInstance().getServiceManager().getService(MongoService.class).getDatabase().getCollection("ranks");
         this.collection.find().forEach(document -> ranks.add(loadRank(document)));
+
+        Rank defaultRank = getDefaultRank();
+        if (defaultRank == null) {
+            createDefaultRank();
+        }
     }
 
     /**
@@ -63,28 +74,14 @@ public class RankService implements IService {
     }
 
     /**
-     * Get the default rank
+     * Get the highest rank that a player has
      *
-     * @return the default rank
+     * @param profile the profile to get the rank from
+     * @return the highest rank
      */
-    public Rank getDefaultRank() {
-        return ranks.stream()
-                .filter(Rank::isDefaultRank)
-                .findFirst()
-                .orElse(null);
-    }
-
-    /**
-     * Get a rank by its weight
-     *
-     * @param weight the weight of the rank
-     * @return the rank
-     */
-    public Rank getRank(int weight) {
-        return ranks.stream()
-                .filter(rank -> rank.getWeight() == weight)
-                .findFirst()
-                .orElse(null);
+    public Rank getHighestRank(Profile profile) {
+        GrantService grantService = Delta.getInstance().getServiceManager().getService(GrantService.class);
+        return grantService.getActiveGrants(profile).stream().map(Grant::getRank).filter(Objects::nonNull).max(Comparator.comparingInt(Rank::getWeight)).orElse(getDefaultRank());
     }
 
     /**
@@ -121,6 +118,7 @@ public class RankService implements IService {
         document.put("prefix", rank.getPrefix());
         document.put("suffix", rank.getSuffix());
         document.put("weight", rank.getWeight());
+        document.put("nameColor", rank.getNameColor().toString());
         document.put("defaultRank", rank.isDefaultRank());
         document.put("permissions", rank.getPermissions());
 
@@ -138,34 +136,43 @@ public class RankService implements IService {
         rank.setPrefix(document.getString("prefix"));
         rank.setSuffix(document.getString("suffix"));
         rank.setWeight(document.getInteger("weight"));
+        rank.setNameColor(ChatColor.getByChar(document.getString("nameColor").charAt(1)));
         rank.setDefaultRank(document.getBoolean("defaultRank"));
         rank.setPermissions((List<String>) document.get("permissions"));
-
         return rank;
     }
 
     /**
-     * Load a rank from the database
+     * Create the default rank
+     */
+    public void createDefaultRank() {
+        Rank rank = new Rank("Default");
+        rank.setPrefix("&aDefault");
+        rank.setSuffix("");
+        rank.setWeight(0);
+        rank.setNameColor(ChatColor.GREEN);
+        rank.setDefaultRank(true);
+        rank.setPermissions(new ArrayList<>());
+        createRank(rank);
+        saveRank(rank);
+    }
+
+    /**
+     * Get the default rank
      *
-     * @param name the name of the rank
-     * @return the rank
+     * @return the default rank
      */
-    public Rank loadRank(String name) {
-        Document document = collection.find(Filters.eq("name", name)).first();
-        return document != null ? loadRank(document) : null;
+    public Rank getDefaultRank() {
+        return this.ranks.stream().sorted(Comparator.comparingInt(Rank::getWeight).reversed()).filter(Rank::isDefaultRank).findFirst().orElse(null);
     }
 
     /**
-     * Load all ranks from the database
+     * Check if a rank is the default rank
+     *
+     * @param rank the rank to check
+     * @return if the rank is the default rank
      */
-    public void loadRanksFromDatabase() {
-        collection.find().forEach(document -> ranks.add(loadRank(document)));
-    }
-
-    /**
-     * Save all ranks to the database
-     */
-    public void saveRanksToDatabase() {
-        ranks.forEach(this::saveRank);
+    public boolean isDefaultRank(Rank rank) {
+        return rank.isDefaultRank();
     }
 }

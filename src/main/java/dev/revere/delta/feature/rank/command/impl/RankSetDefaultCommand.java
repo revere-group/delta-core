@@ -39,6 +39,12 @@ public class RankSetDefaultCommand extends BaseCommand {
             return;
         }
 
+        Rank currentDefault = rankService.getDefaultRank();
+        if (currentDefault != null) {
+            currentDefault.setDefaultRank(false);
+            rankService.saveRank(currentDefault);
+        }
+
         Rank rank = rankService.getRank(name);
         rank.setDefaultRank(isDefault);
         rankService.saveRank(rank);
