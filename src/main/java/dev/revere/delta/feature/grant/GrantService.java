@@ -6,10 +6,12 @@ import dev.revere.delta.profile.Profile;
 import dev.revere.delta.profile.ProfileService;
 import lombok.Getter;
 import lombok.Setter;
+import org.bukkit.Bukkit;
 import org.bukkit.OfflinePlayer;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
+import java.nio.Buffer;
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
@@ -55,6 +57,12 @@ public class GrantService implements IService {
         grants.add(grant);
 
         profile.setGrants(grants);
+
+        Player player = Bukkit.getPlayer(uuid);
+        if (player != null) {
+            profileService.loadPermissions(player);
+        }
+
         profile.saveProfile();
     }
 
@@ -77,6 +85,11 @@ public class GrantService implements IService {
             grant.setActive(false);
         });
 
+        Player player = Bukkit.getPlayer(uuid);
+        if (player != null) {
+            profileService.loadPermissions(player);
+        }
+
         profile.saveProfile();
     }
 
@@ -98,7 +111,6 @@ public class GrantService implements IService {
         grant.setActive(false);
 
         profile.saveProfile();
-
     }
 
     /**

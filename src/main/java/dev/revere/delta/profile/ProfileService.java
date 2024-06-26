@@ -6,15 +6,16 @@ import dev.revere.delta.api.service.IService;
 import dev.revere.delta.database.MongoService;
 import dev.revere.delta.database.profile.IProfile;
 import dev.revere.delta.database.profile.impl.MongoProfile;
+import dev.revere.delta.feature.rank.Rank;
+import dev.revere.delta.feature.rank.RankService;
 import dev.revere.delta.profile.listener.ProfileListener;
 import lombok.Getter;
 import lombok.Setter;
 import org.bson.Document;
 import org.bukkit.Bukkit;
+import org.bukkit.entity.Player;
 
-import java.util.HashMap;
-import java.util.Map;
-import java.util.UUID;
+import java.util.*;
 
 /**
  * @author Remi
@@ -28,6 +29,8 @@ public class ProfileService implements IService {
     private final Map<UUID, Profile> profiles = new HashMap<>();
     public MongoCollection<Document> collection;
     public final IProfile profile;
+
+    private Set<String> rankPermissions = new HashSet<>();
 
     private final Delta plugin;
 
@@ -60,6 +63,61 @@ public class ProfileService implements IService {
         profile.loadProfile();
 
         profiles.put(profile.getUuid(), profile);
+    }
+
+    /**
+     * Load the permissions of a player
+     *
+     * @param player the player to load the permissions for
+     */
+    public void loadPermissions(Player player) {
+        Profile profile = getProfile(player.getUniqueId());
+        RankService rankService = Delta.getInstance().getServiceManager().getService(RankService.class);
+
+        rankPermissions.forEach(permission -> player.addAttachment(plugin, permission, false));
+        rankPermissions.clear();
+
+        profile.getGrants().forEach(grant -> {
+            if (grant.hasExpired() || !grant.isActive()) {
+                return;
+            }
+
+            Rank rank = rankService.getRank(grant.getRankName());
+
+            if (rank == null) {
+                return;
+            }
+
+            List<String> permissions = rank.getPermissions();
+            permissions.forEach(permission -> {
+                String perm = permission.toLowerCase();
+                rankPermissions.add(perm);
+            });
+
+            List<String> inheritance = rank.getInheritance();
+            inheritance.forEach(inheritedRank -> {
+                Rank inherited = rankService.getRank(inheritedRank);
+                if (inherited == null) {
+                    return;
+                }
+
+                List<String> inheritedPermissions = inherited.getPermissions();
+                inheritedPermissions.forEach(permission -> {
+                    String perm = permission.toLowerCase();
+                    rankPermissions.add(perm);
+                });
+            });
+        });
+
+        Rank defaultRank = rankService.getDefaultRank();
+        if (defaultRank != null) {
+            defaultRank.getPermissions().forEach(permission -> {
+                String perm = permission.toLowerCase();
+                rankPermissions.add(perm);
+            });
+        }
+
+        rankPermissions.forEach(permission -> player.addAttachment(plugin, permission, true));
     }
 
     /**

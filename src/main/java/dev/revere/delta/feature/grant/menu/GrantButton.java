@@ -65,6 +65,7 @@ public class GrantButton extends Button {
     @Override
     public void clicked(Player player, ClickType clickType) {
         if (!isActive) return;
+
         GrantService grantService = Delta.getInstance().getServiceManager().getService(GrantService.class);
         grantService.removeGrant(grant, "No reason specified", target, player);
 

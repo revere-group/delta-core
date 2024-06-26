@@ -24,6 +24,7 @@ public class Rank {
     private boolean defaultRank;
     private boolean staffRank;
 
+    private List<String> inheritance;
     private List<String> permissions;
     private ChatColor nameColor;
 

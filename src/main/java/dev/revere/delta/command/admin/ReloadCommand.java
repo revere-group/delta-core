@@ -22,7 +22,7 @@ public class ReloadCommand extends BaseCommand {
         long start = System.currentTimeMillis();
 
         for (String message : Delta.getInstance().getServiceManager().getService(ConfigService.class).getConfig("messages.yml").getStringList("reload.reloading")) {
-            player.sendMessage(CC.translate(message));
+            player.sendMessage(CC.translate(message).replace("%configs%", (Delta.getInstance().getServiceManager().getService(ConfigService.class).getConfigFileNames())));
         }
 
         Delta.getInstance().getServiceManager().getService(ConfigService.class).reloadConfigs();

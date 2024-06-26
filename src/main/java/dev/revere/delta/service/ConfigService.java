@@ -104,7 +104,6 @@ public class ConfigService implements IService {
         return this.fileConfigurations.get(fileName);
     }
 
-
     /**
      * Get a config file by its name
      *
@@ -113,5 +112,26 @@ public class ConfigService implements IService {
      */
     public File getConfigFileByName(String fileName) {
         return this.configFiles.get(fileName);
+    }
+
+    /**
+     * Get formatted filenames of configuration files.
+     *
+     * @return formatted string of filenames
+     */
+    public String getConfigFileNames() {
+        ConfigService configService = Delta.getInstance().getServiceManager().getService(ConfigService.class);
+        Map<String, File> configFiles = configService.getConfigFiles();
+        StringBuilder sb = new StringBuilder();
+
+        for (String fileName : configFiles.keySet()) {
+            sb.append(", ").append(fileName);
+        }
+
+        if (sb.length() > 2) {
+            sb.delete(0, 2);
+        }
+
+        return sb.toString();
     }
 }

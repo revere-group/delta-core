@@ -22,9 +22,18 @@ player:
     received: "&f[&bLocation&f] &b%player% &fhas shared their location with you. &7(&b%x%&7, &b%y%&7, &b%z%&7)"
 
 chat:
-  format:
-    regular: "%rank% %clan%%color%%player%&f: &f%message%"
-    staff: "%rank% %clan%%color%%player%&f: &f%message%"
+  format: "%rank% %clan%%color%%player%&f: &f%message%"
+  filter:
+    enabled: true
+    notify-self: "&f[&bChat&f] &fYour message has been filtered. &7(&b%word%&7)"
+    notify-staff: "&f[&bChat&f] &b%player% &fhas used a filtered word. &7(&b%word%&7)"
+    words:
+      - niggers
+      - nigger
+      - niggas
+      - nigga
+      - sluts
+      - slut
 
 conversation:
   cant-msg-self: "&cYou cannot message yourself!"
@@ -131,8 +140,7 @@ reload:
     - "&8&m-----------------------------------------------------"
     - " &7[&cWARNING&7] &fReloading the configuration files..."
     - "&r"
-    - " &8[&bMenus folder, Commands.yml, Database.yml"
-    - " &bMessages.yml, Ranks.yml, &bSettings.yml&8]"
+    - " &8[&b%configs%&8]"
     - "&8&m-----------------------------------------------------"
     - "&r"
   finished:

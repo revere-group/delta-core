@@ -4,6 +4,7 @@ import com.mongodb.client.MongoCollection;
 import dev.revere.delta.Delta;
 import dev.revere.delta.database.profile.IProfile;
 import dev.revere.delta.feature.grant.Grant;
+import dev.revere.delta.feature.punishment.Punishment;
 import dev.revere.delta.feature.rank.Rank;
 import dev.revere.delta.feature.rank.RankService;
 import dev.revere.delta.profile.staff.setting.StaffOptions;
@@ -27,8 +28,9 @@ import java.util.UUID;
 public class Profile {
     public MongoCollection<Document> collection;
 
-    private final StaffOptions staffOptions;
+    private StaffOptions staffOptions;
 
+    private List<Punishment> punishments;
     private List<Grant> grants;
     private String name;
     private UUID uuid;
@@ -45,6 +47,7 @@ public class Profile {
         this.name = Bukkit.getOfflinePlayer(this.uuid).getName();
         this.staffOptions = new StaffOptions();
         this.grants = new ArrayList<>();
+        this.punishments = new ArrayList<>();
     }
 
     /**

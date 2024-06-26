@@ -1,0 +1,61 @@
+package dev.revere.delta.feature.rank.command.impl;
+
+import dev.revere.delta.Delta;
+import dev.revere.delta.api.command.BaseCommand;
+import dev.revere.delta.api.command.CommandArgs;
+import dev.revere.delta.api.command.annotation.Command;
+import dev.revere.delta.feature.rank.Rank;
+import dev.revere.delta.feature.rank.RankService;
+import dev.revere.delta.util.CC;
+import org.bukkit.entity.Player;
+
+import java.util.List;
+
+/**
+ * @author Remi
+ * @project Delta
+ * @date 6/23/2024
+ */
+public class RankAddInheritanceCommand extends BaseCommand {
+    @Command(name = "rank.addinheritance", aliases = {"rank.addinher"}, permission = "delta.rank.addinheritance", inGameOnly = true, description = "Add a permission to a rank")
+    @Override
+    public void onCommand(CommandArgs command) {
+        Player player = command.getPlayer();
+        String[] args = command.getArgs();
+
+        if (args.length < 2) {
+            player.sendMessage(CC.translate("&cUsage: /rank addinheritance <rank> <inheritrank>"));
+            return;
+        }
+
+        RankService rankService = Delta.getInstance().getServiceManager().getService(RankService.class);
+
+        String rankName = args[0];
+        String inheritRankName = args[1];
+
+        Rank rank = rankService.getRank(rankName);
+        Rank inheritRank = rankService.getRank(inheritRankName);
+
+        if (rank == null) {
+            player.sendMessage(CC.translate("&cThe rank &b" + rankName + " &cdoes not exist."));
+            return;
+        }
+
+        if (inheritRank == null) {
+            player.sendMessage(CC.translate("&cThe rank &b" + inheritRankName + " &cdoes not exist."));
+            return;
+        }
+
+        List<String> inheritances = rank.getInheritance();
+        if (inheritances.contains(inheritRankName)) {
+            player.sendMessage(CC.translate("&cThe rank &b" + rankName + " &calready inherits from &b" + inheritRankName + "&c."));
+            return;
+        }
+
+        inheritances.add(inheritRankName);
+        rank.setInheritance(inheritances);
+        rankService.saveRank(rank);
+
+        player.sendMessage(CC.translate("&b" + rankName + " &7now inherits from &b" + inheritRankName + "&7."));
+    }
+}

@@ -1,10 +1,14 @@
 package dev.revere.delta.profile.listener;
 
 import dev.revere.delta.Delta;
+import dev.revere.delta.feature.punishment.Punishment;
+import dev.revere.delta.feature.punishment.PunishmentService;
+import dev.revere.delta.feature.punishment.PunishmentType;
 import dev.revere.delta.profile.Profile;
 import dev.revere.delta.profile.ProfileService;
 import dev.revere.delta.service.ConfigService;
 import dev.revere.delta.util.CC;
+import dev.revere.delta.util.DateUtils;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
@@ -22,6 +26,19 @@ import java.util.List;
  */
 public class ProfileListener implements Listener {
 
+    @EventHandler
+    private void handlePunishmentLogin(PlayerLoginEvent event) {
+        Player player = event.getPlayer();
+        Profile profile = Delta.getInstance().getServiceManager().getService(ProfileService.class).getProfile(player.getUniqueId());
+
+        if (profile.getPunishments().stream().anyMatch(punishment -> punishment.getType() == PunishmentType.BAN && punishment.isActive())) {
+            Punishment punishment = profile.getPunishments().stream().filter(pun -> pun.getType() == PunishmentType.BAN && pun.isActive()).findFirst().get();
+            event.disallow(PlayerLoginEvent.Result.KICK_BANNED, CC.translate("&cYou are currently banned for " + punishment.getReason() + ". Duration: " + (punishment.isPermanent() ? "Permanent" : DateUtils.formatTimeMillis(punishment.getDuration()))));
+        } else if (profile.getPunishments().stream().anyMatch(punishment -> punishment.getType() == PunishmentType.BLACKLIST && punishment.isActive())) {
+            event.disallow(PlayerLoginEvent.Result.KICK_BANNED, CC.translate("&cYou are currently blacklisted."));
+        }
+    }
+
     @EventHandler(priority = EventPriority.HIGHEST)
     private void onLogin(PlayerLoginEvent event) {
         Player player = event.getPlayer();
@@ -33,25 +50,23 @@ public class ProfileListener implements Listener {
         Profile profile = new Profile(player.getUniqueId());
         profile.loadProfile();
 
-        Delta.getInstance().getServiceManager().getService(ProfileService.class).addProfile(profile.getUuid(), profile);
+        ProfileService profileService = Delta.getInstance().getServiceManager().getService(ProfileService.class);
+        profileService.addProfile(profile.getUuid(), profile);
     }
 
     @EventHandler(priority = EventPriority.HIGHEST)
     public void onJoin(PlayerJoinEvent event) {
         Player player = event.getPlayer();
 
-        Profile profile = Delta.getInstance().getServiceManager().getService(ProfileService.class).getProfile(player.getUniqueId());
+        ProfileService profileService = Delta.getInstance().getServiceManager().getService(ProfileService.class);
+        Profile profile = profileService.getProfile(player.getUniqueId());
         profile.setName(player.getName());
         profile.setOnline(true);
 
+        profileService.loadPermissions(player);
+
         String joinMessage = Delta.getInstance().getServiceManager().getService(ConfigService.class).getConfig("messages.yml").getString("on-join.messages.joined-the-game").replace("%player%", player.getName());
         String firstJoinMessage = Delta.getInstance().getServiceManager().getService(ConfigService.class).getConfig("messages.yml").getString("on-join.messages.first-join").replace("%player%", player.getName());
-
-        if (player.hasPlayedBefore()) {
-            event.setJoinMessage(CC.translate(joinMessage));
-        } else {
-            event.setJoinMessage(CC.translate(firstJoinMessage));
-        }
 
         if (Delta.getInstance().getServiceManager().getService(ConfigService.class).getConfig("messages.yml").getBoolean("on-join.messages.welcome-message.enabled", true)) {
             List<String> welcomeMessages = Delta.getInstance().getServiceManager().getService(ConfigService.class).getConfig("messages.yml").getStringList("on-join.messages.welcome-message.message");
@@ -64,6 +79,17 @@ public class ProfileListener implements Listener {
 
             player.sendTitle(CC.translate(mainTitle), CC.translate(subTitle));
         }
+
+        if (profile.getStaffOptions().isVanish()) {
+            event.setJoinMessage(null);
+            return;
+        }
+
+        if (player.hasPlayedBefore()) {
+            event.setJoinMessage(CC.translate(joinMessage));
+        } else {
+            event.setJoinMessage(CC.translate(firstJoinMessage));
+        }
     }
 
     @EventHandler
@@ -74,7 +100,6 @@ public class ProfileListener implements Listener {
         profile.saveProfile();
 
         if (profile.getStaffOptions().isVanish()) {
-            profile.getStaffOptions().setVanish(false);
             event.setQuitMessage(null);
             return;
         }

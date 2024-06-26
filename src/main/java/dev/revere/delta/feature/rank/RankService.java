@@ -1,5 +1,6 @@
 package dev.revere.delta.feature.rank;
 
+import com.google.gson.reflect.TypeToken;
 import com.mongodb.client.MongoCollection;
 import com.mongodb.client.model.Filters;
 import dev.revere.delta.Delta;
@@ -12,6 +13,7 @@ import lombok.Getter;
 import org.bson.Document;
 import org.bukkit.ChatColor;
 
+import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
@@ -41,25 +43,21 @@ public class RankService implements IService {
 
     @Override
     public void register() {
-        this.collection = Delta.getInstance().getServiceManager().getService(MongoService.class).getDatabase().getCollection("ranks");
-        this.collection.find().forEach(document -> ranks.add(loadRank(document)));
+        this.collection = getCollection();
+        loadRanksFromDatabase();
 
-        Rank defaultRank = getDefaultRank();
-        if (defaultRank == null) {
+        if (getDefaultRank() == null) {
             createDefaultRank();
         }
     }
 
     /**
-     * Add a rank to the list
+     * Add a rank to the list and save it to the database
      *
      * @param rank the rank to add
      */
     public void createRank(Rank rank) {
-        Document document = new Document();
-        document.put("name", rank.getName());
-
-        collection.insertOne(document);
+        saveRankToDatabase(rank);
         ranks.add(rank);
     }
 
@@ -71,6 +69,22 @@ public class RankService implements IService {
     public void deleteRank(Rank rank) {
         collection.deleteOne(Filters.eq("name", rank.getName()));
         ranks.remove(rank);
+    }
+
+    /**
+     * Create the default rank
+     */
+    public void createDefaultRank() {
+        Rank rank = new Rank("Default");
+        rank.setPrefix("&8[&aDefault&8]");
+        rank.setSuffix("");
+        rank.setWeight(0);
+        rank.setNameColor(ChatColor.GREEN);
+        rank.setDefaultRank(true);
+        rank.setStaffRank(false);
+        rank.setInheritance(new ArrayList<>());
+        rank.setPermissions(new ArrayList<>());
+        createRank(rank);
     }
 
     /**
@@ -108,11 +122,41 @@ public class RankService implements IService {
     }
 
     /**
+     * Get the default rank
+     *
+     * @return the default rank
+     */
+    public Rank getDefaultRank() {
+        return this.ranks.stream().sorted(Comparator.comparingInt(Rank::getWeight).reversed()).filter(Rank::isDefaultRank).findFirst().orElse(null);
+    }
+
+    /**
      * Save a rank
      *
      * @param rank the rank to save
      */
     public void saveRank(Rank rank) {
+        Document document = createDocumentFromRank(rank);
+        collection.replaceOne(Filters.eq("name", rank.getName()), document);
+    }
+
+    /**
+     * Save a rank to the database
+     *
+     * @param rank the rank to save
+     */
+    private void saveRankToDatabase(Rank rank) {
+        Document document = createDocumentFromRank(rank);
+        collection.insertOne(document);
+    }
+
+    /**
+     * Create a document from a rank
+     *
+     * @param rank the rank to create the document from
+     * @return the document
+     */
+    private Document createDocumentFromRank(Rank rank) {
         Document document = new Document();
         document.put("name", rank.getName());
         document.put("prefix", rank.getPrefix());
@@ -120,9 +164,10 @@ public class RankService implements IService {
         document.put("weight", rank.getWeight());
         document.put("nameColor", rank.getNameColor().toString());
         document.put("defaultRank", rank.isDefaultRank());
-        document.put("permissions", rank.getPermissions());
-
-        collection.replaceOne(Filters.eq("name", rank.getName()), document);
+        document.put("staffRank", rank.isStaffRank());
+        document.put("inheritance", Delta.getInstance().getGson().toJson(rank.getInheritance()));
+        document.put("permissions", Delta.getInstance().getGson().toJson(rank.getPermissions()));
+        return document;
     }
 
     /**
@@ -138,32 +183,40 @@ public class RankService implements IService {
         rank.setWeight(document.getInteger("weight"));
         rank.setNameColor(ChatColor.getByChar(document.getString("nameColor").charAt(1)));
         rank.setDefaultRank(document.getBoolean("defaultRank"));
-        rank.setPermissions((List<String>) document.get("permissions"));
+        rank.setStaffRank(document.getBoolean("staffRank"));
+        rank.setInheritance(loadInheritance(document.getString("inheritance")));
+        rank.setPermissions(loadPermissions(document.getString("permissions")));
         return rank;
     }
 
     /**
-     * Create the default rank
+     * Load permissions from a json string
+     *
+     * @param permissionsJson the json string to load the permissions from
+     * @return the permissions
      */
-    public void createDefaultRank() {
-        Rank rank = new Rank("Default");
-        rank.setPrefix("&aDefault");
-        rank.setSuffix("");
-        rank.setWeight(0);
-        rank.setNameColor(ChatColor.GREEN);
-        rank.setDefaultRank(true);
-        rank.setPermissions(new ArrayList<>());
-        createRank(rank);
-        saveRank(rank);
+    private List<String> loadPermissions(String permissionsJson) {
+        if (permissionsJson != null) {
+            Type permissions = new TypeToken<List<String>>() {}.getType();
+            return Delta.getInstance().getGson().fromJson(permissionsJson, permissions);
+        } else {
+            return new ArrayList<>();
+        }
     }
 
     /**
-     * Get the default rank
+     * Load inheritance from a json string
      *
-     * @return the default rank
+     * @param inheritanceJson the json string to load the inheritance from
+     * @return the inheritance
      */
-    public Rank getDefaultRank() {
-        return this.ranks.stream().sorted(Comparator.comparingInt(Rank::getWeight).reversed()).filter(Rank::isDefaultRank).findFirst().orElse(null);
+    private List<String> loadInheritance(String inheritanceJson) {
+        if (inheritanceJson != null) {
+            Type inheritance = new TypeToken<List<String>>() {}.getType();
+            return Delta.getInstance().getGson().fromJson(inheritanceJson, inheritance);
+        } else {
+            return new ArrayList<>();
+        }
     }
 
     /**
@@ -174,5 +227,35 @@ public class RankService implements IService {
      */
     public boolean isDefaultRank(Rank rank) {
         return rank.isDefaultRank();
+    }
+
+    /**
+     * Check if a rank is a staff rank
+     *
+     * @param rank the rank to check
+     * @return if the rank is a staff rank
+     */
+    public boolean isStaffRank(Rank rank) {
+        return rank.isStaffRank();
+    }
+
+    /**
+     * Load ranks from the database
+     */
+    private void loadRanksFromDatabase() {
+        collection.find().forEach(document -> ranks.add(loadRank(document)));
+    }
+
+    /**
+     * Get the collection
+     *
+     * @return the collection
+     */
+    private MongoCollection<Document> getCollection() {
+        return Delta.getInstance()
+                .getServiceManager()
+                .getService(MongoService.class)
+                .getDatabase()
+                .getCollection("ranks");
     }
 }

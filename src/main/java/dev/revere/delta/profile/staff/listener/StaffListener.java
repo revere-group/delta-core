@@ -12,6 +12,7 @@ import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.AsyncPlayerChatEvent;
 import org.bukkit.event.player.PlayerCommandPreprocessEvent;
+import org.bukkit.event.player.PlayerJoinEvent;
 
 import java.util.List;
 import java.util.Objects;
@@ -42,6 +43,12 @@ public class StaffListener implements Listener {
                 broadcastToStaff(formattedMessage);
             }
         }
+    }
+
+    @EventHandler
+    private void onPlayerJoinEvent(PlayerJoinEvent event) {
+        Player player = event.getPlayer();
+        handleVisibility(player);
     }
 
     @EventHandler
@@ -85,5 +92,37 @@ public class StaffListener implements Listener {
      */
     private void broadcastToStaff(String message) {
         Bukkit.getOnlinePlayers().stream().filter(onlinePlayer -> onlinePlayer.hasPermission("delta.staff.logger")).forEach(onlinePlayer -> onlinePlayer.sendMessage(CC.translate(message)));
+    }
+
+    /**
+     * Handle the visibility of the player
+     *
+     * @param player the player
+     */
+    private void handleVisibility(Player player) {
+        Profile profile = Delta.getInstance().getServiceManager().getService(ProfileService.class).getProfile(player.getUniqueId());
+
+        if (profile.getStaffOptions().isVanish()) {
+            player.setCanPickupItems(false);
+            player.setCollidable(false);
+            player.setInvulnerable(true);
+            player.setAllowFlight(true);
+
+            for (Player online : player.getServer().getOnlinePlayers()) {
+                if (online.hasPermission("delta.staff.vanish")) {
+                    online.showPlayer(player);
+                } else {
+                    online.hidePlayer(player);
+                }
+            }
+        } else {
+            player.setCanPickupItems(true);
+            player.setCollidable(true);
+            player.setInvulnerable(false);
+            player.setAllowFlight(false);
+            for (Player online : player.getServer().getOnlinePlayers()) {
+                online.showPlayer(player);
+            }
+        }
     }
 }

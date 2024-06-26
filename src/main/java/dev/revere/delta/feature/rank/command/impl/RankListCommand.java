@@ -4,8 +4,13 @@ import dev.revere.delta.Delta;
 import dev.revere.delta.api.command.BaseCommand;
 import dev.revere.delta.api.command.CommandArgs;
 import dev.revere.delta.api.command.annotation.Command;
+import dev.revere.delta.feature.rank.Rank;
 import dev.revere.delta.feature.rank.RankService;
 import dev.revere.delta.util.CC;
+import net.md_5.bungee.api.chat.BaseComponent;
+import net.md_5.bungee.api.chat.ComponentBuilder;
+import net.md_5.bungee.api.chat.HoverEvent;
+import org.bukkit.ChatColor;
 import org.bukkit.entity.Player;
 
 import java.util.Comparator;
@@ -27,14 +32,47 @@ public class RankListCommand extends BaseCommand {
         player.sendMessage(CC.translate("     &b&lRank List &f(" + rankService.getRanks().size() + "&f)"));
         if (rankService.getRanks().isEmpty()) {
             player.sendMessage(CC.translate("      &f● &cNo Ranks available."));
+        } else {
+            rankService.getRanks().stream()
+                    .sorted(Comparator.comparingInt(Rank::getWeight).reversed())
+                    .forEach(rank -> {
+                        BaseComponent[] hoverText = new ComponentBuilder("")
+                                .append(CC.translate("&b&lRank Information:\n"))
+                                .append(CC.translate(" &f● Prefix: "))
+                                .append(CC.translate(rank.getPrefix())).append("\n")
+                                .append(CC.translate(" &f● Suffix: "))
+                                .append(CC.translate(rank.getSuffix())).append("\n")
+                                .append(CC.translate(" &f● Weight: "))
+                                .append(CC.translate("&b" + rank.getWeight())).append("\n")
+                                .append(CC.translate(" &f● Color: "))
+                                .append(CC.translate(rank.getNameColor() + rank.getNameColor().name())).append("\n")
+                                .append(CC.translate(" &f● Staff: "))
+                                .append(CC.translate("&b" + (rank.isStaffRank() ? "Yes" : "No"))).append("\n")
+                                .append(CC.translate(" &f● Default: "))
+                                .append(CC.translate("&b" + (rank.isDefaultRank() ? "Yes" : "No"))).append("\n")
+                                .append(CC.translate(" &f● Inheritance: "))
+                                .append(CC.translate("&b" + (rank.getInheritance().isEmpty() ? "None" : String.join(", ", rank.getInheritance())))).append("\n")
+                                .append(CC.translate(" &f● Permissions: "))
+                                .append(CC.translate("&b" + (rank.getPermissions().isEmpty() ? "None" : String.join(", ", rank.getPermissions()))))
+                                .create();
+
+                        ComponentBuilder message = new ComponentBuilder("      ");
+                        message.append("● ").color(ChatColor.WHITE.asBungee());
+                        message.append(rank.getName()).color(ChatColor.AQUA.asBungee());
+                        message.append(" - ").color(ChatColor.WHITE.asBungee());
+                        message.append(CC.translate(rank.getPrefix()));
+                        message.append(" ").color(ChatColor.DARK_GRAY.asBungee());
+                        message.append("(" + rank.getWeight() + ")").color(ChatColor.DARK_GRAY.asBungee());
+
+                        if (rank.isDefaultRank()) {
+                            message.append(" (Default)").color(ChatColor.DARK_GRAY.asBungee());
+                        }
+
+                        message.event(new HoverEvent(HoverEvent.Action.SHOW_TEXT, hoverText));
+
+                        player.spigot().sendMessage(message.create());
+                    });
         }
-
-        rankService.getRanks().stream()
-                .sorted(Comparator.comparingInt(rank -> -rank.getWeight()))
-                .forEach(rank -> {
-                    player.sendMessage(CC.translate("      &f● &b" + rank.getName() + " &f- &7" + rank.getPrefix() + " &8(&7" + rank.getWeight() + "&8)" + (rank.isDefaultRank() ? " &8(&7Default&8)" : "")));
-                });
-
 
         player.sendMessage("");
     }

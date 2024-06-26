@@ -29,6 +29,7 @@ public class VanishCommand extends BaseCommand {
                     .replace("%status%", profile.getStaffOptions().isVanish() ? CC.translate("&aenabled") : CC.translate("&cdisabled"))
             );
             handleVisibility(player);
+            profile.saveProfile();
             return;
         }
 
@@ -51,6 +52,7 @@ public class VanishCommand extends BaseCommand {
         );
 
         handleVisibility(target);
+        profile.saveProfile();
     }
 
     /**

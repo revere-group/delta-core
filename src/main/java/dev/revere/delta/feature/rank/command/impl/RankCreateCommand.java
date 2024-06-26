@@ -39,9 +39,9 @@ public class RankCreateCommand extends BaseCommand {
         }
 
         List<String> permissions = Collections.emptyList();
-        Rank rank = new Rank(name, "&7" + name, "&7", 0, false, false, permissions, ChatColor.GRAY);
+        List<String> inheritance = Collections.emptyList();
+        Rank rank = new Rank(name, "&7" + name, "&7", 0, false, false, inheritance, permissions, ChatColor.GRAY);
         rankService.createRank(rank);
-        rankService.saveRank(rank);
 
         player.sendMessage(CC.translate("&fSuccessfully created the rank &b" + name + "&f."));
     }

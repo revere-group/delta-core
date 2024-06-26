@@ -12,7 +12,7 @@ import org.bukkit.entity.Player;
  * @date 6/17/2024
  */
 public class RankCommand extends BaseCommand {
-    @Command(name = "rank", inGameOnly = true, description = "Main rank command")
+    @Command(name = "rank", inGameOnly = true, description = "Main whitelist command")
     @Override
     public void onCommand(CommandArgs command) {
         Player player = command.getPlayer();

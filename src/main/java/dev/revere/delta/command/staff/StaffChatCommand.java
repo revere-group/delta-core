@@ -26,5 +26,7 @@ public class StaffChatCommand extends BaseCommand {
         player.sendMessage(CC.translate(Delta.getInstance().getServiceManager().getService(ConfigService.class).getConfig("messages.yml").getString("staff.chat.toggled"))
                 .replace("%status%", profile.getStaffOptions().isStaffChat() ? CC.translate("&aenabled") : CC.translate("&cdisabled"))
         );
+
+        profile.saveProfile();
     }
 }

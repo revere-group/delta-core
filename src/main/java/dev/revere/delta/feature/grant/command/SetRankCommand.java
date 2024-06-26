@@ -8,6 +8,7 @@ import dev.revere.delta.feature.grant.Grant;
 import dev.revere.delta.feature.grant.GrantService;
 import dev.revere.delta.feature.rank.Rank;
 import dev.revere.delta.feature.rank.RankService;
+import dev.revere.delta.feature.server.ServerService;
 import dev.revere.delta.profile.Profile;
 import dev.revere.delta.profile.ProfileService;
 import dev.revere.delta.util.CC;
@@ -58,9 +59,11 @@ public class SetRankCommand extends BaseCommand {
             return;
         }
 
+        ServerService serverService = Delta.getInstance().getServiceManager().getService(ServerService.class);
+
         Grant grant = new Grant();
         grant.setRankName(rank.getName());
-        grant.setServer(Locale.SERVER_NAME);
+        grant.setServer(serverService.getServerName());
         grant.setReason(reason);
         grant.setAddedBy(sender.getName());
         grant.setRemovedBy(null);

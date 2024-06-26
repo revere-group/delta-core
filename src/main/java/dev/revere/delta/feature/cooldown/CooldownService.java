@@ -4,6 +4,7 @@ import dev.revere.delta.Delta;
 import dev.revere.delta.api.service.IService;
 import dev.revere.delta.cooldown.Cooldown;
 import dev.revere.delta.util.triple.MutableTriple;
+import lombok.Getter;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -14,6 +15,7 @@ import java.util.UUID;
  * @project Delta
  * @date 6/17/2024
  */
+@Getter
 public class CooldownService implements IService {
 
     private final Delta plugin;
