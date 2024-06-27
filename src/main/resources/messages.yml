@@ -108,7 +108,7 @@ staff:
     message: "&3[&bS&3] &b%player% &fmined &b%total% &f%ore% ores in the last &b%time% &fseconds."
   logger:
     enabled: true
-    commands: ["gamemode", "teleport", "tp", "give", "vanish", "v"]
+    commands: ["gamemode", "teleport", "tp", "give", "vanish", "v", "s"]
     message: "&3[&bS&3] &b%player% &fhas executed &b%command%&f."
   vanish:
       toggle: "&fYour &bvanish &fhas been &r%status%&f."
@@ -117,6 +117,14 @@ staff:
   chat:
     toggled: "&fYour staff chat has been &r%status%&f."
     format: "&3[&bStaff Chat&3] &7(%server%) &b%rank-color%%player%&f: &7%message%"
+  teleport:
+    teleported: "&3[&bS&3] &fYou've teleported to &b%target-rank-color%%target%&f."
+    tp-all: "&3[&bS&3] &fTeleported &ball &fplayers to &b%rank-color%%player%&f."
+    tp-pos: "&3[&bS&3] &fTeleported &byou &fto the provided &blocation. (&b%x%x&f, &b%y%y&f, &b%z%z&f)"
+    tp-up: "&3[&bS&3] &fTeleported &byou &fto the &btop&f."
+    tp-here:
+      sender: "&fYou've teleported &3%rank-color%%target% &fto &byourself&f."
+      target: "&3%rank-color%%player% &fteleported you to their &blocation&f."
   report: "&3[&bS&3] &b%player% &fhas reported &b%target% &ffor &b%reason%&f."
   help: "&3[&bS&3] &b%player% &fhas requested help from staff. &7(&b%message%&7)"
   sudo: "&3[&bS&3] &fYou've made &b%target% &ftype &b%command%&f in chat!"
