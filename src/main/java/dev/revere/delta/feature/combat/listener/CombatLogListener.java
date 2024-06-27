@@ -32,8 +32,7 @@ public class CombatLogListener implements Listener {
 
         if (event.getDamager() instanceof Player attacker) {
             combatLogService.addPlayerToCombat(attacker);
+            combatLogService.addPlayerToCombat(damaged);
         }
-
-        combatLogService.addPlayerToCombat(damaged);
     }
 }
