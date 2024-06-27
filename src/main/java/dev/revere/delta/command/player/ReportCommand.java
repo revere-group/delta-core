@@ -59,7 +59,7 @@ public class ReportCommand extends BaseCommand {
         FileConfiguration config = Delta.getInstance().getServiceManager().getService(ConfigService.class).getConfig("messages.yml");
 
         Bukkit.getOnlinePlayers().stream().filter(staff -> staff.hasPermission("delta.staff")).forEach(staff -> {
-            staff.sendMessage(CC.translate(config.getString("staff.report.format")
+            staff.sendMessage(CC.translate(config.getString("staff.report")
                     .replace("%player%", player.getName())
                     .replace("%target%", target.getName())
                     .replace("%reason%", reason)));

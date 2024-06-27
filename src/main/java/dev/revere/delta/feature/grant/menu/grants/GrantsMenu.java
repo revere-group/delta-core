@@ -7,6 +7,7 @@ import dev.revere.delta.feature.grant.menu.grants.button.GrantsButton;
 import dev.revere.delta.feature.grant.menu.grants.button.RefreshGrantsButton;
 import dev.revere.delta.profile.Profile;
 import dev.revere.delta.profile.ProfileService;
+import dev.revere.delta.service.ConfigService;
 import dev.revere.delta.util.menu.Button;
 import dev.revere.delta.util.menu.pagination.PaginatedMenu;
 import lombok.AllArgsConstructor;
@@ -30,7 +31,7 @@ public class GrantsMenu extends PaginatedMenu {
 
     @Override
     public String getPrePaginatedTitle(Player player) {
-        return "&8Grant Menu";
+        return Delta.getInstance().getServiceManager().getService(ConfigService.class).getConfig("menus/grants-menu.yml").getString("title");
     }
 
     @Override

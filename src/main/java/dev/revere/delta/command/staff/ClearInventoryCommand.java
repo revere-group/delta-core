@@ -25,7 +25,7 @@ public class ClearInventoryCommand extends BaseCommand {
             player.getInventory().setContents(new ItemStack[36]);
             player.getInventory().setArmorContents(new ItemStack[4]);
             player.updateInventory();
-            player.sendMessage(CC.translate(Delta.getInstance().getServiceManager().getService(ConfigService.class).getConfig("messages.yml").getString("staff.cleared-inventory.format")));
+            player.sendMessage(CC.translate(Delta.getInstance().getServiceManager().getService(ConfigService.class).getConfig("messages.yml").getString("staff.cleared-inventory")));
             return;
         }
 

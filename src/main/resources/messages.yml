@@ -1,25 +1,24 @@
 broadcasts:
   alert:
     - ""
-    - "&4&lALERT &8- &cAttention!"
-    - " &f%message%"
+    - "&7[&4Alert&7] &f%message%"
     - ""
   broadcast:
     - ""
-    - "&7[&bBroadcast&7] &f%message%"
+    - "&7[&6Broadcast&7] &f%message%"
     - ""
 
 player:
-  ping: "&fYour ping is &b%ping%&f."
-  ping-target: "&f%target%'s ping is &b%ping%&f."
-  playtime: "&fYour playtime is &b%playtime%&f."
-  playtime-target: "&f%target%'s playtime is &b%playtime%&f."
-  healed-by: "&fYou've been healed by &b%player%&f!"
-  inventory-cleared-by: "&fYour inventory has been cleared by &b%player%&f!"
-  help-request-sent: "&aYour help request has been sent to staff. &8(Reason: &7%reason%&8)"
+  ping: "&b%player%&f's ping: &b%ping% &fms"
+  ping-target: "&b%target%&f's ping: &b%ping% &fms"
+  playtime: "&fYour playtime: &b%playtime%&f."
+  playtime-target: "&b%target%&f's playtime: &b%playtime%&f."
+  healed-by: "&fYou've been &bhealed &fby &b%player%&f!"
+  inventory-cleared-by: "&fYour &binventory &fhas been &bcleared &fby &b%player%&f!"
+  help-request-sent: "&aYou've requested help: &b%reason%"
   location:
-    shared: "&f[&bLocation&f] &fYou have shared your location with &b%target%&f."
-    received: "&f[&bLocation&f] &b%player% &fhas shared their location with you. &7(&b%x%&7, &b%y%&7, &b%z%&7)"
+    shared: "&fYou have shared your &blocation &fwith &b%target%&f."
+    received: "&b%player% &fhas shared their &blocation &fwith you. &7(&b%x%&7, &b%y%&7, &b%z%&7)"
 
 chat:
   format: "%rank% %clan%%color%%player%&f: &f%message%"
@@ -47,15 +46,15 @@ more-command:
 
 fly-command:
   player-not-found: "&cPlayer not found."
-  message: "&fYou've &b%status% &fflight."
-  message-target: "&fYou've &b%status% &fflight for &b%target%&f."
+  message: "&fYour &bflight &fhas been &r%status%&f."
+  message-target: "&fYou've &r%status% &b%target%&f's flight."
   changed-by: "&fYour flight has been &b%status% &fby &b%player%&f."
 
 on-join:
   title-sender:
     enabled: true
-    main-title: "{#0544AC>}&lRevere{#2188EB<}"
-    sub-title: "&fWelcome to the SMP, &b%player%&f!"
+    main-title: "{#0544AC>}&lDELTA{#2188EB<}"
+    sub-title: "&fWelcome to Delta Network, &b%player%&f!"
   messages:
     bars-format: "&8&m-----------------------------------"
     welcome-message:
@@ -83,56 +82,48 @@ on-leave:
     left-the-game: "&f[&c-&f] &c%player% &fhas left."
 
 trolling:
-  strike: "&f&l[&b&lTrolling&f&l] &fYou've struck &b%target% &fwith lightning!"
+  strike: "&fYou've struck &b%target% &fwith lightning!"
   strike-all:
-    message: "&f&l[&b&lTrolling&f&l] &fYou've struck all players with lightning!"
+    message: "&fYou've struck &ball players with lightning!"
     broadcast:
       enabled: true
       message:
         - ""
         - "&f&l[&b&lTrolling&f&l] &fAll players &bhave been struck by lightning!"
         - ""
-  hurt: "&f&l[&b&lTrolling&f&l] &fYou've hurt &b%target%&f! &f(&c- %damage%&c❤&f)"
-  launch: "&f&l[&b&lTrolling&f&l] &b%target% &fhas been launched into the air!"
+  hurt: "&fYou've hurt &b%target%&f! &f(&c- %damage%&c❤&f)"
+  launch: "&b%target% &fhas been launched into the air!"
   launch-all:
-    message: "&f&l[&b&lTrolling&f&l] &fAll players &bhave &fbeen launched into the air!"
+    message: "&fYou've launched &ball &fplayers into the air!"
     broadcast:
       enabled: true
       message: "&f&l[&b&lTrolling&f&l] &fAll players &bhave been launched into the air!"
   capture:
-    message: "&f&l[&b&lTrolling&f&l] &fYou've captured &b%target%&f!"
+    message: "&fYou've captured &b%target%&f!"
 
 staff:
   ore-notify:
     delay: 10
     enabled: true
-    message: "&f&l[&b&lStaff&f&l] &b%player% &fmined &b%total% &f%ore% ores in the last &b%time% &fseconds."
+    message: "&3[&bS&3] &b%player% &fmined &b%total% &f%ore% ores in the last &b%time% &fseconds."
   logger:
     enabled: true
     commands: ["gamemode", "teleport", "tp", "give", "vanish", "v"]
-    message: "&f&l[&b&lStaff&f&l] &b%player% &fhas executed command: &b%command%&f."
-  chat:
-    toggled: "&f[&bSC&f] &fYou've &r%status% &fstaff chat."
-    format: "&f[&bSC&f] &b%player%&f: &7%message%"
-  report:
-    format: "&f[&bReport&f] &b%player% &fhas reported &b%target% &ffor &b%reason%&f."
-  help:
-    format: "&f[&bRequest&f] &b%player% &fhas requested help from staff. &7(&b%message%&7)"
-  sudo:
-    format: "&f&l[&b&lStaff&f&l] &fYou've made &b%target% &ftype &b%command%&f in chat!"
-  invsee:
-    format: "&f&l[&b&lStaff&f&l] &fViewing &b%target%'s &finventory."
-  endinvsee:
-    format: "&f&l[&b&lStaff&f&l] &fViewing &b%target%'s &fender chest."
-  healed:
-    format: "&f&l[&b&lStaff&f&l] &fYou've been healed."
-  cleared-inventory:
-    format: "&f&l[&b&lStaff&f&l] &fYou've cleared your inventory."
+    message: "&3[&bS&3] &b%player% &fhas executed &b%command%&f."
   vanish:
-      toggle: "&f&l[&b&lStaff&f&l] &fYou've &b%status% &fvanished."
-      toggle-target: "&f&l[&b&lStaff&f&l] &fYou have &b%status% &b%target%'s &fvanish."
-      toggled-by: "&f&l[&b&lStaff&f&l] &b%player% &fhas &b%status% &f your vanish."
-
+      toggle: "&fYour &bvanish &fhas been &r%status%&f."
+      toggle-target: "&fYou have &b%status% &b%target%'s &fvanish."
+      toggled-by: "&b%player% &fhas &b%status% &f your vanish."
+  chat:
+    toggled: "&fYour staff chat has been &r%status%&f."
+    format: "&3[&bStaff Chat&3] &7(%server%) &b%rank-color%%player%&f: &7%message%"
+  report: "&3[&bS&3] &b%player% &fhas reported &b%target% &ffor &b%reason%&f."
+  help: "&3[&bS&3] &b%player% &fhas requested help from staff. &7(&b%message%&7)"
+  sudo: "&3[&bS&3] &fYou've made &b%target% &ftype &b%command%&f in chat!"
+  invsee: "&3[&bS&3] &fViewing &b%target%'s &finventory."
+  endinvsee: "&3[&bS&3] &fViewing &b%target%'s &fender chest."
+  healed: "&3[&bS&3] &fYou've been healed."
+  cleared-inventory: "&3[&bS&3] &fYour &binventory &fhas been &bcleared&f."
 
 reload:
   reloading:

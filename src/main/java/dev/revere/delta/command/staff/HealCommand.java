@@ -23,7 +23,7 @@ public class HealCommand extends BaseCommand {
         if (args.length == 0) {
             player.setHealth(20);
             player.setFoodLevel(20);
-            player.sendMessage(CC.translate(Delta.getInstance().getServiceManager().getService(ConfigService.class).getConfig("messages.yml").getString("staff.healed.format")));
+            player.sendMessage(CC.translate(Delta.getInstance().getServiceManager().getService(ConfigService.class).getConfig("messages.yml").getString("staff.healed")));
             return;
         }
 

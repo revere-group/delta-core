@@ -1,6 +1,7 @@
 package dev.revere.delta.feature.home.menu;
 
 import dev.revere.delta.Delta;
+import dev.revere.delta.service.ConfigService;
 import dev.revere.delta.util.menu.Button;
 import dev.revere.delta.util.menu.Menu;
 import org.bukkit.entity.Player;
@@ -16,7 +17,7 @@ import java.util.Map;
 public class HomeMenu extends Menu {
     @Override
     public String getTitle(Player player) {
-        return "&8Home Menu";
+        return Delta.getInstance().getServiceManager().getService(ConfigService.class).getConfig("menus/homes-menu.yml").getString("title");
     }
 
     @Override

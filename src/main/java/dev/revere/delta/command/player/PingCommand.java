@@ -2,8 +2,8 @@ package dev.revere.delta.command.player;
 
 import dev.revere.delta.Delta;
 import dev.revere.delta.api.command.BaseCommand;
-import dev.revere.delta.api.command.annotation.Command;
 import dev.revere.delta.api.command.CommandArgs;
+import dev.revere.delta.api.command.annotation.Command;
 import dev.revere.delta.service.ConfigService;
 import dev.revere.delta.util.CC;
 import org.bukkit.entity.Player;
@@ -23,6 +23,7 @@ public class PingCommand extends BaseCommand {
         if (args.length == 0) {
             player.sendMessage(CC.translate(Delta.getInstance().getServiceManager().getService(ConfigService.class).getConfig("messages.yml").getString("player.ping"))
                     .replace("%ping%", String.valueOf(player.getPing()))
+                    .replace("%player%", player.getName())
             );
             return;
         }

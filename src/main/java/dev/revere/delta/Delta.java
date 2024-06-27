@@ -66,6 +66,10 @@ public class Delta extends JavaPlugin {
         assemble.setAssembleStyle(AssembleStyle.MODERN);
     }
 
+    private void registerBungeeChannel() {
+        getServer().getMessenger().registerOutgoingPluginChannel(this, "BungeeCord");
+    }
+
     private void registerRepositories() {
         this.homeRepository = new HomeRepository();
         this.clanRepository = new ClanRepository();
@@ -95,6 +99,7 @@ public class Delta extends JavaPlugin {
         initializationTasks.add(this::registerServices);
         initializationTasks.add(serviceManager::registerAllServices);
         initializationTasks.add(this::registerRepositories);
+        initializationTasks.add(this::registerBungeeChannel);
     }
 
     /**

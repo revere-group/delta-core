@@ -34,7 +34,7 @@ public class SeeEnderInventoryCommand extends BaseCommand {
         }
 
         player.openInventory(targetPlayer.getEnderChest());
-        player.sendMessage(CC.translate(Delta.getInstance().getServiceManager().getService(ConfigService.class).getConfig("messages.yml").getString("staff.endinvsee.format"))
+        player.sendMessage(CC.translate(Delta.getInstance().getServiceManager().getService(ConfigService.class).getConfig("messages.yml").getString("staff.endinvsee"))
                 .replace("%target%", targetPlayer.getName())
         );
     }

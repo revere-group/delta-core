@@ -47,7 +47,7 @@ public class HelpopCommand extends BaseCommand {
         FileConfiguration config = Delta.getInstance().getServiceManager().getService(ConfigService.class).getConfig("messages.yml");
 
         Bukkit.getOnlinePlayers().stream().filter(staff -> staff.hasPermission("delta.staff")).forEach(staff -> {
-            staff.sendMessage(CC.translate(config.getString("staff.help.format"))
+            staff.sendMessage(CC.translate(config.getString("staff.help"))
                     .replace("%player%", player.getName())
                     .replace("%message%", reason));
         });

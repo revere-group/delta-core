@@ -37,7 +37,7 @@ public class SudoCommand extends BaseCommand {
 
         String commandBuilder = String.join(" ", Arrays.copyOfRange(args, 1, args.length));
         target.chat(CC.translate(commandBuilder));
-        player.sendMessage(CC.translate(Delta.getInstance().getServiceManager().getService(ConfigService.class).getConfig("messages.yml").getString("staff.sudo.format"))
+        player.sendMessage(CC.translate(Delta.getInstance().getServiceManager().getService(ConfigService.class).getConfig("messages.yml").getString("staff.sudo"))
                 .replace("%target%", target.getName())
                 .replace("%command%", commandBuilder));
     }

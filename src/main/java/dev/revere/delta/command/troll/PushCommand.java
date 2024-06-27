@@ -5,7 +5,6 @@ import dev.revere.delta.api.command.CommandArgs;
 import dev.revere.delta.api.command.annotation.Command;
 import dev.revere.delta.util.CC;
 import org.bukkit.entity.Player;
-import org.bukkit.util.Vector;
 
 /**
  * @author Emmy
@@ -45,7 +44,5 @@ public class PushCommand extends BaseCommand {
 
         player.sendMessage(CC.translate("&fYou've pushed &b" + target.getName()));
         target.sendMessage(CC.translate("&fYou've been pushed by &b" + player.getName()));
-
-
     }
 }

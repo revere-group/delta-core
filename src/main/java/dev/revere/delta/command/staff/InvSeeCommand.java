@@ -33,7 +33,7 @@ public class InvSeeCommand extends BaseCommand {
         }
 
         player.openInventory(targetPlayer.getInventory());
-        player.sendMessage(CC.translate(Delta.getInstance().getServiceManager().getService(ConfigService.class).getConfig("messages.yml").getString("staff.invsee.format"))
+        player.sendMessage(CC.translate(Delta.getInstance().getServiceManager().getService(ConfigService.class).getConfig("messages.yml").getString("staff.invsee"))
                 .replace("%target%", targetPlayer.getName()));
     }
 }

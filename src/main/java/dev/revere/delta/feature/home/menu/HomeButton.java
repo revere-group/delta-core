@@ -2,11 +2,13 @@ package dev.revere.delta.feature.home.menu;
 
 import dev.revere.delta.Delta;
 import dev.revere.delta.feature.home.Home;
+import dev.revere.delta.service.ConfigService;
 import dev.revere.delta.util.menu.Button;
 import dev.revere.delta.util.menu.pagination.ItemBuilder;
 import lombok.AllArgsConstructor;
 import org.apache.commons.lang3.StringUtils;
 import org.bukkit.Material;
+import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.entity.Player;
 import org.bukkit.event.inventory.ClickType;
 import org.bukkit.inventory.ItemStack;
@@ -23,15 +25,19 @@ public class HomeButton extends Button {
 
     @Override
     public ItemStack getButtonItem(Player player) {
-        return new ItemBuilder(Material.BLACK_BED)
-                .name("&b&lHome Information:")
-                .lore(" &f● &bName: &7" + StringUtils.capitalize(home.getName()))
-                .lore(" &f● &bLocation: &7" + home.getLocation().getBlockX() + ", " + home.getLocation().getBlockY() + ", " + home.getLocation().getBlockZ())
-                .lore(" &f● &bWorld: &7" + home.getLocation().getWorld().getName())
-                .lore("")
-                .lore("&b&lActions:")
-                .lore(" &f● &bLeft Click &7| &fTeleport to home")
-                .lore(" &f● &bRight Click &7| &fDelete home")
+        FileConfiguration config = Delta.getInstance().getServiceManager().getService(ConfigService.class).getConfig("menus/homes-menu.yml");
+        return new ItemBuilder(Material.matchMaterial(config.getString("home-button.material")))
+                .name(config.getString("home-button.name"))
+                .lore(config.getStringList("home-button.lore")
+                        .stream()
+                        .map(line -> line
+                                .replace("%name%", StringUtils.capitalize(home.getName()))
+                                .replace("%x%", String.valueOf(home.getLocation().getBlockX()))
+                                .replace("%y%", String.valueOf(home.getLocation().getBlockY()))
+                                .replace("%z%", String.valueOf(home.getLocation().getBlockZ()))
+                                .replace("%world%", home.getLocation().getWorld().getName()))
+                        .toArray(String[]::new))
+                .durability(config.getInt("home-button.data"))
                 .build();
     }
 

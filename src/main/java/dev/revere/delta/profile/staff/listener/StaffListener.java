@@ -1,10 +1,12 @@
 package dev.revere.delta.profile.staff.listener;
 
 import dev.revere.delta.Delta;
+import dev.revere.delta.feature.rank.RankService;
 import dev.revere.delta.profile.Profile;
-import dev.revere.delta.service.ConfigService;
 import dev.revere.delta.profile.ProfileService;
+import dev.revere.delta.service.ConfigService;
 import dev.revere.delta.util.CC;
+import dev.revere.delta.util.lang.Locale;
 import org.bukkit.Bukkit;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.entity.Player;
@@ -80,7 +82,9 @@ public class StaffListener implements Listener {
             Bukkit.getOnlinePlayers().stream()
                     .filter(staff -> staff.hasPermission(permission))
                     .forEach(staff -> staff.sendMessage(CC.translate(format
+                                    .replace("%rank-color%", String.valueOf(Delta.getInstance().getServiceManager().getService(RankService.class).getHighestRank(profile).getNameColor()))
                             .replace("%player%", player.getName())
+                            .replace("%server%", Locale.SERVER_NAME)
                             .replace("%message%", finalMessage))));
         }
     }
