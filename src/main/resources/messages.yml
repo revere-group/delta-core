@@ -119,7 +119,7 @@ staff:
     format: "&3[&bStaff Chat&3] &7(%server%) &b%rank-color%%player%&f: &7%message%"
   teleport:
     teleported: "&3[&bS&3] &fYou've teleported to &b%target-rank-color%%target%&f."
-    tp-all: "&3[&bS&3] &fTeleported &ball &fplayers to &b%rank-color%%player%&f."
+    tp-all: "&fTeleported &ball &fplayers to &b%rank-color%%player%&f."
     tp-pos: "&3[&bS&3] &fTeleported &byou &fto the provided &blocation. (&b%x%x&f, &b%y%y&f, &b%z%z&f)"
     tp-up: "&3[&bS&3] &fTeleported &byou &fto the &btop&f."
     tp-here:
