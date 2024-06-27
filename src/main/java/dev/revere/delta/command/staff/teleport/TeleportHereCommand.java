@@ -36,6 +36,11 @@ public class TeleportHereCommand extends BaseCommand {
             return;
         }
 
+        if (targetPlayer == player) {
+            player.sendMessage(CC.translate("&cYou cannot teleport yourself to yourself."));
+            return;
+        }
+
         Profile targetProfile = Delta.getInstance().getServiceManager().getService(ProfileService.class).getProfile(targetPlayer.getUniqueId());
         Profile playerProfile = Delta.getInstance().getServiceManager().getService(ProfileService.class).getProfile(player.getUniqueId());
 
