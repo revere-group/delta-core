@@ -44,11 +44,16 @@ public class RankViewCommand extends BaseCommand {
         player.sendMessage(CC.translate(" &f● &fPrefix: &b" + rank.getPrefix()));
         player.sendMessage(CC.translate(" &f● &fSuffix: &b" + rank.getSuffix()));
         player.sendMessage(CC.translate(" &f● &fWeight: &b" + rank.getWeight()));
+        player.sendMessage(CC.translate(" &f● &fCost: &b" + rank.getCost()));
         player.sendMessage(CC.translate(" &f● &fColor: &b" + rank.getNameColor() + rank.getNameColor().name()));
         player.sendMessage(CC.translate(" &f● &fStaff: &b" + (rank.isStaffRank() ? "Yes" : "No")));
         player.sendMessage(CC.translate(" &f● &fDefault: &b" + (rank.isDefaultRank() ? "Yes" : "No")));
+        player.sendMessage(CC.translate(" &f● &fPurchasable: &b" + (rank.isPurchasable() ? "Yes" : "No")));
+        player.sendMessage(CC.translate(" &f● &fGlobal: &b" + (rank.isGlobal() ? "Yes" : "No")));
+        player.sendMessage(CC.translate(" &f● &fHidden: &b" + (rank.isHidden() ? "Yes" : "No")));
         player.sendMessage(CC.translate(" &f● &fInheritance: &b" + rank.getInheritance().toString()));
         player.sendMessage(CC.translate(" &f● &fPermissions: &b" + rank.getPermissions().toString()));
+        player.sendMessage(CC.translate(" &f● &fServers: &b" + rank.getServers().toString()));
         player.sendMessage("");
 
     }

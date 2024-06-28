@@ -79,11 +79,16 @@ public class RankService implements IService {
         rank.setPrefix("&8[&aDefault&8]");
         rank.setSuffix("");
         rank.setWeight(0);
+        rank.setCost(0);
         rank.setNameColor(ChatColor.GREEN);
         rank.setDefaultRank(true);
         rank.setStaffRank(false);
+        rank.setPurchasable(false);
+        rank.setGlobal(true);
+        rank.setHidden(false);
         rank.setInheritance(new ArrayList<>());
         rank.setPermissions(new ArrayList<>());
+        rank.setServers(new ArrayList<>());
         createRank(rank);
     }
 
@@ -162,11 +167,16 @@ public class RankService implements IService {
         document.put("prefix", rank.getPrefix());
         document.put("suffix", rank.getSuffix());
         document.put("weight", rank.getWeight());
+        document.put("cost", rank.getCost());
         document.put("nameColor", rank.getNameColor().toString());
         document.put("defaultRank", rank.isDefaultRank());
         document.put("staffRank", rank.isStaffRank());
+        document.put("purchasable", rank.isPurchasable());
+        document.put("global", rank.isGlobal());
+        document.put("hidden", rank.isHidden());
         document.put("inheritance", Delta.getInstance().getGson().toJson(rank.getInheritance()));
         document.put("permissions", Delta.getInstance().getGson().toJson(rank.getPermissions()));
+        document.put("servers", Delta.getInstance().getGson().toJson(rank.getServers()));
         return document;
     }
 
@@ -181,11 +191,16 @@ public class RankService implements IService {
         rank.setPrefix(document.getString("prefix"));
         rank.setSuffix(document.getString("suffix"));
         rank.setWeight(document.getInteger("weight"));
+        rank.setCost(document.getInteger("cost"));
         rank.setNameColor(ChatColor.getByChar(document.getString("nameColor").charAt(1)));
         rank.setDefaultRank(document.getBoolean("defaultRank"));
         rank.setStaffRank(document.getBoolean("staffRank"));
+        rank.setPurchasable(document.getBoolean("purchasable"));
+        rank.setGlobal(document.getBoolean("global"));
+        rank.setHidden(document.getBoolean("hidden"));
         rank.setInheritance(loadInheritance(document.getString("inheritance")));
         rank.setPermissions(loadPermissions(document.getString("permissions")));
+        rank.setServers(loadServers(document.getString("servers")));
         return rank;
     }
 
@@ -199,6 +214,21 @@ public class RankService implements IService {
         if (permissionsJson != null) {
             Type permissions = new TypeToken<List<String>>() {}.getType();
             return Delta.getInstance().getGson().fromJson(permissionsJson, permissions);
+        } else {
+            return new ArrayList<>();
+        }
+    }
+
+    /**
+     * Load servers from a json string
+     *
+     * @param serversJson the json string to load the servers from
+     * @return the servers
+     */
+    private List<String> loadServers(String serversJson) {
+        if (serversJson != null) {
+            Type servers = new TypeToken<List<String>>() {}.getType();
+            return Delta.getInstance().getGson().fromJson(serversJson, servers);
         } else {
             return new ArrayList<>();
         }
@@ -237,6 +267,16 @@ public class RankService implements IService {
      */
     public boolean isStaffRank(Rank rank) {
         return rank.isStaffRank();
+    }
+
+    /**
+     * Check if a rank is purchasable
+     *
+     * @param rank the rank to check
+     * @return if the rank is purchasable
+     */
+    public boolean isPurchasable(Rank rank) {
+        return rank.isPurchasable();
     }
 
     /**

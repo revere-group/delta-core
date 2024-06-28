@@ -34,7 +34,7 @@ public class GrantsButton extends Button {
         FileConfiguration config = Delta.getInstance().getServiceManager().getService(ConfigService.class).getConfig("menus/grants-menu.yml");
         if (isActive) {
             return new ItemBuilder(Material.matchMaterial(config.getString("grant-button.active.material")))
-                    .name(config.getString("grant-button.active.name").replace("%rank%", grant.getRank().getNameColor() + StringUtils.capitalize(grant.getRank().getName())))
+                    .name(config.getString("grant-button.active.name").replace("%rank%", grant.getRankInformation().getNameColor() + StringUtils.capitalize(grant.getRankInformation().getName())))
                     .lore(config.getStringList("grant-button.active.lore")
                             .stream()
                             .map(line -> line
@@ -43,7 +43,7 @@ public class GrantsButton extends Button {
                                     .replace("%duration%", grant.isPermanent() ? "Permanent" : grant.getExpiration())
                                     .replace("%server%", grant.getServer())
                                     .replace("%reason%", grant.getReason())
-                                    .replace("%rank%", grant.getRank().getNameColor() + StringUtils.capitalize(grant.getRank().getName()))
+                                    .replace("%rank%", grant.getRankInformation().getNameColor() + StringUtils.capitalize(grant.getRankInformation().getName()))
                                     .replace("%duration%", grant.isPermanent() ? "Permanent" : grant.getExpiration())
                                     .replace("%expired%", grant.hasExpired() ? "true" : "false"))
                             .toArray(String[]::new))
@@ -51,7 +51,7 @@ public class GrantsButton extends Button {
                     .build();
         } else {
             return new ItemBuilder(Material.matchMaterial(config.getString("grant-button.inactive.material")))
-                    .name(config.getString("grant-button.inactive.name").replace("%rank%", StringUtils.capitalize(grant.getRank().getName())))
+                    .name(config.getString("grant-button.inactive.name").replace("%rank%", StringUtils.capitalize(grant.getRankInformation().getName())))
                     .lore(config.getStringList("grant-button.inactive.lore")
                             .stream()
                             .map(line -> line

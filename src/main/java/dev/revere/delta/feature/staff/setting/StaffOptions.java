@@ -1,4 +1,4 @@
-package dev.revere.delta.profile.staff.setting;
+package dev.revere.delta.feature.staff.setting;
 
 import lombok.Getter;
 import lombok.Setter;

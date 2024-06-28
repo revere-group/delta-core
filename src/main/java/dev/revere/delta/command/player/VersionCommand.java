@@ -17,11 +17,13 @@ public class VersionCommand extends BaseCommand {
     @Override
     public void onCommand(CommandArgs command) {
         Player player = command.getPlayer();
-        player.sendMessage("");
-        player.sendMessage(CC.translate("&b&lRevere Development &7- &fDelta"));
-        player.sendMessage(CC.translate(" &f● &bVersion: &f" + Delta.getInstance().getDescription().getVersion()));
-        player.sendMessage(CC.translate(" &f● &bWebsite: &fwww.revere.dev"));
-        player.sendMessage(CC.translate(" &f● &bAuthor: &fRemi & Emmy"));
-        player.sendMessage("");
+        player.sendMessage(" ");
+        player.sendMessage(CC.translate("  &b&l   Delta"));
+        player.sendMessage(CC.translate("      &f┃ Author: &b" + Delta.getInstance().getDescription().getAuthors()).replace("[", "").replace("]", ""));
+        player.sendMessage(CC.translate("      &f┃ Version: &b" + Delta.getInstance().getDescription().getVersion()));
+        player.sendMessage(CC.translate(" "));
+        player.sendMessage(CC.translate("  &b&l   Description:"));
+        player.sendMessage(CC.translate("      &f┃ " + Delta.getInstance().getDescription().getDescription()));
+        player.sendMessage(" ");
     }
 }

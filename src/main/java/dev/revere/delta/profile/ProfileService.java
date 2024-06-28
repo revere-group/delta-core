@@ -88,6 +88,10 @@ public class ProfileService implements IService {
                 return;
             }
 
+            if (!rank.isAccessibleOnServer()) {
+                return;
+            }
+
             List<String> permissions = rank.getPermissions();
             permissions.forEach(permission -> {
                 String perm = permission.toLowerCase();
@@ -110,7 +114,7 @@ public class ProfileService implements IService {
         });
 
         Rank defaultRank = rankService.getDefaultRank();
-        if (defaultRank != null) {
+        if (defaultRank != null && defaultRank.isAccessibleOnServer()) {
             defaultRank.getPermissions().forEach(permission -> {
                 String perm = permission.toLowerCase();
                 rankPermissions.add(perm);

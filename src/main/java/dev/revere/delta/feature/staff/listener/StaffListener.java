@@ -1,4 +1,4 @@
-package dev.revere.delta.profile.staff.listener;
+package dev.revere.delta.feature.staff.listener;
 
 import dev.revere.delta.Delta;
 import dev.revere.delta.feature.rank.RankService;
@@ -8,6 +8,7 @@ import dev.revere.delta.service.ConfigService;
 import dev.revere.delta.util.CC;
 import dev.revere.delta.util.lang.Locale;
 import org.bukkit.Bukkit;
+import org.bukkit.GameMode;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
@@ -82,7 +83,7 @@ public class StaffListener implements Listener {
             Bukkit.getOnlinePlayers().stream()
                     .filter(staff -> staff.hasPermission(permission))
                     .forEach(staff -> staff.sendMessage(CC.translate(format
-                                    .replace("%rank-color%", String.valueOf(Delta.getInstance().getServiceManager().getService(RankService.class).getHighestRank(profile).getNameColor()))
+                            .replace("%rank-color%", String.valueOf(Delta.getInstance().getServiceManager().getService(RankService.class).getHighestRank(profile).getNameColor()))
                             .replace("%player%", player.getName())
                             .replace("%server%", Locale.SERVER_NAME)
                             .replace("%message%", finalMessage))));
@@ -123,7 +124,9 @@ public class StaffListener implements Listener {
             player.setCanPickupItems(true);
             player.setCollidable(true);
             player.setInvulnerable(false);
-            player.setAllowFlight(false);
+            if (player.getGameMode() == GameMode.SURVIVAL || player.getGameMode() == GameMode.ADVENTURE) {
+                player.setAllowFlight(false);
+            }
             for (Player online : player.getServer().getOnlinePlayers()) {
                 online.showPlayer(player);
             }

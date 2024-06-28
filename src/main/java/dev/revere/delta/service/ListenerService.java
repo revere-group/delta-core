@@ -4,7 +4,7 @@ import dev.revere.delta.Delta;
 import dev.revere.delta.api.service.IService;
 import dev.revere.delta.feature.chat.listener.ChatListener;
 import dev.revere.delta.feature.ore.OreListener;
-import dev.revere.delta.profile.staff.listener.StaffListener;
+import dev.revere.delta.feature.staff.listener.StaffListener;
 import dev.revere.delta.util.menu.MenuListener;
 import org.bukkit.Bukkit;
 

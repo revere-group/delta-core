@@ -2,7 +2,6 @@ package dev.revere.delta.feature.chat.listener;
 
 import dev.revere.delta.Delta;
 import dev.revere.delta.feature.chat.filter.FilterService;
-import dev.revere.delta.feature.punishment.Punishment;
 import dev.revere.delta.feature.punishment.PunishmentType;
 import dev.revere.delta.feature.rank.RankService;
 import dev.revere.delta.profile.Profile;
@@ -102,11 +101,18 @@ public class ChatListener implements Listener {
         boolean translate = player.hasPermission("delta.chat.color");
         String chatFormat = CC.translate(config.getString("chat.format"));
 
+        String rank = getRankPrefix(profile) + " ";
+        String clan = getClan(player);
+        String clanPrefix = "";
+        if (!clan.isEmpty()) {
+            clanPrefix = CC.translate(config.getString("chat.clan-prefix").replace("%clan%", clan)) + " ";
+        }
+
         chatFormat = chatFormat.replace("%color%", profile.getNameColor());
         chatFormat = chatFormat.replace("%player%", player.getDisplayName());
         chatFormat = chatFormat.replace("%message%", translate ? CC.translate(message) : message);
-        chatFormat = chatFormat.replace("%clan%", getClanTag(player));
-        chatFormat = chatFormat.replace("%rank%", getRankPrefix(profile));
+        chatFormat = chatFormat.replace("%clan%", clanPrefix);
+        chatFormat = chatFormat.replace("%rank%", rank);
         chatFormat = chatFormat.replace("%suffix%", getRankSuffix(profile));
         chatFormat = chatFormat.replace("%world%", player.getWorld().getName());
         chatFormat = chatFormat.replace("%", "%%");
@@ -120,10 +126,10 @@ public class ChatListener implements Listener {
      * @param player the player to get the clan tag of
      * @return the clan tag of the player
      */
-    private String getClanTag(Player player) {
+    private String getClan(Player player) {
         String clanTag = "";
         if (Delta.getInstance().getClanRepository().getPlayerClan(player.getUniqueId()) != null) {
-            clanTag = "&f[" + Delta.getInstance().getClanRepository().getPlayerClan(player.getUniqueId()).getColoredName() + "&f] ";
+            clanTag = Delta.getInstance().getClanRepository().getPlayerClan(player.getUniqueId()).getColoredName();
         }
         return CC.translate(clanTag);
     }

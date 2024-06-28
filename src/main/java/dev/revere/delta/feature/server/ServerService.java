@@ -9,6 +9,8 @@ import dev.revere.delta.service.ConfigService;
 import lombok.Getter;
 import org.bson.Document;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -20,6 +22,8 @@ import java.util.Map;
 public class ServerService implements IService {
 
     public MongoCollection<Document> collection;
+
+    private final List<String> servers = new ArrayList<>();
 
     private final Delta plugin;
 
@@ -50,6 +54,8 @@ public class ServerService implements IService {
             Document newDocument = new Document("name", serverName).append("data", new Document());
             collection.insertOne(newDocument);
         }
+
+        servers.add(serverName);
     }
 
     /**
@@ -81,6 +87,15 @@ public class ServerService implements IService {
      */
     public Document loadServerData(String serverName) {
         return collection.find(new Document("name", serverName)).first();
+    }
+
+    /**
+     * Get the server name from the database.
+     *
+     * @return the server name
+     */
+    public String getServer(String serverName) {
+        return servers.stream().filter(server -> server.equalsIgnoreCase(serverName)).findFirst().orElse(null);
     }
 
     /**

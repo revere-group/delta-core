@@ -7,28 +7,22 @@ import dev.revere.delta.api.command.annotation.Command;
 import dev.revere.delta.feature.rank.Rank;
 import dev.revere.delta.feature.rank.RankService;
 import dev.revere.delta.util.CC;
-import net.md_5.bungee.api.chat.BaseComponent;
-import net.md_5.bungee.api.chat.ComponentBuilder;
-import net.md_5.bungee.api.chat.HoverEvent;
-import org.bukkit.ChatColor;
 import org.bukkit.entity.Player;
-
-import java.util.Comparator;
 
 /**
  * @author Remi
  * @project Delta
  * @date 6/17/2024
  */
-public class RankListPermissionsCommand extends BaseCommand {
-    @Command(name = "rank.listpermissions", aliases = {"rank.listperms"}, permission = "delta.rank.listpermissions", inGameOnly = true, description = "List rank permissions")
+public class RankListServersCommand extends BaseCommand {
+    @Command(name = "rank.listservers", permission = "delta.rank.listservers", inGameOnly = true, description = "List rank servers")
     @Override
     public void onCommand(CommandArgs command) {
         Player player = command.getPlayer();
         String[] args = command.getArgs();
 
         if (args.length == 0) {
-            player.sendMessage(CC.translate("&cUsage: /rank listpermissions <rank>"));
+            player.sendMessage(CC.translate("&cUsage: /rank listservers <rank>"));
             return;
         }
 
@@ -41,14 +35,14 @@ public class RankListPermissionsCommand extends BaseCommand {
         }
 
         Rank rank = rankService.getRank(rankName);
-        if (rank.getPermissions().isEmpty()) {
-            player.sendMessage(CC.translate("&cThis rank has no permissions."));
+        if (rank.getServers().isEmpty()) {
+            player.sendMessage(CC.translate("&cThis rank has no servers."));
             return;
         }
 
         player.sendMessage("");
-        player.sendMessage(CC.translate("&b&l" + rank.getName() + " &7Permissions:"));
-        player.sendMessage(CC.translate(" &f● &b" + String.join(", ", rank.getPermissions())));
+        player.sendMessage(CC.translate("&b&l" + rank.getName() + " &7Servers:"));
+        player.sendMessage(CC.translate(" &f● &b" + String.join(", ", rank.getServers())));
         player.sendMessage("");
     }
 }

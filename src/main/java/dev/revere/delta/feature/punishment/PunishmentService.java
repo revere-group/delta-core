@@ -2,11 +2,9 @@ package dev.revere.delta.feature.punishment;
 
 import dev.revere.delta.Delta;
 import dev.revere.delta.api.service.IService;
-import dev.revere.delta.feature.grant.Grant;
 import dev.revere.delta.profile.Profile;
 import dev.revere.delta.profile.ProfileService;
 import lombok.Getter;
-import org.bukkit.entity.Player;
 
 import java.util.ArrayList;
 import java.util.List;

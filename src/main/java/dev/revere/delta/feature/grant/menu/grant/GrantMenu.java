@@ -43,7 +43,7 @@ public class GrantMenu extends PaginatedMenu {
 
         buttons.put(4, new ViewGrantsButton(targetPlayer,"&fView &b" + targetPlayer.getName() + "&f's grants", Material.NAME_TAG, 0, Arrays.asList(
                 "",
-                " &b" + targetPlayer.getName() + "&f's current Rank is &b" +
+                " &b" + targetPlayer.getName() + "&f's current rank is &b" +
                         rankService.getHighestRank(profile).getNameColor() +
                         rankService.getHighestRank(profile).getName() + "&f.",
                 ""

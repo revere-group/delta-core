@@ -43,6 +43,5 @@ public class PlayTimeCommand extends BaseCommand {
                 .replace("%target%", target.getName())
                 .replace("%playtime%", DateUtils.formatTimeMillis(playTime * 50L))
         );
-
     }
 }

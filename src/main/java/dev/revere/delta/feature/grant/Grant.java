@@ -33,6 +33,20 @@ public class Grant {
      * @return the rank of the grant
      */
     public Rank getRank() {
+        Rank rank = Delta.getInstance().getServiceManager().getService(RankService.class).getRank(rankName);
+        if (rank != null && rank.isAccessibleOnServer()) {
+            return rank;
+        }
+
+        return null;
+    }
+
+    /**
+     * Get the rank information
+     *
+     * @return the rank information
+     */
+    public Rank getRankInformation() {
         return Delta.getInstance().getServiceManager().getService(RankService.class).getRank(rankName);
     }
 

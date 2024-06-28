@@ -35,6 +35,7 @@ public class MongoProfile implements IProfile {
         }
 
         profile.setName(document.getString("name"));
+        profile.setCoins(document.containsKey("coins") ? document.getInteger("coins") : 0);
         loadGrants(profile, document);
         loadPunishments(profile, document);
         loadStaffOptions(profile, document);
@@ -95,6 +96,7 @@ public class MongoProfile implements IProfile {
         Document document = new Document();
         document.put("uuid", profile.getUuid().toString());
         document.put("name", profile.getName());
+        document.put("coins", profile.getCoins());
         document.put("grants", Delta.getInstance().getGson().toJson(profile.getGrants()));
         document.put("punishments", Delta.getInstance().getGson().toJson(profile.getPunishments()));
         document.put("staffOptions", Delta.getInstance().getGson().toJson(profile.getStaffOptions()));

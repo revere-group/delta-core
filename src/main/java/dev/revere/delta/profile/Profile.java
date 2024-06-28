@@ -2,12 +2,11 @@ package dev.revere.delta.profile;
 
 import com.mongodb.client.MongoCollection;
 import dev.revere.delta.Delta;
-import dev.revere.delta.database.profile.IProfile;
 import dev.revere.delta.feature.grant.Grant;
 import dev.revere.delta.feature.punishment.Punishment;
 import dev.revere.delta.feature.rank.Rank;
 import dev.revere.delta.feature.rank.RankService;
-import dev.revere.delta.profile.staff.setting.StaffOptions;
+import dev.revere.delta.feature.staff.setting.StaffOptions;
 import lombok.Getter;
 import lombok.Setter;
 import org.bson.Document;
@@ -36,6 +35,7 @@ public class Profile {
     private UUID uuid;
 
     private boolean online;
+    private int coins;
 
     /**
      * Constructor for the Profile class
@@ -48,6 +48,7 @@ public class Profile {
         this.staffOptions = new StaffOptions();
         this.grants = new ArrayList<>();
         this.punishments = new ArrayList<>();
+        this.coins = 0;
     }
 
     /**
