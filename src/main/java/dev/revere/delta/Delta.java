@@ -16,8 +16,11 @@ import dev.revere.delta.feature.grant.GrantService;
 import dev.revere.delta.feature.home.HomeRepository;
 import dev.revere.delta.feature.punishment.PunishmentService;
 import dev.revere.delta.feature.rank.RankService;
+import dev.revere.delta.feature.scoreboard.ScoreboardService;
 import dev.revere.delta.feature.server.ServerService;
 import dev.revere.delta.feature.server.whitelist.WhitelistService;
+import dev.revere.delta.feature.tips.TipsService;
+import dev.revere.delta.feature.tpa.TPAService;
 import dev.revere.delta.profile.ProfileService;
 import dev.revere.delta.service.ConfigService;
 import dev.revere.delta.service.ListenerService;
@@ -50,7 +53,6 @@ public class Delta extends JavaPlugin {
     @Override
     public void onEnable() {
         instance = this;
-        registerScoreboard();
         setupInitializationTasks();
         measureAndExecuteInitializationTasks();
     }
@@ -58,12 +60,6 @@ public class Delta extends JavaPlugin {
     @Override
     public void onDisable() {
         ServerUtils.disconnectPlayers();
-    }
-
-    private void registerScoreboard() {
-        Assemble assemble = new Assemble(this, new ScoreboardVisualizer());
-        assemble.setTicks(2);
-        assemble.setAssembleStyle(AssembleStyle.MODERN);
     }
 
     private void registerBungeeChannel() {
@@ -77,6 +73,7 @@ public class Delta extends JavaPlugin {
 
     private void registerServices() {
         serviceManager.registerService(new ConfigService(this));
+        serviceManager.registerService(new ScoreboardService(this));
         serviceManager.registerService(new MongoService(this));
         serviceManager.registerService(new ProfileService(this));
         serviceManager.registerService(new RankService(this));
@@ -86,7 +83,9 @@ public class Delta extends JavaPlugin {
         serviceManager.registerService(new WhitelistService(this));
         serviceManager.registerService(new CooldownService(this));
         serviceManager.registerService(new PunishmentService(this));
+        serviceManager.registerService(new TipsService(this));
         serviceManager.registerService(new ListenerService(this));
+        serviceManager.registerService(new TPAService(this));
         serviceManager.registerService(new CommandService(this));
         serviceManager.registerService(new CombatLogService(this));
         serviceManager.registerService(new ConversationService(this));

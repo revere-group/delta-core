@@ -49,7 +49,7 @@ public class RankCommand extends BaseCommand {
             },
     };
 
-    @Command(name = "rank", inGameOnly = true, description = "Main rank command")
+    @Command(name = "rank", permission = "delta.rank.main", description = "Main rank command")
     @Override
     public void onCommand(CommandArgs command) {
         Player player = command.getPlayer();

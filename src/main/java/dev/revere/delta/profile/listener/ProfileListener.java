@@ -26,19 +26,6 @@ import java.util.List;
  */
 public class ProfileListener implements Listener {
 
-    @EventHandler
-    private void handlePunishmentLogin(PlayerLoginEvent event) {
-        Player player = event.getPlayer();
-        Profile profile = Delta.getInstance().getServiceManager().getService(ProfileService.class).getProfile(player.getUniqueId());
-
-        if (profile.getPunishments().stream().anyMatch(punishment -> punishment.getType() == PunishmentType.BAN && punishment.isActive())) {
-            Punishment punishment = profile.getPunishments().stream().filter(pun -> pun.getType() == PunishmentType.BAN && pun.isActive()).findFirst().get();
-            event.disallow(PlayerLoginEvent.Result.KICK_BANNED, CC.translate("&cYou are currently banned for " + punishment.getReason() + ". Duration: " + (punishment.isPermanent() ? "Permanent" : DateUtils.formatTimeMillis(punishment.getDuration()))));
-        } else if (profile.getPunishments().stream().anyMatch(punishment -> punishment.getType() == PunishmentType.BLACKLIST && punishment.isActive())) {
-            event.disallow(PlayerLoginEvent.Result.KICK_BANNED, CC.translate("&cYou are currently blacklisted."));
-        }
-    }
-
     @EventHandler(priority = EventPriority.HIGHEST)
     private void onLogin(PlayerLoginEvent event) {
         Player player = event.getPlayer();
@@ -52,6 +39,23 @@ public class ProfileListener implements Listener {
 
         ProfileService profileService = Delta.getInstance().getServiceManager().getService(ProfileService.class);
         profileService.addProfile(profile.getUuid(), profile);
+    }
+
+    @EventHandler(priority = EventPriority.LOWEST)
+    private void handlePunishmentLogin(PlayerLoginEvent event) {
+        Player player = event.getPlayer();
+        Profile profile = Delta.getInstance().getServiceManager().getService(ProfileService.class).getProfile(player.getUniqueId());
+
+        if (profile == null) {
+            return;
+        }
+
+        if (profile.getPunishments().stream().anyMatch(punishment -> punishment.getType() == PunishmentType.BAN && punishment.isActive())) {
+            Punishment punishment = profile.getPunishments().stream().filter(pun -> pun.getType() == PunishmentType.BAN && pun.isActive()).findFirst().get();
+            event.disallow(PlayerLoginEvent.Result.KICK_BANNED, CC.translate("&cYou are currently banned for " + punishment.getReason() + ". Duration: " + (punishment.isPermanent() ? "Permanent" : DateUtils.formatTimeMillis(punishment.getDuration()))));
+        } else if (profile.getPunishments().stream().anyMatch(punishment -> punishment.getType() == PunishmentType.BLACKLIST && punishment.isActive())) {
+            event.disallow(PlayerLoginEvent.Result.KICK_BANNED, CC.translate("&cYou are currently blacklisted."));
+        }
     }
 
     @EventHandler(priority = EventPriority.HIGHEST)

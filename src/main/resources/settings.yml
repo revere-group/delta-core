@@ -15,3 +15,20 @@ scoreboard:
     lines:
       - ""
       - " &b❚ &fᴄᴏᴍʙᴀᴛ ʟᴏɢ: &b%tag%ѕ"
+
+tips:
+  enabled: true
+  interval: 120
+  announcements:
+    message-1:
+      - " "
+      - "&4&lALERT &7- &cAttention!"
+      - "&fReminder to bring along your friends on this adventure!"
+      - "&fJoin &bplay.revere.dev &ftoday!"
+      - " "
+    message-2:
+      - " "
+      - "&4&lALERT &7- &cAttention!"
+      - "&fJoin our Discord server for the latest updates!"
+      - "&bhttps://discord.gg/4bbVFypmzh"
+      - ""

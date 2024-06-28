@@ -9,6 +9,7 @@ import lombok.Getter;
 import lombok.Setter;
 import org.bukkit.entity.Player;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -77,13 +78,13 @@ public class FilterService implements IService {
         List<String> filteredWords = configService.getConfig("messages.yml").getStringList("chat.filter.words");
 
         String normalizedMessage = normalizeMessage(message);
-        String[] words = normalizedMessage.split("\\s+");
 
-        for (String word : words) {
-            if (filteredWords.contains(word)) {
+        for (String filteredWord : filteredWords) {
+            if (normalizedMessage.contains(filteredWord.toLowerCase())) {
                 return true;
             }
         }
+
         String[] rawWords = message
                 .replace("(dot)", ".")
                 .replace("(.)", ".")
@@ -146,11 +147,11 @@ public class FilterService implements IService {
         List<String> filteredWords = configService.getConfig("messages.yml").getStringList("chat.filter.words");
 
         String normalizedMessage = normalizeMessage(message);
-        String[] words = normalizedMessage.split("\\s+");
 
-        for (String word : words) {
-            if (filteredWords.contains(word)) {
-                return List.of(word);
+        List<String> matchedWords = new ArrayList<>();
+        for (String word : filteredWords) {
+            if (normalizedMessage.contains(word.toLowerCase())) {
+                matchedWords.add(word);
             }
         }
 
@@ -162,11 +163,11 @@ public class FilterService implements IService {
 
         for (String word : rawWords) {
             if (isUrlOrIp(word)) {
-                return List.of(word);
+                matchedWords.add(word);
             }
         }
 
-        return List.of();
+        return matchedWords;
     }
 
     /**
@@ -177,10 +178,11 @@ public class FilterService implements IService {
      */
     private void notifyStaff(Player player, List<String> filteredWords) {
         ConfigService configService = plugin.getServiceManager().getService(ConfigService.class);
+        String filteredWordsStr = String.join(", ", filteredWords);
         plugin.getServer().getOnlinePlayers().stream()
                 .filter(staff -> staff.hasPermission("delta.staff"))
                 .forEach(staff -> staff.sendMessage(CC.translate(configService.getConfig("messages.yml").getString("chat.filter.notify-staff")
                         .replace("%player%", player.getName())
-                        .replace("%word%", String.join(", ", filteredWords)))));
+                        .replace("%word%", filteredWordsStr))));
     }
 }
