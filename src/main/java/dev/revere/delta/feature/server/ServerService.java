@@ -8,6 +8,7 @@ import dev.revere.delta.database.MongoService;
 import dev.revere.delta.service.ConfigService;
 import lombok.Getter;
 import org.bson.Document;
+import org.bukkit.Location;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -21,9 +22,9 @@ import java.util.Map;
 @Getter
 public class ServerService implements IService {
 
-    public MongoCollection<Document> collection;
+    private final List<Server> servers = new ArrayList<>();
 
-    private final List<String> servers = new ArrayList<>();
+    public MongoCollection<Document> collection;
 
     private final Delta plugin;
 
@@ -40,6 +41,27 @@ public class ServerService implements IService {
     public void register() {
         this.collection = getCollection();
         ensureServerDocumentExists();
+        loadServersFromDatabase();
+    }
+
+    /**
+     * Load a server
+     *
+     * @param document the document to load the server from
+     * @return the server
+     */
+    private Server loadServer(Document document) {
+        Server rank = new Server(document.getString("name"));
+        rank.setSpawnLocation(documentToLocation(document.get("spawnpoint", Document.class)));
+        rank.setWhitelistEnabled(document.getBoolean("whitelist", false));
+        return rank;
+    }
+
+    /**
+     * Load servers from the database
+     */
+    private void loadServersFromDatabase() {
+        collection.find().forEach(document -> servers.add(loadServer(document)));
     }
 
     /**
@@ -51,11 +73,12 @@ public class ServerService implements IService {
         Document existingDocument = collection.find(new Document("name", serverName)).first();
 
         if (existingDocument == null) {
-            Document newDocument = new Document("name", serverName).append("data", new Document());
+            Document newDocument = new Document("name", serverName);
+            newDocument.put("whitelist", false);
+            newDocument.put("spawnpoint", null);
+
             collection.insertOne(newDocument);
         }
-
-        servers.add(serverName);
     }
 
     /**
@@ -68,13 +91,10 @@ public class ServerService implements IService {
         Document serverDocument = loadServerData(serverName);
 
         if (serverDocument == null) {
-            serverDocument = new Document("name", serverName).append("data", new Document());
+            serverDocument = new Document("name", serverName);
         }
 
-        Document dataDocument = (Document) serverDocument.get("data");
-        dataDocument.putAll(data);
-
-        serverDocument.put("data", dataDocument);
+        data.forEach(serverDocument::append);
 
         collection.replaceOne(new Document("name", serverName), serverDocument, new ReplaceOptions().upsert(true));
     }
@@ -90,28 +110,13 @@ public class ServerService implements IService {
     }
 
     /**
-     * Get the server name from the database.
-     *
-     * @return the server name
-     */
-    public String getServer(String serverName) {
-        return servers.stream().filter(server -> server.equalsIgnoreCase(serverName)).findFirst().orElse(null);
-    }
-
-    /**
-     * Get specific server data value.
+     * Get a server by its name.
      *
      * @param serverName the name of the server
-     * @param key        the key of the data to retrieve
-     * @return the value associated with the key, or null if not found
+     * @return the server or null if not found
      */
-    public Object getServerData(String serverName, String key) {
-        Document serverDocument = loadServerData(serverName);
-        if (serverDocument != null && serverDocument.containsKey("data")) {
-            Document data = (Document) serverDocument.get("data");
-            return data.get(key);
-        }
-        return null;
+    public Server getServer(String serverName) {
+        return servers.stream().filter(server -> server.getName().equalsIgnoreCase(serverName)).findFirst().orElse(null);
     }
 
     /**
@@ -124,14 +129,123 @@ public class ServerService implements IService {
     }
 
     /**
+     * Save the spawnpoint of a server.
+     *
+     * @param serverName the name of the server
+     * @param location   the location of the spawnpoint
+     */
+    public void saveSpawnpoint(String serverName, Location location) {
+        Document serverDocument = loadServerData(serverName);
+
+        if (serverDocument == null) {
+            serverDocument = new Document("name", serverName);
+        }
+
+        serverDocument.put("spawnpoint", locationToDocument(location));
+        saveServerData(serverName, serverDocument);
+
+        Server server = getServer(serverName);
+        if (server != null) {
+            server.setSpawnLocation(location);
+        }
+    }
+
+    /**
+     * Convert a location object to a MongoDB document.
+     *
+     * @param location the location to convert
+     * @return the location as a document
+     */
+    private Document locationToDocument(Location location) {
+        return new Document()
+                .append("world", location.getWorld().getName())
+                .append("x", location.getX())
+                .append("y", location.getY())
+                .append("z", location.getZ())
+                .append("yaw", location.getYaw())
+                .append("pitch", location.getPitch());
+    }
+
+    /**
+     * Get the spawnpoint of a server.
+     *
+     * @param serverName the name of the server
+     * @return the spawnpoint location
+     */
+    public Location getSpawnpoint(String serverName) {
+        Server server = getServer(serverName);
+        return (server != null) ? server.getSpawnLocation() : null;
+    }
+
+    /**
+     * Convert a MongoDB document to a location object.
+     *
+     * @param document the document to convert
+     * @return the location
+     */
+    private Location documentToLocation(Document document) {
+        if (document == null) {
+            return null;
+        }
+
+        String world = document.getString("world");
+        double x = document.getDouble("x");
+        double y = document.getDouble("y");
+        double z = document.getDouble("z");
+        float yaw = getFloatValue(document, "yaw");
+        float pitch = getFloatValue(document, "pitch");
+
+        return new Location(Delta.getInstance().getServer().getWorld(world), x, y, z, yaw, pitch);
+    }
+
+    /**
+     * Get the float value from a document.
+     *
+     * @param document the document to get the value from
+     * @param key      the key of the value
+     * @return the float value
+     */
+    private float getFloatValue(Document document, String key) {
+        Object value = document.get(key);
+        if (value instanceof Double) {
+            return ((Double) value).floatValue();
+        } else if (value instanceof Float) {
+            return (Float) value;
+        }
+        return 0;
+    }
+
+    /**
+     * Set the whitelist status of a server.
+     *
+     * @param serverName the name of the server
+     * @param enabled    the status of the whitelist
+     */
+    public void setWhitelistEnabled(String serverName, boolean enabled) {
+        Document serverDocument = loadServerData(serverName);
+
+        if (serverDocument == null) {
+            serverDocument = new Document("name", serverName);
+        }
+
+        serverDocument.put("whitelist", enabled);
+        saveServerData(serverName, serverDocument);
+
+        Server server = getServer(serverName);
+        if (server != null) {
+            server.setWhitelistEnabled(enabled);
+        }
+    }
+
+    /**
      * Check if whitelist is enabled for a server.
      *
      * @param serverName the name of the server
      * @return true if whitelist is enabled, false otherwise
      */
     public boolean isWhitelistEnabled(String serverName) {
-        Object whitelist = getServerData(serverName, "whitelist");
-        return whitelist instanceof Boolean && (Boolean) whitelist;
+        Server server = getServer(serverName);
+        return (server != null) && server.isWhitelistEnabled();
     }
 
     /**

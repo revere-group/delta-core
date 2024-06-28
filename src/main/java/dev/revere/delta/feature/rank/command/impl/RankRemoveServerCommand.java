@@ -6,6 +6,7 @@ import dev.revere.delta.api.command.CommandArgs;
 import dev.revere.delta.api.command.annotation.Command;
 import dev.revere.delta.feature.rank.Rank;
 import dev.revere.delta.feature.rank.RankService;
+import dev.revere.delta.feature.server.Server;
 import dev.revere.delta.feature.server.ServerService;
 import dev.revere.delta.util.CC;
 import org.bukkit.entity.Player;
@@ -32,7 +33,7 @@ public class RankRemoveServerCommand extends BaseCommand {
         RankService rankService = Delta.getInstance().getServiceManager().getService(RankService.class);
 
         String name = args[0];
-        String server = args[1];
+        String serverName = args[1];
 
         if (!rankService.rankExists(name)) {
             player.sendMessage(CC.translate("&cA rank with that name does not exist."));
@@ -40,22 +41,23 @@ public class RankRemoveServerCommand extends BaseCommand {
         }
 
         ServerService serverService = Delta.getInstance().getServiceManager().getService(ServerService.class);
-        if (serverService.getServer(server) == null) {
+        Server server = serverService.getServer(serverName);
+        if (server == null) {
             player.sendMessage(CC.translate("&cA server with that name does not exist."));
             return;
         }
 
         Rank rank = rankService.getRank(name);
         List<String> servers = rank.getServers();
-        if (!servers.contains(server)) {
-            player.sendMessage(CC.translate("&cThe rank &b" + name + " &cdoes not have the server &b" + server + " &cadded."));
+        if (!servers.contains(server.getName())) {
+            player.sendMessage(CC.translate("&cThe rank &b" + name + " &cdoes not have the server &b" + server.getName() + " &cadded."));
             return;
         }
 
-        servers.remove(server);
+        servers.remove(server.getName());
         rank.setServers(servers);
         rankService.saveRank(rank);
 
-        player.sendMessage(CC.translate("&b" + server + " &fhas been removed from the rank &b" + name + "&f."));
+        player.sendMessage(CC.translate("&b" + server.getName() + " &fhas been removed from the rank &b" + name + "&f."));
     }
 }

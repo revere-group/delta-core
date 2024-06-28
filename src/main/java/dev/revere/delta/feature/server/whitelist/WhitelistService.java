@@ -2,6 +2,7 @@ package dev.revere.delta.feature.server.whitelist;
 
 import dev.revere.delta.Delta;
 import dev.revere.delta.api.service.IService;
+import dev.revere.delta.feature.server.Server;
 import dev.revere.delta.feature.server.ServerService;
 import dev.revere.delta.feature.server.whitelist.listener.WhitelistListener;
 import lombok.Getter;
@@ -37,7 +38,7 @@ public class WhitelistService implements IService {
      */
     public void setWhitelistEnabled(boolean enabled) {
         String serverName = serverService.getServerName();
-        serverService.saveServerData(serverName, Map.of("whitelist", enabled));
+        serverService.setWhitelistEnabled(serverName, enabled);
     }
 
     /**
@@ -46,7 +47,8 @@ public class WhitelistService implements IService {
      * @return true if enabled, false otherwise
      */
     public boolean isWhitelistEnabled() {
-        return serverService.isWhitelistEnabled(serverService.getServerName());
+        String serverName = serverService.getServerName();
+        return serverService.isWhitelistEnabled(serverName);
     }
 
     /**
