@@ -2,7 +2,7 @@ package dev.revere.delta.feature.tpa;
 
 import dev.revere.delta.Delta;
 import dev.revere.delta.api.service.IService;
-import dev.revere.delta.cooldown.Cooldown;
+import dev.revere.delta.feature.cooldown.Cooldown;
 import dev.revere.delta.feature.cooldown.CooldownService;
 import dev.revere.delta.util.CC;
 import lombok.Getter;

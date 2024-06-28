@@ -2,7 +2,6 @@ package dev.revere.delta.feature.cooldown;
 
 import dev.revere.delta.Delta;
 import dev.revere.delta.api.service.IService;
-import dev.revere.delta.cooldown.Cooldown;
 import dev.revere.delta.util.triple.MutableTriple;
 import lombok.Getter;
 

@@ -1,4 +1,4 @@
-package dev.revere.delta.cooldown;
+package dev.revere.delta.feature.cooldown;
 
 import dev.revere.delta.util.TaskUtils;
 import lombok.Getter;

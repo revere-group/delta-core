@@ -2,7 +2,6 @@ package dev.revere.delta.profile.listener;
 
 import dev.revere.delta.Delta;
 import dev.revere.delta.feature.punishment.Punishment;
-import dev.revere.delta.feature.punishment.PunishmentService;
 import dev.revere.delta.feature.punishment.PunishmentType;
 import dev.revere.delta.profile.Profile;
 import dev.revere.delta.profile.ProfileService;
@@ -140,4 +139,19 @@ public class ProfileListener implements Listener {
                 .replace("%health%", String.valueOf(Math.round(player.getHealth())))
                 .replace("%bars%", bars);
     }
+
+    /**
+     * Get the clan tag of a player
+     *
+     * @param player the player to get the clan tag of
+     * @return the clan tag of the player
+     */
+    private String getClan(Player player) {
+        String clanTag = "";
+        if (Delta.getInstance().getClanRepository().getPlayerClan(player.getUniqueId()) != null) {
+            clanTag = Delta.getInstance().getClanRepository().getPlayerClan(player.getUniqueId()).getColoredName();
+        }
+        return CC.translate(clanTag);
+    }
+
 }

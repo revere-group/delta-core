@@ -131,6 +131,13 @@ public class ProfileService implements IService {
      * @return the profile
      */
     public Profile getProfile(UUID uuid) {
+        if (!profiles.containsKey(uuid)) {
+            Profile profile = new Profile(uuid);
+            profile.loadProfile();
+            addProfile(uuid, profile);
+            return profile;
+        }
+
         return profiles.get(uuid);
     }
 

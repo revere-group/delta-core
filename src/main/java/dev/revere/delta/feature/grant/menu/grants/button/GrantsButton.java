@@ -45,7 +45,7 @@ public class GrantsButton extends Button {
                                     .replace("%reason%", grant.getReason())
                                     .replace("%rank%", grant.getRankInformation().getNameColor() + StringUtils.capitalize(grant.getRankInformation().getName()))
                                     .replace("%duration%", grant.isPermanent() ? "Permanent" : grant.getExpiration())
-                                    .replace("%expired%", grant.hasExpired() ? "true" : "false"))
+                                    .replace("%expired%", grant.hasExpired() ? "Yes" : "No"))
                             .toArray(String[]::new))
                     .durability(config.getInt("grant-button.active.data"))
                     .build();

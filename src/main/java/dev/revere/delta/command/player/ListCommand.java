@@ -4,6 +4,8 @@ import dev.revere.delta.Delta;
 import dev.revere.delta.api.command.BaseCommand;
 import dev.revere.delta.api.command.CommandArgs;
 import dev.revere.delta.api.command.annotation.Command;
+import dev.revere.delta.feature.rank.Rank;
+import dev.revere.delta.feature.rank.RankService;
 import dev.revere.delta.profile.Profile;
 import dev.revere.delta.profile.ProfileService;
 import dev.revere.delta.service.ConfigService;
@@ -13,6 +15,7 @@ import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.entity.Player;
 
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -28,9 +31,10 @@ public class ListCommand extends BaseCommand {
         Player player = command.getPlayer();
 
         FileConfiguration config = Delta.getInstance().getServiceManager().getService(ConfigService.class).getConfig("messages.yml");
+        ProfileService profileService = Delta.getInstance().getServiceManager().getService(ProfileService.class);
+        RankService rankService = Delta.getInstance().getServiceManager().getService(RankService.class);
 
         List<Player> onlinePlayers = new ArrayList<>(Bukkit.getOnlinePlayers());
-
         if (!isVanished(player)) {
             onlinePlayers = onlinePlayers.stream()
                     .filter(p -> !isVanished(p))
@@ -38,19 +42,49 @@ public class ListCommand extends BaseCommand {
         };
 
         String formattedStaffList = onlinePlayers.stream()
-                .filter(p -> p.hasPermission("delta.staff"))
-                .map(Player::getName)
+                .filter(p -> {
+                    Profile profile = profileService.getProfile(p.getUniqueId());
+                    Rank rank = rankService.getHighestRank(profile);
+                    return rank.isStaffRank();
+                })
+                .map(p -> {
+                    Profile profile = profileService.getProfile(p.getUniqueId());
+                    Rank rank = rankService.getHighestRank(profile);
+                    return rank.getNameColor().toString() + p.getName();
+                })
                 .collect(Collectors.joining(", "));
 
-        String formattedPlayerList = onlinePlayers.stream()
-                .map(Player::getName)
+        if (formattedStaffList.isEmpty()) {
+            formattedStaffList = config.getString("list-command.no-staff");
+        }
+
+        String formattedRankList = Delta.getInstance().getServiceManager().getService(RankService.class).getRanks().stream()
+                .sorted(Comparator.comparingInt(Rank::getWeight).reversed())
+                .map(rank -> rank.getNameColor() + rank.getPrefix())
                 .collect(Collectors.joining(", "));
+
+        List<String> formattedPlayerList = onlinePlayers.stream()
+                .sorted(Comparator.comparingInt(p -> {
+                    Profile profile = profileService.getProfile(p.getUniqueId());
+                    Rank rank = rankService.getHighestRank(profile);
+                    return -rank.getWeight();
+                }))
+                .map(p -> {
+                    Profile profile = profileService.getProfile(p.getUniqueId());
+                    Rank rank = rankService.getHighestRank(profile);
+                    return rank.getNameColor() + p.getName();
+                })
+                .collect(Collectors.toList());
+
+        String formattedPlayerListString = String.join(", ", formattedPlayerList);
+        String formattedStaffListString = String.join(", ", formattedStaffList);
+        String formattedRankListString = String.join(", ", formattedRankList);
 
         String totalPlayers = String.valueOf(onlinePlayers.size());
         String maxPlayers = String.valueOf(Bukkit.getMaxPlayers());
 
         config.getStringList("list-command.lines").forEach(line -> {
-            player.sendMessage(CC.translate(replacePlaceholders(line, formattedStaffList, formattedPlayerList, totalPlayers, maxPlayers)));
+            player.sendMessage(CC.translate(replacePlaceholders(line, formattedRankListString, formattedStaffListString, formattedPlayerListString, totalPlayers, maxPlayers)));
         });
     }
 
@@ -75,8 +109,9 @@ public class ListCommand extends BaseCommand {
      * @param maxPlayers   the maximum amount of players
      * @return the line with placeholders replaced
      */
-    private String replacePlaceholders(String line, String staffList, String playerList, String totalPlayers, String maxPlayers) {
-        return line.replace("%staffs%", staffList)
+    private String replacePlaceholders(String line, String rankList, String staffList, String playerList, String totalPlayers, String maxPlayers) {
+        return line.replace("%ranks%", rankList)
+                .replace("%staffs%", staffList)
                 .replace("%players%", playerList)
                 .replace("%online%", totalPlayers)
                 .replace("%max%", maxPlayers);

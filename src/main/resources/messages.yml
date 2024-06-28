@@ -114,7 +114,7 @@ staff:
   vanish:
       toggle: "&fYour &bvanish &fhas been &r%status%&f."
       toggle-target: "&fYou have &b%status% &b%target%'s &fvanish."
-      toggled-by: "&b%player% &fhas &b%status% &f your vanish."
+      toggled-by: "&b%player% &fhas &b%status% &fyour vanish."
   chat:
     toggled: "&fYour staff chat has been &r%status%&f."
     format: "&3[&bStaff Chat&3] &7(%server%) &b%rank-color%%player%&f: &7%message%"
@@ -183,10 +183,12 @@ instance-command:
 list-command:
   staff-format: "   &f- &f%staff%"
   player-format: "   &f- &f%player%"
+  no-staff: "&fThere are no staff members online."
   lines:
     - "&8&m-----------------------------------"
     - "&b&lOnline Staff"
     - "%staffs%"
     - " "
+    - "%ranks%"
     - '&7[&f%online%&f/&f%max%&7] %players%'
     - "&8&m-----------------------------------"

@@ -40,6 +40,11 @@ public class PushCommand extends BaseCommand {
             return;
         }
 
+        if (value > 10) {
+            player.sendMessage(CC.translate("&cValue cannot be greater than 10."));
+            return;
+        }
+
         target.setVelocity(player.getLocation().getDirection().multiply(value));
 
         player.sendMessage(CC.translate("&fYou've pushed &b" + target.getName()));
