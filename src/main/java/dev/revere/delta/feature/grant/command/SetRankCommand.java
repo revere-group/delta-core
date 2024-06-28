@@ -76,6 +76,7 @@ public class SetRankCommand extends BaseCommand {
         }
         grant.setActive(true);
         grantService.addGrant(grant, targetPlayer.getUniqueId());
+        sender.sendMessage(CC.translate("&aSuccessfully granted " + targetPlayer.getName() + " the rank " + rank.getName() + "."));
         Objects.requireNonNull(targetPlayer.getPlayer()).sendMessage(CC.translate("&aYou have been granted the rank " + rank.getName() + " by " + command.getSender().getName() + "."));
     }
 
