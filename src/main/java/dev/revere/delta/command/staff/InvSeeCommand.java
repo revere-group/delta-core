@@ -10,10 +10,10 @@ import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 
 /**
- * Created by Emmy
+ * @author Emmy
  *
  * @project Delta
- * Date: 20/06/2024 - 00:23
+ * @date 20/06/2024 - 00:23
  */
 public class InvSeeCommand extends BaseCommand {
     @Override

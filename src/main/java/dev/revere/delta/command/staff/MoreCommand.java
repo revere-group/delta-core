@@ -11,9 +11,9 @@ import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 
 /**
- * Created by Emmy
+ * @author Emmy
  * @project Delta
- * Date: 20/06/2024 - 16:31
+ * @date 20/06/2024 - 16:31
  */
 public class MoreCommand extends BaseCommand {
 

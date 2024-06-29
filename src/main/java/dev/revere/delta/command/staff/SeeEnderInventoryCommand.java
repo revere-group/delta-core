@@ -10,9 +10,9 @@ import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 
 /**
- * Created by Emmy
+ * @author Emmy
  * @project Delta
- * Date: 20/06/2024 - 20:12
+ * @date 20/06/2024 - 20:12
  */
 public class SeeEnderInventoryCommand extends BaseCommand {
     @Override

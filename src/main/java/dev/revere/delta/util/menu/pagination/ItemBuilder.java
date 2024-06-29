@@ -1,9 +1,9 @@
 package dev.revere.delta.util.menu.pagination;
 
 /**
- * Created by Emmy
+ * @author Emmy
  * Project: FlowerCore
- * Date: 01/04/2024 - 00:12
+ * @date 01/04/2024 - 00:12
  */
 
 import org.bukkit.ChatColor;

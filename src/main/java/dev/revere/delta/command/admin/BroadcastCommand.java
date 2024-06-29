@@ -12,9 +12,9 @@ import java.util.Arrays;
 import java.util.List;
 
 /**
- * Created by Emmy
+ * @author Emmy
  * @project Delta
- * Date: 20/06/2024 - 05:46
+ * @date 20/06/2024 - 05:46
  */
 public class BroadcastCommand extends BaseCommand {
     @Override

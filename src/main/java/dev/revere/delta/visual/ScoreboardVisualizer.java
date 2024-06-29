@@ -13,9 +13,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * Created by Emmy
+ * @author Emmy
  * @project Delta
- * Date: 20/06/2024 - 10:23
+ * @date 20/06/2024 - 10:23
  */
 public class ScoreboardVisualizer implements AssembleAdapter {
 

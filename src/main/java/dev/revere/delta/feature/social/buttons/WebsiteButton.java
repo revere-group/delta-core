@@ -14,9 +14,9 @@ import org.bukkit.inventory.ItemStack;
 import java.util.Objects;
 
 /**
- * Created by Emmy
+ * @author Emmy
  * @project Delta
- * Date: 20/06/2024 - 06:59
+ * @date 20/06/2024 - 06:59
  */
 public class WebsiteButton extends Button {
     @Override

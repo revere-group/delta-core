@@ -10,9 +10,9 @@ import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 
 /**
- * Created by Emmy
+ * @author Emmy
  * Project: Delta
- * Date: 25/06/2024 - 19:19
+ * @date 25/06/2024 - 19:19
  */
 public class HurtCommand extends BaseCommand {
     @Override

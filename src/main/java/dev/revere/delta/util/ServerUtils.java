@@ -4,9 +4,9 @@ import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 
 /**
- * Created by Emmy
+ * @author Emmy
  * @project Delta
- * Date: 20/06/2024 - 01:32
+ * @date 20/06/2024 - 01:32
  */
 public class ServerUtils {
     public static void disconnectPlayers() {

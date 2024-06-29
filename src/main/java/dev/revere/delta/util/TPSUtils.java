@@ -19,6 +19,11 @@ public class TPSUtils {
     private Field recentTps;
     private final DecimalFormat SECONDS_FORMAT = new DecimalFormat("#0.0");
 
+    /**
+     * Get the current TPS of the server.
+     *
+     * @return The current TPS of the server.
+     */
     private double[] getTps() {
         try {
             if (minecraftServer == null) {
@@ -38,10 +43,21 @@ public class TPSUtils {
         }
     }
 
+    /**
+     * Format the seconds.
+     *
+     * @param time The time to format.
+     * @return The formatted time.
+     */
     private String formatSeconds(long time) {
         return SECONDS_FORMAT.format(((float) time / 1000.0F));
     }
 
+    /**
+     * Get the recent TPS of the server.
+     *
+     * @return The recent TPS of the server.
+     */
     public double[] getRecentTps() {
         double[] tps = getTps();
         if (tps[0] >= 20.0D) tps[0] = 20.0D;
@@ -51,6 +67,11 @@ public class TPSUtils {
         return new double[]{Math.round(tps[0]), Math.round(tps[1]), Math.round(tps[2])};
     }
 
+    /**
+     * Get the recent TPS of the server.
+     *
+     * @return The recent TPS of the server.
+     */
     public String getNiceTPS(double tps) {
         if (tps >= 20.0D) return CC.translate("&a" + tps);
         if (tps < 20.0D && tps > 18.0D) return CC.translate("&a" + tps);
@@ -59,6 +80,12 @@ public class TPSUtils {
         return CC.translate("&4" + tps);
     }
 
+    /**
+     * Get the status of the TPS.
+     *
+     * @param tps The TPS to get the status of.
+     * @return The status of the TPS.
+     */
     public String getTPSStatus(double tps) {
         if (tps >= 20.0D) return CC.translate("&aExcellent");
         if (tps < 20.0D && tps > 18.0D) return CC.translate("&aHigh");

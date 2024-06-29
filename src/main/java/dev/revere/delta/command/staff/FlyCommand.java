@@ -9,9 +9,9 @@ import dev.revere.delta.util.CC;
 import org.bukkit.entity.Player;
 
 /**
- * Created by Emmy
+ * @author Emmy
  * @project Delta
- * Date: 20/06/2024 - 16:38
+ * @date 20/06/2024 - 16:38
  */
 public class FlyCommand extends BaseCommand {
     @Override
