@@ -7,6 +7,8 @@ import dev.revere.delta.feature.punishment.Punishment;
 import dev.revere.delta.feature.rank.Rank;
 import dev.revere.delta.feature.rank.RankService;
 import dev.revere.delta.feature.staff.setting.StaffOptions;
+import dev.revere.delta.feature.tag.Tag;
+import dev.revere.delta.feature.tag.TagService;
 import lombok.Getter;
 import lombok.Setter;
 import org.bson.Document;
@@ -16,6 +18,7 @@ import org.bukkit.ChatColor;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
+import java.util.concurrent.TimeUnit;
 
 /**
  * @author Remi
@@ -30,9 +33,13 @@ public class Profile {
     private StaffOptions staffOptions;
 
     private List<Punishment> punishments;
+    private List<String> permissions;
     private List<Grant> grants;
+    private String tagName;
     private String name;
     private UUID uuid;
+
+    private long lastDailyReward;
 
     private boolean online;
     private int coins;
@@ -48,7 +55,10 @@ public class Profile {
         this.staffOptions = new StaffOptions();
         this.grants = new ArrayList<>();
         this.punishments = new ArrayList<>();
+        this.permissions = new ArrayList<>();
+        this.lastDailyReward = 0;
         this.coins = 0;
+        this.tagName = "";
     }
 
     /**
@@ -69,6 +79,45 @@ public class Profile {
         }
 
         return rank.getNameColor().toString();
+    }
+
+    /**
+     * Get the tag of the player
+     *
+     * @return the tag of the player
+     */
+    public Tag getTag() {
+        return Delta.getInstance().getServiceManager().getService(TagService.class).getTag(this.tagName);
+    }
+
+    /**
+     * Get the remaining time until the player can claim their daily reward
+     *
+     * @return the remaining time until the player can claim their daily reward
+     */
+    public String getDailyRewardRemainingTime() {
+        long currentTime = System.currentTimeMillis();
+        long timeSinceLastClaim = currentTime - lastDailyReward;
+        long timeRemaining = 86400000 - timeSinceLastClaim;
+
+        if (timeRemaining <= 0) {
+            return "&aYou can claim your reward now!";
+        }
+
+        long hoursRemaining = TimeUnit.MILLISECONDS.toHours(timeRemaining);
+        long minutesRemaining = TimeUnit.MILLISECONDS.toMinutes(timeRemaining) % 60;
+        long secondsRemaining = TimeUnit.MILLISECONDS.toSeconds(timeRemaining) % 60;
+
+        return String.format("%dh, %dm, and %ds", hoursRemaining, minutesRemaining, secondsRemaining);
+    }
+
+    /**
+     * Check if the player can claim their daily reward
+     *
+     * @return if the player can claim their daily reward
+     */
+    public boolean isDailyRewardClaimable() {
+        return lastDailyReward == 0 || System.currentTimeMillis() - lastDailyReward >= 86400000;
     }
 
     public void loadProfile() {

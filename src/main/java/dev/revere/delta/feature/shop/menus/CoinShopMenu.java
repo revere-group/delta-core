@@ -1,14 +1,17 @@
 package dev.revere.delta.feature.shop.menus;
 
 import dev.revere.delta.Delta;
+import dev.revere.delta.feature.rank.Rank;
 import dev.revere.delta.feature.rank.RankService;
-import dev.revere.delta.feature.shop.menus.buttons.CoinShopButton;
+import dev.revere.delta.feature.shop.buttons.CoinShopButton;
+import dev.revere.delta.feature.tag.Tag;
+import dev.revere.delta.feature.tag.TagService;
 import dev.revere.delta.profile.Profile;
 import dev.revere.delta.profile.ProfileService;
+import dev.revere.delta.profile.menu.ProfileMenu;
 import dev.revere.delta.util.menu.Button;
 import dev.revere.delta.util.menu.Menu;
 import dev.revere.delta.util.menu.button.BackButton;
-import dev.revere.delta.util.menu.button.PageGlassButton;
 import lombok.AllArgsConstructor;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
@@ -34,40 +37,48 @@ public class CoinShopMenu extends Menu {
     public Map<Integer, Button> getButtons(Player player) {
         Map<Integer, Button> buttons = new HashMap<>();
         RankService rankService = Delta.getInstance().getServiceManager().getService(RankService.class);
+        TagService tagService = Delta.getInstance().getServiceManager().getService(TagService.class);
         Profile profile = Delta.getInstance().getServiceManager().getService(ProfileService.class).getProfile(player.getUniqueId());
 
-        buttons.put(11, new CoinShopButton("&b&lRanks", Material.DIAMOND, 0, Arrays.asList(
-                "",
-                " &f● &bAvailable Ranks: &f" + rankService.getRanks().size(),
-                " &f● &bYour Rank: &f" + rankService.getHighestRank(profile).getNameColor() + rankService.getHighestRank(profile).getName(),
-                "",
-                " &f● &bBalance: &f$" + profile.getCoins(),
-                "",
-                " &f► Click to view all &bavailable &franks!",
-                "")));
+        buttons.put(4, new BackButton(new ProfileMenu()));
 
-        buttons.put(13, new CoinShopButton("&b&lTags", Material.NAME_TAG, 0, Arrays.asList(
+        buttons.put(20, new CoinShopButton("&b&lRanks", Material.NETHER_STAR, 0, Arrays.asList(
+                "&8&m----------------------",
+                " &fAvailable Ranks: &b" + rankService.getRanks().stream().filter(Rank::isPurchasable).toList().size(),
+                " &fYour Rank: " + rankService.getHighestRank(profile).getNameColor() + rankService.getHighestRank(profile).getName(),
                 "",
-                " &f● &bAvailable Tags: &fnull",
-                " &f● &bYour Tag: &fnull",
+                " &fBalance: &b$" + profile.getCoins(),
                 "",
-                " &f● &bBalance: &f$" + profile.getCoins(),
-                "",
-                " &f► Click to view all &bavailable &ftags!",
-                "")));
+                "&aClick to view!",
+                "&8&m----------------------")));
 
-        buttons.put(15, new CoinShopButton("&c&lEmpty", Material.CHEST, 0, Arrays.asList(
+        buttons.put(22, new CoinShopButton("&b&lTags", Material.NAME_TAG, 0, Arrays.asList(
+                "&8&m----------------------",
+                " &fAvailable Tags: &b" + tagService.getTags().stream().filter(Tag::isPurchasable).toList().size(),
+                " &fYour Tag: " + (profile.getTag() != null ? (profile.getTag().getColor() + profile.getTag().getName()) : "&bNone"),
                 "",
-                "&7Empty",
-                "")));
+                " &fBalance: &b$" + profile.getCoins(),
+                "",
+                "&aClick to view!",
+                "&8&m----------------------")));
 
-        addGlass(buttons);
+        buttons.put(24, new CoinShopButton("&b&lDaily Reward", Material.EMERALD, 0, Arrays.asList(
+                "&8&m----------------------",
+                " &fClaim your daily reward!",
+                "",
+                " &fTime: &bEvery 24 hours",
+                " &fReward: &b$50",
+                "",
+                (profile.isDailyRewardClaimable() ? "&aClick to claim your reward!" : "&cYou can claim in " + profile.getDailyRewardRemainingTime()),
+                "&8&m----------------------")));
+
+        addBorder(buttons, (byte) 6, 5);
 
         return buttons;
     }
 
     @Override
     public int getSize() {
-        return 9 * 3;
+        return 5 * 9;
     }
 }

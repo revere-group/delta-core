@@ -22,7 +22,7 @@ player:
 
 chat:
   clan-prefix: "&8[%clan%&8]"
-  format: "%rank%%clan%%color%%player%&f: &f%message%"
+  format: "%rank%%clan%%color%%player%%tag%&f: &f%message%"
   filter:
     enabled: true
     notify-self: "&f[&bChat&f] &fYour message has been filtered. &7(&b%word%&7)"
@@ -54,7 +54,7 @@ fly-command:
 on-join:
   title-sender:
     enabled: true
-    main-title: "{#0544AC>}&lDELTA{#2188EB<}"
+    main-title: "<#0544AC>&lDELTA"
     sub-title: "&fWelcome to Delta Network, &b%player%&f!"
   messages:
     bars-format: "&8&m-----------------------------------"

@@ -19,6 +19,7 @@ import dev.revere.delta.feature.rank.RankService;
 import dev.revere.delta.feature.scoreboard.ScoreboardService;
 import dev.revere.delta.feature.server.ServerService;
 import dev.revere.delta.feature.server.whitelist.WhitelistService;
+import dev.revere.delta.feature.tag.TagService;
 import dev.revere.delta.feature.tips.TipsService;
 import dev.revere.delta.feature.tpa.TPAService;
 import dev.revere.delta.profile.ProfileService;
@@ -77,6 +78,7 @@ public class Delta extends JavaPlugin {
         serviceManager.registerService(new MongoService(this));
         serviceManager.registerService(new ProfileService(this));
         serviceManager.registerService(new RankService(this));
+        serviceManager.registerService(new TagService(this));
         serviceManager.registerService(new GrantService(this));;
         serviceManager.registerService(new FilterService(this));
         serviceManager.registerService(new ServerService(this));

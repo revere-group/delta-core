@@ -10,6 +10,7 @@ import dev.revere.delta.feature.punishment.Punishment;
 import dev.revere.delta.profile.Profile;
 import dev.revere.delta.profile.ProfileService;
 import org.bson.Document;
+import org.bukkit.Bukkit;
 
 import java.lang.reflect.Type;
 import java.util.List;
@@ -36,7 +37,10 @@ public class MongoProfile implements IProfile {
 
         profile.setName(document.getString("name"));
         profile.setCoins(document.containsKey("coins") ? document.getInteger("coins") : 0);
+        profile.setTagName(document.getString("tag") == null ? "" : document.getString("tag"));
+        profile.setLastDailyReward(document.containsKey("lastDailyReward") ? document.getLong("lastDailyReward") : 0);
         loadGrants(profile, document);
+        loadPermissions(profile, document);
         loadPunishments(profile, document);
         loadStaffOptions(profile, document);
     }
@@ -74,6 +78,21 @@ public class MongoProfile implements IProfile {
     }
 
     /**
+     * Load the permissions of a profile
+     *
+     * @param profile the profile to load the permissions for
+     * @param document the document to load the permissions from
+     */
+    private void loadPermissions(Profile profile, Document document) {
+        String permissionsJson = document.getString("permissions");
+        if (permissionsJson != null) {
+            Type permissionListType = new TypeToken<List<String>>() {}.getType();
+            List<String> permissions = Delta.getInstance().getGson().fromJson(permissionsJson, permissionListType);
+            profile.setPermissions(permissions);
+        }
+    }
+
+    /**
      * Load the staff options of a profile
      *
      * @param profile the profile to load the staff options for
@@ -97,7 +116,10 @@ public class MongoProfile implements IProfile {
         document.put("uuid", profile.getUuid().toString());
         document.put("name", profile.getName());
         document.put("coins", profile.getCoins());
+        document.put("tag", profile.getTagName());
+        document.put("lastDailyReward", profile.getLastDailyReward());
         document.put("grants", Delta.getInstance().getGson().toJson(profile.getGrants()));
+        document.put("permissions", Delta.getInstance().getGson().toJson(profile.getPermissions()));
         document.put("punishments", Delta.getInstance().getGson().toJson(profile.getPunishments()));
         document.put("staffOptions", Delta.getInstance().getGson().toJson(profile.getStaffOptions()));
 

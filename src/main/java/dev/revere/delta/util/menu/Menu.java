@@ -96,7 +96,7 @@ public abstract class Menu {
     /**
      * Adds a border to the inventory.
      *
-     * @param buttons the buttons
+     * @param buttons the button
      * @param data    the data
      * @param rows    the rows
      */
@@ -118,7 +118,7 @@ public abstract class Menu {
     /**
      * Adds a glass header to the paginated menu.
      *
-     * @param buttons the buttons
+     * @param buttons the button
      */
     public void addGlassHeader(Map<Integer, Button> buttons) {
         for (int i = 1; i < 9; i++) {
@@ -131,7 +131,7 @@ public abstract class Menu {
     /**
      * Refills glass to the empty slots of a menu.
      *
-     * @param buttons the buttons
+     * @param buttons the button
      */
     public void addGlass(Map<Integer, Button> buttons) {
         for (int slot = 0; slot < getSize(); slot++) {
@@ -142,15 +142,15 @@ public abstract class Menu {
     }
 
     /*
-    public void addBorder(Map<Integer, Button> buttons, byte data, int rows) {
+    public void addBorder(Map<Integer, Button> button, byte data, int rows) {
         for (int i = 0; i < 9; i++) {
-            buttons.putIfAbsent(i, Button.placeholder(Material.BLACK_STAINED_GLASS_PANE, data, ""));
-            buttons.putIfAbsent(4 * 9 + i, Button.placeholder(Material.BLACK_STAINED_GLASS_PANE, data, ""));
+            button.putIfAbsent(i, Button.placeholder(Material.BLACK_STAINED_GLASS_PANE, data, ""));
+            button.putIfAbsent(4 * 9 + i, Button.placeholder(Material.BLACK_STAINED_GLASS_PANE, data, ""));
         }
 
         for (int i = 0; i < rows; i++) {
-            buttons.putIfAbsent(i * 9, Button.placeholder(Material.BLACK_STAINED_GLASS_PANE, data, ""));
-            buttons.putIfAbsent(i * 9 + 8, Button.placeholder(Material.BLACK_STAINED_GLASS_PANE, data, ""));
+            button.putIfAbsent(i * 9, Button.placeholder(Material.BLACK_STAINED_GLASS_PANE, data, ""));
+            button.putIfAbsent(i * 9 + 8, Button.placeholder(Material.BLACK_STAINED_GLASS_PANE, data, ""));
         }
     }*/
 

@@ -28,7 +28,7 @@ public class RankButton extends Button {
         return new ItemBuilder(Material.WHITE_WOOL)
                 .name("&b&lRank Information:")
                 .lore(" &f● &bName: &7" + StringUtils.capitalize(rank.getName()))
-                .lore(" &f● &bPrefix: &7" + rank.getPrefix())
+                .lore(CC.translate(" &f● &bPrefix: &7" + rank.getPrefix()))
                 .lore(" &f● &bSuffix: &7" + rank.getSuffix())
                 .lore(" &f● &bWeight: &7" + rank.getWeight())
                 .lore(" &f● &bCost: &7" + rank.getCost())

@@ -1,7 +1,6 @@
 package dev.revere.delta.visual;
 
 import dev.revere.delta.Delta;
-import dev.revere.delta.api.color.ColorAPI;
 import dev.revere.delta.api.scoreboard.AssembleAdapter;
 import dev.revere.delta.feature.combat.CombatLogService;
 import dev.revere.delta.feature.rank.RankService;
@@ -24,7 +23,7 @@ public class ScoreboardVisualizer implements AssembleAdapter {
 
     @Override
     public String getTitle(Player player) {
-        return ColorAPI.colorizeGradient(Delta.getInstance().getServiceManager().getService(ConfigService.class).getConfig("settings.yml").getString("scoreboard.title"));
+        return CC.translate(Delta.getInstance().getServiceManager().getService(ConfigService.class).getConfig("settings.yml").getString("scoreboard.title"));
     }
 
     @Override

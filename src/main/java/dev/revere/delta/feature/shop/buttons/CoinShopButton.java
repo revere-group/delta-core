@@ -1,6 +1,11 @@
-package dev.revere.delta.feature.shop.menus.buttons;
+package dev.revere.delta.feature.shop.buttons;
 
+import dev.revere.delta.Delta;
 import dev.revere.delta.feature.shop.menus.CoinShopRankMenu;
+import dev.revere.delta.feature.shop.menus.CoinShopTagMenu;
+import dev.revere.delta.profile.Profile;
+import dev.revere.delta.profile.ProfileService;
+import dev.revere.delta.util.CC;
 import dev.revere.delta.util.menu.Button;
 import dev.revere.delta.util.menu.pagination.ItemBuilder;
 import org.bukkit.Material;
@@ -41,13 +46,28 @@ public class CoinShopButton extends Button {
     public void clicked(Player player, ClickType clickType) {
         if (clickType != ClickType.LEFT) return;
 
+        ProfileService profileService = Delta.getInstance().getServiceManager().getService(ProfileService.class);
+        Profile profile = profileService.getProfile(player.getUniqueId());
+
         switch(material) {
-            case DIAMOND:
+            case NETHER_STAR:
                 new CoinShopRankMenu().openMenu(player);
                 break;
             case NAME_TAG:
+                new CoinShopTagMenu().openMenu(player);
                 break;
-            case CHEST:
+            case EMERALD:
+                long currentTime = System.currentTimeMillis();
+                if (!profile.isDailyRewardClaimable()) {
+                    player.sendMessage(CC.translate("&cYou have already claimed your daily reward today!"));
+                    return;
+                }
+
+                profile.setLastDailyReward(currentTime);
+                profile.setCoins(profile.getCoins() + 50);
+                profile.saveProfile();
+
+                player.sendMessage(CC.translate("&aYou have claimed your daily reward of $50!"));
                 break;
         }
     }

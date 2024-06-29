@@ -31,7 +31,7 @@ public class RankListCommand extends BaseCommand {
         player.sendMessage("");
         player.sendMessage(CC.translate("     &b&lRank List &f(" + rankService.getRanks().size() + "&f)"));
         if (rankService.getRanks().isEmpty()) {
-            player.sendMessage(CC.translate("      &f● &cNo Ranks available."));
+            player.sendMessage(CC.translate("      &f● &cNo ranks available."));
         } else {
             rankService.getRanks().stream()
                     .sorted(Comparator.comparingInt(Rank::getWeight).reversed())

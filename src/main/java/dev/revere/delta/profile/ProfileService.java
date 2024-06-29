@@ -31,6 +31,7 @@ public class ProfileService implements IService {
     public final IProfile profile;
 
     private Set<String> rankPermissions = new HashSet<>();
+    private Set<String> permissions = new HashSet<>();
 
     private final Delta plugin;
 
@@ -77,13 +78,15 @@ public class ProfileService implements IService {
         rankPermissions.forEach(permission -> player.addAttachment(plugin, permission, false));
         rankPermissions.clear();
 
+        permissions.forEach(permission -> player.addAttachment(plugin, permission, false));
+        permissions.clear();
+
         profile.getGrants().forEach(grant -> {
             if (grant.hasExpired() || !grant.isActive()) {
                 return;
             }
 
             Rank rank = rankService.getRank(grant.getRankName());
-
             if (rank == null) {
                 return;
             }
@@ -121,6 +124,12 @@ public class ProfileService implements IService {
             });
         }
 
+        profile.getPermissions().forEach(permission -> {
+            String perm = permission.toLowerCase();
+            permissions.add(perm);
+        });
+
+        permissions.forEach(permission -> player.addAttachment(plugin, permission, true));
         rankPermissions.forEach(permission -> player.addAttachment(plugin, permission, true));
     }
 

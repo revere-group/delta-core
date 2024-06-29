@@ -113,6 +113,7 @@ public class ChatListener implements Listener {
         chatFormat = chatFormat.replace("%message%", translate ? CC.translate(message) : message);
         chatFormat = chatFormat.replace("%clan%", clanPrefix);
         chatFormat = chatFormat.replace("%rank%", rank);
+        chatFormat = chatFormat.replace("%tag%", getTagPrefix(profile));
         chatFormat = chatFormat.replace("%suffix%", getRankSuffix(profile));
         chatFormat = chatFormat.replace("%world%", player.getWorld().getName());
         chatFormat = chatFormat.replace("%", "%%");
@@ -146,6 +147,16 @@ public class ChatListener implements Listener {
                 .getService(RankService.class)
                 .getHighestRank(profile)
                 .getPrefix());
+    }
+
+    /**
+     * Get the tag prefix of a player
+     *
+     * @param profile the profile of the player
+     * @return the tag prefix of the player
+     */
+    private String getTagPrefix(Profile profile) {
+        return CC.translate(profile.getTag() != null ? " " + profile.getTag().getPrefix() : "");
     }
 
     /**

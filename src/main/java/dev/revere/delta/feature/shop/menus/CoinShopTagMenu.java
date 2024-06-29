@@ -1,9 +1,9 @@
 package dev.revere.delta.feature.shop.menus;
 
 import dev.revere.delta.Delta;
-import dev.revere.delta.feature.rank.Rank;
-import dev.revere.delta.feature.rank.RankService;
-import dev.revere.delta.feature.shop.buttons.CoinShopRankButton;
+import dev.revere.delta.feature.shop.buttons.CoinShopTagButton;
+import dev.revere.delta.feature.tag.Tag;
+import dev.revere.delta.feature.tag.TagService;
 import dev.revere.delta.util.menu.Button;
 import dev.revere.delta.util.menu.Menu;
 import dev.revere.delta.util.menu.button.BackButton;
@@ -21,29 +21,29 @@ import java.util.Map;
  * @date 29/06/2024 - 19:41
  */
 @AllArgsConstructor
-public class CoinShopRankMenu extends Menu {
+public class CoinShopTagMenu extends Menu {
 
     @Override
     public String getTitle(Player player) {
-        return "Coin Shop > Ranks";
+        return "Coin Shop > Tags";
     }
 
     @Override
     public Map<Integer, Button> getButtons(Player player) {
         Map<Integer, Button> buttons = new HashMap<>();
-        RankService rankService = Delta.getInstance().getServiceManager().getService(RankService.class);
+        TagService tagService = Delta.getInstance().getServiceManager().getService(TagService.class);
 
         int starterSlot = 10;
 
         buttons.put(4, new BackButton(new CoinShopMenu()));
 
-        List<Rank> sortedRanks = rankService.getRanks().stream()
-                .filter(Rank::isPurchasable)
-                .sorted(Comparator.comparingInt(Rank::getWeight).reversed())
+        List<Tag> sortedTags = tagService.getTags().stream()
+                .filter(Tag::isPurchasable)
+                .sorted(Comparator.comparingInt(Tag::getWeight).reversed())
                 .toList();
 
-        for (Rank rank : sortedRanks) {
-            buttons.put(starterSlot++, new CoinShopRankButton(rank));
+        for (Tag tag : sortedTags) {
+            buttons.put(starterSlot++, new CoinShopTagButton(tag));
         }
 
         addGlass(buttons);
