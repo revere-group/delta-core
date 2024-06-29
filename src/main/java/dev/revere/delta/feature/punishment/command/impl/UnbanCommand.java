@@ -20,7 +20,7 @@ import org.bukkit.entity.Player;
  * @date 6/26/2024
  */
 public class UnbanCommand extends BaseCommand {
-    @Command(name = "unban", inGameOnly = false, description = "Unban a player")
+    @Command(name = "unban", inGameOnly = false, description = "Unban a player", permission = "delta.command.unban", usage = "unban <player> [reason]")
     @Override
     public void onCommand(CommandArgs command) {
         CommandSender sender = command.getSender();

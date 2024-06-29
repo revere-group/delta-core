@@ -25,7 +25,7 @@ import java.util.UUID;
  * @date 6/26/2024
  */
 public class BanCommand extends BaseCommand {
-    @Command(name = "ban", inGameOnly = false, description = "Ban a player")
+    @Command(name = "ban", inGameOnly = false, description = "Ban a player", permission = "delta.command.ban", usage = "ban <player> <duration> [reason]")
     @Override
     public void onCommand(CommandArgs command) {
         CommandSender sender = command.getSender();

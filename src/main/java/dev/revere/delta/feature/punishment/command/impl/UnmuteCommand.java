@@ -20,7 +20,7 @@ import org.bukkit.entity.Player;
  * @date 6/26/2024
  */
 public class UnmuteCommand extends BaseCommand {
-    @Command(name = "unmute", inGameOnly = false, description = "Unmute a player")
+    @Command(name = "unmute", inGameOnly = false, description = "Unmute a player", permission = "delta.command.unmute", usage = "unmute <player> [reason]")
     @Override
     public void onCommand(CommandArgs command) {
         CommandSender sender = command.getSender();

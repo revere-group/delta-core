@@ -24,7 +24,7 @@ import java.util.UUID;
  * @date 6/26/2024
  */
 public class MuteCommand extends BaseCommand {
-    @Command(name = "mute", inGameOnly = false, description = "Mute a player")
+    @Command(name = "mute", inGameOnly = false, description = "Mute a player", permission = "delta.command.mute", usage = "mute <player> <duration> [reason]")
     @Override
     public void onCommand(CommandArgs command) {
         CommandSender sender = command.getSender();
