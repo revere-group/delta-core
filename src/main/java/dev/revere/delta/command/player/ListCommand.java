@@ -60,7 +60,12 @@ public class ListCommand extends BaseCommand {
 
         String formattedRankList = Delta.getInstance().getServiceManager().getService(RankService.class).getRanks().stream()
                 .sorted(Comparator.comparingInt(Rank::getWeight).reversed())
-                .map(rank -> rank.getNameColor() + rank.getPrefix())
+                .map(rank -> rank.getNameColor() + rank.getName())
+                .collect(Collectors.joining(", "));
+
+        String formattedRankListPrefix = Delta.getInstance().getServiceManager().getService(RankService.class).getRanks().stream()
+                .sorted(Comparator.comparingInt(Rank::getWeight).reversed())
+                .map(Rank::getPrefix)
                 .collect(Collectors.joining(", "));
 
         List<String> formattedPlayerList = onlinePlayers.stream()
@@ -76,6 +81,7 @@ public class ListCommand extends BaseCommand {
                 })
                 .collect(Collectors.toList());
 
+        String formattedRankListPrefixString = String.join(", ", formattedRankListPrefix);
         String formattedPlayerListString = String.join(", ", formattedPlayerList);
         String formattedStaffListString = String.join(", ", formattedStaffList);
         String formattedRankListString = String.join(", ", formattedRankList);
@@ -84,7 +90,7 @@ public class ListCommand extends BaseCommand {
         String maxPlayers = String.valueOf(Bukkit.getMaxPlayers());
 
         config.getStringList("list-command.lines").forEach(line -> {
-            player.sendMessage(CC.translate(replacePlaceholders(line, formattedRankListString, formattedStaffListString, formattedPlayerListString, totalPlayers, maxPlayers)));
+            player.sendMessage(CC.translate(replacePlaceholders(line, formattedRankListPrefixString, formattedRankListString, formattedStaffListString, formattedPlayerListString, totalPlayers, maxPlayers)));
         });
     }
 
@@ -109,8 +115,9 @@ public class ListCommand extends BaseCommand {
      * @param maxPlayers   the maximum amount of players
      * @return the line with placeholders replaced
      */
-    private String replacePlaceholders(String line, String rankList, String staffList, String playerList, String totalPlayers, String maxPlayers) {
-        return line.replace("%ranks%", rankList)
+    private String replacePlaceholders(String line, String rankListPrefix, String rankList, String staffList, String playerList, String totalPlayers, String maxPlayers) {
+        return line.replace("%ranks-prefix%", rankListPrefix)
+                .replace("%ranks%", rankList)
                 .replace("%staffs%", staffList)
                 .replace("%players%", playerList)
                 .replace("%online%", totalPlayers)

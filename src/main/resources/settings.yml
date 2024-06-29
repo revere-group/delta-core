@@ -6,8 +6,11 @@ scoreboard:
   title: "&b&lᴅᴇʟᴛᴀ &7︱ &fѕᴍᴘ"
   lines:
     - ""
-    - " &b❚ &fᴋɪʟʟѕ: &b%kills%"
+    - "&bᴘʟᴀʏᴇʀ"
+    - " &b❚ &fʀᴀɴᴋ: %rank-color%%rank%"
+    - " &b❚ &fᴄᴏɪɴѕ: &b$%coins%"
     - " &b❚ &fᴅᴇᴀᴛʜѕ: &b%deaths%"
+    - " &b❚ &fᴋɪʟʟѕ: &b%kills%"
     - " &b❚ %combat-tag%"
     - ""
     - "&7ᴘʟᴀʏ.ʀᴇᴠᴇʀᴇ.ᴅᴇᴠ"
@@ -15,6 +18,13 @@ scoreboard:
     lines:
       - ""
       - " &b❚ &fᴄᴏᴍʙᴀᴛ ʟᴏɢ: &b%tag%ѕ"
+
+teleport-spawn:
+  enabled: true
+  only-first-join: true
+  on-death:
+    enabled: true
+    only-without-bed: true
 
 tips:
   enabled: true

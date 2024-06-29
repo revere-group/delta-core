@@ -4,6 +4,9 @@ import dev.revere.delta.Delta;
 import dev.revere.delta.api.color.ColorAPI;
 import dev.revere.delta.api.scoreboard.AssembleAdapter;
 import dev.revere.delta.feature.combat.CombatLogService;
+import dev.revere.delta.feature.rank.RankService;
+import dev.revere.delta.profile.Profile;
+import dev.revere.delta.profile.ProfileService;
 import dev.revere.delta.service.ConfigService;
 import dev.revere.delta.util.CC;
 import org.bukkit.Statistic;
@@ -54,11 +57,18 @@ public class ScoreboardVisualizer implements AssembleAdapter {
                         }
                     }
                 } else {
+                    Profile profile = Delta.getInstance().getServiceManager().getService(ProfileService.class).getProfile(player.getUniqueId());
+                    RankService rankService = Delta.getInstance().getServiceManager().getService(RankService.class);
                     String formattedLine = CC.translate(line
                             .replace("%online-players%", String.valueOf(player.getServer().getOnlinePlayers().size()))
                             .replace("%max-players%", String.valueOf(player.getServer().getMaxPlayers()))
                             .replace("%deaths%", player.getStatistic(Statistic.DEATHS) + "")
                             .replace("%kills%", player.getStatistic(Statistic.PLAYER_KILLS) + "")
+                            .replace("%ping%", player.getPing() + "")
+                            .replace("%coins%", profile.getCoins() + "")
+                            .replace("%rank%", rankService.getHighestRank(profile).getName())
+                            .replace("%rank-color%", rankService.getHighestRank(profile).getNameColor().toString())
+                            .replace("%rank-prefix%", rankService.getHighestRank(profile).getPrefix())
                     );
                     toReturn.add(formattedLine);
                 }

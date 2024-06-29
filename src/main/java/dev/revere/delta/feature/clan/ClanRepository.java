@@ -9,6 +9,7 @@ import dev.revere.delta.util.CC;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.Location;
+import org.bukkit.OfflinePlayer;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.entity.Player;
 
@@ -271,7 +272,7 @@ public class ClanRepository {
      * @param leader   the player kicking the other player
      * @param member   the player being kicked
      */
-    public void kickMember(Player leader, Player member) {
+    public void kickMember(Player leader, OfflinePlayer member) {
         String clanName = getPlayerClan(leader.getUniqueId()).getName();
         if (clanName == null) {
             leader.sendMessage(CC.translate("&cYou are not in a clan."));
@@ -295,7 +296,9 @@ public class ClanRepository {
 
         clan.removeMember(memberUUID);
         saveClans();
-        member.sendMessage(CC.translate("&cYou have been kicked out of clan '&f" + clanName + "&c' by '&f" + leader.getName() + "&c'."));
+        if (member.isOnline()) {
+            member.getPlayer().sendMessage(CC.translate("&cYou have been kicked out of clan '&f" + clanName + "&c' by '&f" + leader.getName() + "&c'."));
+        }
         leader.sendMessage(CC.translate("&bYou have kicked '&f" + member.getName() + "&b' out of clan '&f" + clanName + "&b'."));
     }
 

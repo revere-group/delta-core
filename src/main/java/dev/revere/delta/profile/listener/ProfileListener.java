@@ -13,9 +13,11 @@ import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
 import org.bukkit.event.Listener;
+import org.bukkit.event.entity.PlayerDeathEvent;
 import org.bukkit.event.player.PlayerJoinEvent;
 import org.bukkit.event.player.PlayerLoginEvent;
 import org.bukkit.event.player.PlayerQuitEvent;
+import org.bukkit.event.player.PlayerRespawnEvent;
 
 import java.util.List;
 
@@ -70,8 +72,8 @@ public class ProfileListener implements Listener {
         ConfigService configService = Delta.getInstance().getServiceManager().getService(ConfigService.class);
         ServerService serverService = Delta.getInstance().getServiceManager().getService(ServerService.class);
 
-        if (configService.getConfig("messages.yml").getBoolean("on-join.teleport-spawn.enabled")) {
-            boolean onlyFirstJoin = configService.getConfig("messages.yml").getBoolean("on-join.teleport-spawn.only-first-join");
+        if (configService.getConfig("settings.yml").getBoolean("teleport-spawn.enabled")) {
+            boolean onlyFirstJoin = configService.getConfig("settings.yml").getBoolean("teleport-spawn.only-first-join");
 
             if (!onlyFirstJoin || !player.hasPlayedBefore()) {
                 player.teleport(serverService.getSpawnpoint(serverService.getServerName()));
@@ -104,6 +106,23 @@ public class ProfileListener implements Listener {
             event.setJoinMessage(CC.translate(joinMessage));
         } else {
             event.setJoinMessage(CC.translate(firstJoinMessage));
+        }
+    }
+
+    @EventHandler
+    public void onPlayerRespawn(PlayerRespawnEvent event) {
+        Player player = event.getPlayer();
+
+        ConfigService configService = Delta.getInstance().getServiceManager().getService(ConfigService.class);
+        ServerService serverService = Delta.getInstance().getServiceManager().getService(ServerService.class);
+
+        if (configService.getConfig("settings.yml").getBoolean("teleport-spawn.on-death.enabled")) {
+            boolean onlyWithoutBed = configService.getConfig("settings.yml").getBoolean("teleport-spawn.on-death.only-without-bed");
+
+            if (!onlyWithoutBed || player.getBedSpawnLocation() == null) {
+                player.sendMessage("You have been teleported to spawn.");
+                event.setRespawnLocation(serverService.getSpawnpoint(serverService.getServerName()));
+            }
         }
     }
 

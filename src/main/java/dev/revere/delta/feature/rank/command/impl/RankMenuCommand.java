@@ -16,7 +16,7 @@ import org.bukkit.entity.Player;
  * @date 6/18/2024
  */
 public class RankMenuCommand extends BaseCommand {
-    @Command(name = "rank.menu", description = "Open the rank menu", inGameOnly = true)
+    @Command(name = "rank.menu", description = "Open the rank menu", permission = "delta.rank.menu", inGameOnly = true)
     @Override
     public void onCommand(CommandArgs command) {
         Player player = command.getPlayer();

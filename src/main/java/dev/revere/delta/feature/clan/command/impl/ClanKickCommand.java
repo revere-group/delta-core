@@ -5,6 +5,7 @@ import dev.revere.delta.api.command.BaseCommand;
 import dev.revere.delta.api.command.CommandArgs;
 import dev.revere.delta.api.command.annotation.Command;
 import dev.revere.delta.util.CC;
+import org.bukkit.OfflinePlayer;
 import org.bukkit.entity.Player;
 
 /**
@@ -25,7 +26,7 @@ public class ClanKickCommand extends BaseCommand {
         }
 
         String targetName = args[0];
-        Player target = player.getServer().getPlayer(targetName);
+        OfflinePlayer target = player.getServer().getOfflinePlayer(targetName);
 
         if (target == null) {
             player.sendMessage(CC.translate("&cThat player is not online."));
