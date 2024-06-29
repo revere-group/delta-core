@@ -128,6 +128,19 @@ public abstract class Menu {
         }
     }
 
+    /**
+     * Refills glass to the empty slots of a menu.
+     *
+     * @param buttons the buttons
+     */
+    public void addGlass(Map<Integer, Button> buttons) {
+        for (int slot = 0; slot < getSize(); slot++) {
+            if (!buttons.containsKey(slot)) {
+                buttons.put(slot, new PageGlassButton());
+            }
+        }
+    }
+
     /*
     public void addBorder(Map<Integer, Button> buttons, byte data, int rows) {
         for (int i = 0; i < 9; i++) {
