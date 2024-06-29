@@ -4,6 +4,7 @@ import dev.revere.delta.Delta;
 import dev.revere.delta.api.command.BaseCommand;
 import dev.revere.delta.api.command.CommandArgs;
 import dev.revere.delta.api.command.annotation.Command;
+import dev.revere.delta.feature.combat.CombatLogService;
 import dev.revere.delta.feature.server.Server;
 import dev.revere.delta.feature.server.ServerService;
 import dev.revere.delta.util.CC;
@@ -19,6 +20,12 @@ public class SpawnCommand extends BaseCommand {
     @Override
     public void onCommand(CommandArgs command) {
         Player player = command.getPlayer();
+
+        CombatLogService combatLogService = Delta.getInstance().getServiceManager().getService(CombatLogService.class);
+        if (combatLogService.isPlayerInCombat(player)) {
+            player.sendMessage(CC.translate("&cYou cannot teleport to spawn while in combat."));
+            return;
+        }
 
         ServerService serverService = Delta.getInstance().getServiceManager().getService(ServerService.class);
         Server server = serverService.getServer(serverService.getServerName());

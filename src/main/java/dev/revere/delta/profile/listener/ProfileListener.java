@@ -3,6 +3,7 @@ package dev.revere.delta.profile.listener;
 import dev.revere.delta.Delta;
 import dev.revere.delta.feature.punishment.Punishment;
 import dev.revere.delta.feature.punishment.PunishmentType;
+import dev.revere.delta.feature.server.ServerService;
 import dev.revere.delta.profile.Profile;
 import dev.revere.delta.profile.ProfileService;
 import dev.revere.delta.service.ConfigService;
@@ -66,19 +67,30 @@ public class ProfileListener implements Listener {
         profile.setName(player.getName());
         profile.setOnline(true);
 
+        ConfigService configService = Delta.getInstance().getServiceManager().getService(ConfigService.class);
+        ServerService serverService = Delta.getInstance().getServiceManager().getService(ServerService.class);
+
+        if (configService.getConfig("messages.yml").getBoolean("on-join.teleport-spawn.enabled")) {
+            boolean onlyFirstJoin = configService.getConfig("messages.yml").getBoolean("on-join.teleport-spawn.only-first-join");
+
+            if (!onlyFirstJoin || !player.hasPlayedBefore()) {
+                player.teleport(serverService.getSpawnpoint(serverService.getServerName()));
+            }
+        }
+
         profileService.loadPermissions(player);
 
-        String joinMessage = Delta.getInstance().getServiceManager().getService(ConfigService.class).getConfig("messages.yml").getString("on-join.messages.joined-the-game").replace("%player%", player.getName());
-        String firstJoinMessage = Delta.getInstance().getServiceManager().getService(ConfigService.class).getConfig("messages.yml").getString("on-join.messages.first-join").replace("%player%", player.getName());
+        String joinMessage = configService.getConfig("messages.yml").getString("on-join.messages.joined-the-game").replace("%player%", player.getName());
+        String firstJoinMessage = configService.getConfig("messages.yml").getString("on-join.messages.first-join").replace("%player%", player.getName());
 
-        if (Delta.getInstance().getServiceManager().getService(ConfigService.class).getConfig("messages.yml").getBoolean("on-join.messages.welcome-message.enabled", true)) {
-            List<String> welcomeMessages = Delta.getInstance().getServiceManager().getService(ConfigService.class).getConfig("messages.yml").getStringList("on-join.messages.welcome-message.message");
+        if (configService.getConfig("messages.yml").getBoolean("on-join.messages.welcome-message.enabled", true)) {
+            List<String> welcomeMessages = configService.getConfig("messages.yml").getStringList("on-join.messages.welcome-message.message");
             sendWelcomeMessage(player, welcomeMessages);
         }
 
-        if (Delta.getInstance().getServiceManager().getService(ConfigService.class).getConfig("messages.yml").getBoolean("on-join.title-sender.enabled")) {
-            String mainTitle = Delta.getInstance().getServiceManager().getService(ConfigService.class).getConfig("messages.yml").getString("on-join.title-sender.main-title").replace("%player%", player.getName());
-            String subTitle = Delta.getInstance().getServiceManager().getService(ConfigService.class).getConfig("messages.yml").getString("on-join.title-sender.sub-title").replace("%player%", player.getName());
+        if (configService.getConfig("messages.yml").getBoolean("on-join.title-sender.enabled")) {
+            String mainTitle = configService.getConfig("messages.yml").getString("on-join.title-sender.main-title").replace("%player%", player.getName());
+            String subTitle = configService.getConfig("messages.yml").getString("on-join.title-sender.sub-title").replace("%player%", player.getName());
 
             player.sendTitle(CC.translate(mainTitle), CC.translate(subTitle));
         }

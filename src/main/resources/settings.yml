@@ -18,7 +18,7 @@ scoreboard:
 
 tips:
   enabled: true
-  interval: 60
+  interval: 120
   announcements:
     message-1:
       - " "

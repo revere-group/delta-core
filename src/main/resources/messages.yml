@@ -52,6 +52,10 @@ fly-command:
   changed-by: "&fYour flight has been &b%status% &fby &b%player%&f."
 
 on-join:
+  teleport-spawn:
+    enabled: true
+    only-first-join: true
+
   title-sender:
     enabled: true
     main-title: "{#0544AC>}&lDELTA{#2188EB<}"
