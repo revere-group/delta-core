@@ -2,6 +2,7 @@ package dev.revere.delta.util;
 
 import dev.revere.delta.Delta;
 import dev.revere.delta.api.color.ColorAPI;
+import dev.revere.delta.feature.rank.RankService;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 
@@ -38,6 +39,8 @@ public class CC {
         Bukkit.getConsoleSender().sendMessage(" ");
         Bukkit.getConsoleSender().sendMessage(CC.translate(" &f| Version: &3" + Delta.getInstance().getDescription().getVersion()));
         Bukkit.getConsoleSender().sendMessage(CC.translate(" &f| Spigot: &3" + Bukkit.getName()));
+        Bukkit.getConsoleSender().sendMessage(" ");
+        Bukkit.getConsoleSender().sendMessage(CC.translate(" &f| Ranks: &3" + Delta.getInstance().getServiceManager().getService(RankService.class).getRanks().size()));
         Bukkit.getConsoleSender().sendMessage(" ");
         Bukkit.getConsoleSender().sendMessage(CC.translate(" &f| Load time: &3" + (timeTaken) + " &3ms"));
         Bukkit.getConsoleSender().sendMessage(CC.translate("&8&m-----------------------------------------------"));
