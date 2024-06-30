@@ -74,6 +74,6 @@ public class GrantsButton extends Button {
         GrantService grantService = Delta.getInstance().getServiceManager().getService(GrantService.class);
         grantService.removeGrant(grant, "No reason specified", target, player);
 
-        new GrantsMenu(true, player).openMenu(player);
+        new GrantsMenu(true, target).openMenu(player);
     }
 }
