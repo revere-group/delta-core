@@ -5,7 +5,7 @@ import dev.revere.delta.feature.server.ServerService;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.Setter;
-import org.bukkit.ChatColor;
+import net.md_5.bungee.api.ChatColor;
 
 import java.util.List;
 

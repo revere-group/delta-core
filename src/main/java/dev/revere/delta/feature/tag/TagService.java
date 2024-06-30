@@ -7,8 +7,8 @@ import dev.revere.delta.api.service.IService;
 import dev.revere.delta.database.MongoService;
 import dev.revere.delta.profile.Profile;
 import lombok.Getter;
+import net.md_5.bungee.api.ChatColor;
 import org.bson.Document;
-import org.bukkit.ChatColor;
 import org.bukkit.entity.Player;
 
 import java.util.ArrayList;
@@ -147,7 +147,7 @@ public class TagService implements IService {
         Document document = new Document();
         document.put("name", tag.getName());
         document.put("prefix", tag.getPrefix());
-        document.put("color", tag.getColor().name());
+        document.put("color", tag.getColor().getName());
         document.put("weight", tag.getWeight());
         document.put("purchasable", tag.isPurchasable());
         document.put("cost", tag.getCost());
@@ -163,7 +163,7 @@ public class TagService implements IService {
     private Tag loadTag(Document document) {
         Tag tag = new Tag(document.getString("name"));
         tag.setPrefix(document.getString("prefix"));
-        tag.setColor(ChatColor.valueOf(document.getString("color")));
+        tag.setColor(ChatColor.of(document.getString("color")));
         tag.setWeight(document.getInteger("weight"));
         tag.setPurchasable(document.getBoolean("purchasable"));
         tag.setCost(document.getInteger("cost"));

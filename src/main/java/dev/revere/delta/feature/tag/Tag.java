@@ -3,7 +3,7 @@ package dev.revere.delta.feature.tag;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import lombok.Setter;
-import org.bukkit.ChatColor;
+import net.md_5.bungee.api.ChatColor;
 
 /**
  * @author Remi

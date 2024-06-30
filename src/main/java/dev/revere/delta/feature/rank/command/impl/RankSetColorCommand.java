@@ -7,7 +7,7 @@ import dev.revere.delta.api.command.annotation.Command;
 import dev.revere.delta.feature.rank.Rank;
 import dev.revere.delta.feature.rank.RankService;
 import dev.revere.delta.util.CC;
-import org.bukkit.ChatColor;
+import net.md_5.bungee.api.ChatColor;
 import org.bukkit.entity.Player;
 
 import java.util.Arrays;
@@ -39,16 +39,22 @@ public class RankSetColorCommand extends BaseCommand {
             return;
         }
 
-        if (Arrays.stream(ChatColor.values()).noneMatch(chatColor -> chatColor.name().equalsIgnoreCase(color))) {
-            player.sendMessage(CC.translate("&cThat is not a valid color."));
+        String translatedColor = CC.translateColor(color);
+        if (translatedColor == null) {
+            player.sendMessage(CC.translate("&cInvalid color input. Please use a valid color name or hex format (e.g., <#RRGGBB>)."));
+            return;
+        }
+
+        ChatColor chatColor = ChatColor.of(translatedColor);
+        if (chatColor == null) {
+            player.sendMessage(CC.translate("&cInvalid color input. Please use a valid color name or hex format (e.g., <#RRGGBB>)."));
             return;
         }
 
         Rank rank = rankService.getRank(name);
-        ChatColor chatColor = ChatColor.valueOf(color.toUpperCase());
         rank.setNameColor(chatColor);
         rankService.saveRank(rank);
 
-        player.sendMessage(CC.translate("&fSuccessfully set the color of the rank &b" + name + " &fto " + chatColor + color + "&f."));
+        player.sendMessage(CC.translate("&fSuccessfully set the color of the rank &b" + name + " &fto " + chatColor + translatedColor + "&f."));
     }
 }

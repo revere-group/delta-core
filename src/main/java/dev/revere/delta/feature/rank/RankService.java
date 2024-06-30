@@ -10,8 +10,9 @@ import dev.revere.delta.feature.grant.Grant;
 import dev.revere.delta.feature.grant.GrantService;
 import dev.revere.delta.profile.Profile;
 import lombok.Getter;
+import net.md_5.bungee.api.ChatColor;
 import org.bson.Document;
-import org.bukkit.ChatColor;
+import org.bukkit.Bukkit;
 
 import java.lang.reflect.Type;
 import java.util.ArrayList;
@@ -168,7 +169,7 @@ public class RankService implements IService {
         document.put("suffix", rank.getSuffix());
         document.put("weight", rank.getWeight());
         document.put("cost", rank.getCost());
-        document.put("nameColor", rank.getNameColor().toString());
+        document.put("nameColor", rank.getNameColor().getName());
         document.put("defaultRank", rank.isDefaultRank());
         document.put("staffRank", rank.isStaffRank());
         document.put("purchasable", rank.isPurchasable());
@@ -192,7 +193,7 @@ public class RankService implements IService {
         rank.setSuffix(document.getString("suffix"));
         rank.setWeight(document.getInteger("weight"));
         rank.setCost(document.getInteger("cost"));
-        rank.setNameColor(ChatColor.getByChar(document.getString("nameColor").charAt(1)));
+        rank.setNameColor(ChatColor.of(document.getString("nameColor")));
         rank.setDefaultRank(document.getBoolean("defaultRank"));
         rank.setStaffRank(document.getBoolean("staffRank"));
         rank.setPurchasable(document.getBoolean("purchasable"));

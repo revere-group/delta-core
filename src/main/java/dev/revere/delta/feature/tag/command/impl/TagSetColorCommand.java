@@ -7,7 +7,7 @@ import dev.revere.delta.api.command.annotation.Command;
 import dev.revere.delta.feature.tag.Tag;
 import dev.revere.delta.feature.tag.TagService;
 import dev.revere.delta.util.CC;
-import org.bukkit.ChatColor;
+import net.md_5.bungee.api.ChatColor;
 import org.bukkit.entity.Player;
 
 import java.util.Arrays;
@@ -39,16 +39,22 @@ public class TagSetColorCommand extends BaseCommand {
             return;
         }
 
-        if (Arrays.stream(ChatColor.values()).noneMatch(chatColor -> chatColor.name().equalsIgnoreCase(color))) {
-            player.sendMessage(CC.translate("&cThat is not a valid color."));
+        String translatedColor = CC.translateColor(color);
+        if (translatedColor == null) {
+            player.sendMessage(CC.translate("&cInvalid color input. Please use a valid color name or hex format (e.g., <#RRGGBB>)."));
+            return;
+        }
+
+        ChatColor chatColor = ChatColor.of(translatedColor);
+        if (chatColor == null) {
+            player.sendMessage(CC.translate("&cInvalid color input. Please use a valid color name or hex format (e.g., <#RRGGBB>)."));
             return;
         }
 
         Tag tag = tagService.getTag(name);
-        ChatColor chatColor = ChatColor.valueOf(color.toUpperCase());
         tag.setColor(chatColor);
         tagService.saveTag(tag);
 
-        player.sendMessage(CC.translate("&fSuccessfully set the color of the tag &b" + name + " &fto " + chatColor + color + "&f."));
+        player.sendMessage(CC.translate("&fSuccessfully set the color of the tag &b" + name + " &fto " + chatColor + translatedColor + "&f."));
     }
 }

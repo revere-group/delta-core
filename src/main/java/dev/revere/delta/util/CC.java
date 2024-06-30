@@ -5,6 +5,7 @@ import dev.revere.delta.feature.rank.RankService;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 
+import java.util.Arrays;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -29,6 +30,36 @@ public class CC {
         text = ChatColor.translateAlternateColorCodes('&', text);
 
         return text;
+    }
+
+    /**
+     * Translate the color input to a valid color
+     *
+     * @param colorInput the color input
+     * @return the translated color
+     */
+    public static String translateColor(String colorInput) {
+        if (colorInput.startsWith("<#") && colorInput.endsWith(">")) {
+            String hexColor = colorInput.substring(2, 8);
+            if (isValidHexColor(hexColor)) {
+                return "#" + hexColor;
+            } else {
+                return null;
+            }
+        } else {
+
+            return Arrays.stream(net.md_5.bungee.api.ChatColor.values()).noneMatch(chatColor -> chatColor.getName().equalsIgnoreCase(colorInput)) ? null : colorInput;
+        }
+    }
+
+    /**
+     * Check if a hex color is valid
+     *
+     * @param hexColor the hex color to check
+     * @return true if the hex color is valid, false otherwise
+     */
+    public static boolean isValidHexColor(String hexColor) {
+        return hexColor.matches("[0-9A-Fa-f]{6}");
     }
 
     /**
