@@ -1,6 +1,7 @@
 package dev.revere.delta.profile.listener;
 
 import dev.revere.delta.Delta;
+import dev.revere.delta.feature.advancement.AdvancementService;
 import dev.revere.delta.feature.punishment.Punishment;
 import dev.revere.delta.feature.punishment.PunishmentType;
 import dev.revere.delta.feature.server.ServerService;
@@ -67,11 +68,14 @@ public class ProfileListener implements Listener {
         profile.setName(player.getName());
         profile.setOnline(true);
 
+        AdvancementService advancementService = Delta.getInstance().getServiceManager().getService(AdvancementService.class);
         ConfigService configService = Delta.getInstance().getServiceManager().getService(ConfigService.class);
         ServerService serverService = Delta.getInstance().getServiceManager().getService(ServerService.class);
-
         handleTeleportationToSpawn(configService, player, serverService);
+
         profileService.loadPermissions(player);
+        advancementService.loadPlayerAdvancements(player);
+
         handleWelcomeMessage(player, configService);
         handleJoinTitle(player, configService);
 

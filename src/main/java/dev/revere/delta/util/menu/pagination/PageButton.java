@@ -21,40 +21,50 @@ public class PageButton extends Button {
     public ItemStack getButtonItem(Player player) {
         if (this.mod > 0) {
             if (hasNext(player)) {
-                return new ItemBuilder(Material.LEGACY_REDSTONE_TORCH_ON)
-                        .name(CC.translate("&bNext Page"))
+                return new ItemBuilder(Material.LEVER)
+                        .name(CC.translate("&b&lNext Page"))
                         .lore(Arrays.asList(
-                                CC.translate("&aClick here to jump"),
-                                CC.translate("&ato the next page.")
+                                CC.translate("&8&m----------------------"),
+                                CC.translate(" &fPage: &b" + (this.menu.getPage() + this.mod) + "&f/&b" + this.menu.getPages(player)),
+                                CC.translate(" "),
+                                CC.translate("&aClick to view the next page"),
+                                CC.translate("&8&m----------------------")
                         ))
                         .clearFlags()
                         .build();
             } else {
                 return new ItemBuilder(Material.LEVER)
-                        .name(CC.translate("&cNext Page"))
+                        .name(CC.translate("&b&lNext Page"))
                         .lore(Arrays.asList(
-                                ChatColor.RED + "There is no available",
-                                ChatColor.RED + "next page."
+                                CC.translate("&8&m----------------------"),
+                                CC.translate(" "),
+                                CC.translate("&cThere are no available next pages"),
+                                CC.translate("&8&m----------------------")
                         ))
                         .clearFlags()
                         .build();
             }
         } else {
             if (hasPrevious(player)) {
-                return new ItemBuilder(Material.LEGACY_REDSTONE_TORCH_ON)
-                        .name(CC.translate("&6Previous Page"))
+                return new ItemBuilder(Material.LEVER)
+                        .name(CC.translate("&b&lPrevious Page"))
                         .lore(Arrays.asList(
-                                ChatColor.GOLD + "Click here to jump",
-                                ChatColor.GOLD + "to the previous page."
+                                CC.translate("&8&m----------------------"),
+                                CC.translate(" &fPage: &b" + (this.menu.getPage() + this.mod) + "&f/&b" + this.menu.getPages(player)),
+                                CC.translate(" "),
+                                CC.translate("&aClick to view the previous page"),
+                                CC.translate("&8&m----------------------")
                         ))
                         .clearFlags()
                         .build();
             } else {
                 return new ItemBuilder(Material.LEVER)
-                        .name(CC.translate("&cPrevious Page"))
+                        .name(CC.translate("&b&lPrevious Page"))
                         .lore(Arrays.asList(
-                                ChatColor.RED + "There is no available",
-                                ChatColor.RED + "previous page."
+                                CC.translate("&8&m----------------------"),
+                                CC.translate(" "),
+                                CC.translate("&cThere are no available previous pages"),
+                                CC.translate("&8&m----------------------")
                         ))
                         .clearFlags()
                         .build();

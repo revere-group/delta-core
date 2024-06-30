@@ -5,6 +5,7 @@ import dev.revere.delta.feature.grant.Grant;
 import dev.revere.delta.feature.grant.GrantService;
 import dev.revere.delta.feature.grant.menu.grants.button.GrantsButton;
 import dev.revere.delta.feature.grant.menu.grants.button.RefreshGrantsButton;
+import dev.revere.delta.feature.rank.RankService;
 import dev.revere.delta.profile.Profile;
 import dev.revere.delta.profile.ProfileService;
 import dev.revere.delta.service.ConfigService;
@@ -38,6 +39,8 @@ public class GrantsMenu extends PaginatedMenu {
     public Map<Integer, Button> getGlobalButtons(Player player) {
         final Map<Integer, Button> buttons = new HashMap<>();
 
+        addGlassHeader(buttons);
+
         buttons.put(4, new RefreshGrantsButton(showingActiveGrants, target));
 
         return buttons;
@@ -48,17 +51,31 @@ public class GrantsMenu extends PaginatedMenu {
         final Map<Integer, Button> buttons = new HashMap<>();
 
         GrantService grantService = Delta.getInstance().getServiceManager().getService(GrantService.class);
+        RankService rankService = Delta.getInstance().getServiceManager().getService(RankService.class);
+
         Profile profile = Delta.getInstance().getServiceManager().getService(ProfileService.class).getProfile(target.getUniqueId());
 
         List<Grant> filteredGrants = showingActiveGrants ?
                 grantService.getAllGrants(profile).stream().filter(Grant::isActive).toList() :
                 grantService.getAllGrants(profile).stream().filter(grant -> !grant.isActive()).toList();
 
-        int index = 0;
+
+        int slot = 0;
         for (Grant grant : filteredGrants) {
-            buttons.put(index++, new GrantsButton(target, grant, showingActiveGrants));
+            if (rankService.getRank(grant.getRankInformation().getName()) == null) {
+                continue;
+            }
+            slot = validateSlot(slot);
+            buttons.put(slot++, new GrantsButton(target, grant, showingActiveGrants));
         }
 
+        addGlassToAvoidedSlots(buttons);
+
         return buttons;
+    }
+
+    @Override
+    public int getSize() {
+        return 5 * 9;
     }
 }

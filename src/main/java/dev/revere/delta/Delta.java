@@ -2,11 +2,10 @@ package dev.revere.delta;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
-import dev.revere.delta.api.scoreboard.Assemble;
-import dev.revere.delta.api.scoreboard.AssembleStyle;
 import dev.revere.delta.api.service.ServiceManager;
 import dev.revere.delta.command.CommandService;
 import dev.revere.delta.database.MongoService;
+import dev.revere.delta.feature.advancement.AdvancementService;
 import dev.revere.delta.feature.chat.filter.FilterService;
 import dev.revere.delta.feature.clan.ClanRepository;
 import dev.revere.delta.feature.combat.CombatLogService;
@@ -29,7 +28,6 @@ import dev.revere.delta.service.ListenerService;
 import dev.revere.delta.util.CC;
 import dev.revere.delta.util.PlaceholderAPI;
 import dev.revere.delta.util.ServerUtils;
-import dev.revere.delta.visual.ScoreboardVisualizer;
 import lombok.Getter;
 import org.bukkit.Bukkit;
 import org.bukkit.plugin.java.JavaPlugin;
@@ -112,6 +110,7 @@ public class Delta extends JavaPlugin {
         serviceManager.registerService(new TPAService(this));
         serviceManager.registerService(new TabListService(this));
         serviceManager.registerService(new CommandService(this));
+        serviceManager.registerService(new AdvancementService(this));
         serviceManager.registerService(new CombatLogService(this));
         serviceManager.registerService(new ConversationService(this));
     }

@@ -1,5 +1,6 @@
 package dev.revere.delta.util.menu.button;
 
+import dev.revere.delta.util.CC;
 import dev.revere.delta.util.menu.pagination.ItemBuilder;
 import lombok.AllArgsConstructor;
 import dev.revere.delta.util.menu.Button;
@@ -19,12 +20,16 @@ public class BackButton extends Button {
     @Override
     public ItemStack getButtonItem(Player player) {
         return new ItemBuilder(Material.ARROW)
-                .name("&c&lBack")
+                .name("&b&lGo Back")
                 .durability(0)
                 .lore(Arrays.asList(
-                        "&cClick here to return to",
-                        "&cthe previous menu.")
-                )
+                        CC.translate("&8&m----------------------"),
+                        CC.translate(" &fThis allows you to return"),
+                        CC.translate(" &fback to your previous menu"),
+                        CC.translate(" "),
+                        CC.translate("&aClick to go back"),
+                        CC.translate("&8&m----------------------")
+                ))
                 .build();
     }
 

@@ -39,6 +39,7 @@ public class Profile {
     private String name;
     private UUID uuid;
 
+    private List<String> redeemedAdvancements;
     private long lastDailyReward;
 
     private boolean online;
@@ -56,6 +57,7 @@ public class Profile {
         this.grants = new ArrayList<>();
         this.punishments = new ArrayList<>();
         this.permissions = new ArrayList<>();
+        this.redeemedAdvancements = new ArrayList<>();
         this.lastDailyReward = 0;
         this.coins = 0;
         this.tagName = "";
@@ -88,6 +90,28 @@ public class Profile {
      */
     public Tag getTag() {
         return Delta.getInstance().getServiceManager().getService(TagService.class).getTag(this.tagName);
+    }
+
+    /**
+     * Check if the player has redeemed a specific advancement
+     *
+     * @param advancementKey The key of the advancement to check
+     * @return true if the advancement has been redeemed, false otherwise
+     */
+    public boolean hasAdvancementRedeemed(String advancementKey) {
+        return redeemedAdvancements.contains(advancementKey);
+    }
+
+    /**
+     * Mark an advancement as redeemed for the player
+     *
+     * @param advancementKey The key of the advancement to mark as redeemed
+     */
+    public void markAdvancementAsRedeemed(String advancementKey) {
+        if (!redeemedAdvancements.contains(advancementKey)) {
+            redeemedAdvancements.add(advancementKey);
+            saveProfile();
+        }
     }
 
     /**

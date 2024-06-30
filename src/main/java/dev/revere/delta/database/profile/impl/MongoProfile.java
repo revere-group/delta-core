@@ -10,7 +10,6 @@ import dev.revere.delta.feature.punishment.Punishment;
 import dev.revere.delta.profile.Profile;
 import dev.revere.delta.profile.ProfileService;
 import org.bson.Document;
-import org.bukkit.Bukkit;
 
 import java.lang.reflect.Type;
 import java.util.List;
@@ -43,6 +42,7 @@ public class MongoProfile implements IProfile {
         loadPermissions(profile, document);
         loadPunishments(profile, document);
         loadStaffOptions(profile, document);
+        loadRedeemedAdvancements(profile, document);
     }
 
     /**
@@ -106,6 +106,22 @@ public class MongoProfile implements IProfile {
     }
 
     /**
+     * Load redeemed advancements of a profile
+     *
+     * @param profile  the profile to load the redeemed advancements for
+     * @param document the document to load the redeemed advancements from
+     */
+    private void loadRedeemedAdvancements(Profile profile, Document document) {
+        String redeemedAdvancementsJson = document.getString("redeemedAdvancements");
+        if (redeemedAdvancementsJson != null) {
+            Type redeemedAdvancementsListType = new TypeToken<List<String>>() {
+            }.getType();
+            List<String> redeemedAdvancements = Delta.getInstance().getGson().fromJson(redeemedAdvancementsJson, redeemedAdvancementsListType);
+            profile.setRedeemedAdvancements(redeemedAdvancements);
+        }
+    }
+
+    /**
      * Save a profile
      *
      * @param profile the profile to save
@@ -122,6 +138,7 @@ public class MongoProfile implements IProfile {
         document.put("permissions", Delta.getInstance().getGson().toJson(profile.getPermissions()));
         document.put("punishments", Delta.getInstance().getGson().toJson(profile.getPunishments()));
         document.put("staffOptions", Delta.getInstance().getGson().toJson(profile.getStaffOptions()));
+        document.put("redeemedAdvancements", Delta.getInstance().getGson().toJson(profile.getRedeemedAdvancements()));
 
         Delta.getInstance().getServiceManager().getService(ProfileService.class).getCollection().replaceOne(Filters.eq("uuid", profile.getUuid().toString()), document, new ReplaceOptions().upsert(true));
     }

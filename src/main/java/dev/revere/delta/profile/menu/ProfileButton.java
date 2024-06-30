@@ -1,5 +1,6 @@
 package dev.revere.delta.profile.menu;
 
+import dev.revere.delta.feature.advancement.menu.AdvancementsMenu;
 import dev.revere.delta.util.menu.Button;
 import dev.revere.delta.util.menu.pagination.ItemBuilder;
 import lombok.AllArgsConstructor;
@@ -17,7 +18,6 @@ import java.util.List;
  */
 @AllArgsConstructor
 public class ProfileButton extends Button {
-
     private String displayName;
     private ItemStack itemStack;
     private List<String> lore;
@@ -46,6 +46,8 @@ public class ProfileButton extends Button {
             case NAME_TAG:
                 player.performCommand("tag");
                 break;
+            case BOOK:
+                new AdvancementsMenu().openMenu(player);
         }
         playNeutral(player);
     }

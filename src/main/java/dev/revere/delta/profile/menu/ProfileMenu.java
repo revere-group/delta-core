@@ -52,7 +52,7 @@ public class ProfileMenu extends Menu {
                 " &fRank: " + rankService.getHighestRank(profile).getNameColor() + rankService.getHighestRank(profile).getName(),
                 " &fTag: " + (profile.getTag() != null ? profile.getTag().getColor() + profile.getTag().getName() : "&bNone"),
                 "",
-                "&aClick to view!",
+                "&7Cannot interact with",
                 "&8&m----------------------"
         )));
 
@@ -74,10 +74,10 @@ public class ProfileMenu extends Menu {
                 "&8&m----------------------"
         )));
 
-        buttons.put(23, new ProfileButton("&b&lQuests", new ItemStack(Material.BEACON), Arrays.asList(
+        buttons.put(23, new ProfileButton("&b&lAdvancements", new ItemStack(Material.BOOK), Arrays.asList(
                 "&8&m----------------------",
-                " &fView your current quests",
-                " &fand complete them for rewards.",
+                " &fView your advancements and",
+                " &fcomplete them for rewards.",
                 "",
                 "&aClick to view!",
                 "&8&m----------------------"
