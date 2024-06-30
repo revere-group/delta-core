@@ -8,6 +8,7 @@ import dev.revere.delta.profile.Profile;
 import dev.revere.delta.profile.ProfileService;
 import dev.revere.delta.service.ConfigService;
 import dev.revere.delta.util.CC;
+import org.bukkit.GameMode;
 import org.bukkit.entity.Player;
 
 /**
@@ -84,7 +85,9 @@ public class VanishCommand extends BaseCommand {
             player.setCanPickupItems(true);
             player.setCollidable(true);
             player.setInvulnerable(false);
-            player.setAllowFlight(false);
+            if (player.getGameMode() == GameMode.SURVIVAL || player.getGameMode() == GameMode.ADVENTURE) {
+                player.setAllowFlight(false);
+            }
             for (Player online : player.getServer().getOnlinePlayers()) {
                 online.showPlayer(player);
             }
