@@ -6,6 +6,7 @@ import dev.revere.delta.api.command.CommandArgs;
 import dev.revere.delta.api.command.annotation.Command;
 import dev.revere.delta.feature.rank.Rank;
 import dev.revere.delta.feature.rank.RankService;
+import dev.revere.delta.profile.ProfileService;
 import dev.revere.delta.util.CC;
 import org.bukkit.entity.Player;
 
@@ -55,6 +56,16 @@ public class RankRemoveInheritanceCommand extends BaseCommand {
         inheritances.remove(inheritRankName);
         rank.setInheritance(inheritances);
         rankService.saveRank(rank);
+
+        ProfileService profileService = Delta.getInstance().getServiceManager().getService(ProfileService.class);
+        profileService.getProfiles().values().stream()
+                .filter(profile -> profile.getGrants().equals(rank))
+                .forEach(profile -> {
+                    Player target = Delta.getInstance().getServer().getPlayer(profile.getUuid());
+                    if (target != null) {
+                        profileService.loadPermissions(target);
+                    }
+                });
 
         player.sendMessage(CC.translate("&b" + rankName + " &7no longer inherits from &b" + inheritRankName + "&7."));
     }
