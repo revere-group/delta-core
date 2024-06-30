@@ -19,6 +19,7 @@ import dev.revere.delta.feature.rank.RankService;
 import dev.revere.delta.feature.scoreboard.ScoreboardService;
 import dev.revere.delta.feature.server.ServerService;
 import dev.revere.delta.feature.server.whitelist.WhitelistService;
+import dev.revere.delta.feature.tablist.TabListService;
 import dev.revere.delta.feature.tag.TagService;
 import dev.revere.delta.feature.tips.TipsService;
 import dev.revere.delta.feature.tpa.TPAService;
@@ -26,9 +27,11 @@ import dev.revere.delta.profile.ProfileService;
 import dev.revere.delta.service.ConfigService;
 import dev.revere.delta.service.ListenerService;
 import dev.revere.delta.util.CC;
+import dev.revere.delta.util.PlaceholderAPI;
 import dev.revere.delta.util.ServerUtils;
 import dev.revere.delta.visual.ScoreboardVisualizer;
 import lombok.Getter;
+import org.bukkit.Bukkit;
 import org.bukkit.plugin.java.JavaPlugin;
 
 import java.util.ArrayList;
@@ -63,15 +66,34 @@ public class Delta extends JavaPlugin {
         ServerUtils.disconnectPlayers();
     }
 
+    /**
+     * Register BungeeCord channel
+     */
     private void registerBungeeChannel() {
         getServer().getMessenger().registerOutgoingPluginChannel(this, "BungeeCord");
     }
 
+    /**
+     * Register repositories
+     */
     private void registerRepositories() {
         this.homeRepository = new HomeRepository();
         this.clanRepository = new ClanRepository();
     }
 
+    /**
+     * Hook additional plugins
+     */
+    private void hookAddons() {
+        if (Bukkit.getPluginManager().isPluginEnabled("PlaceholderAPI")) {
+            Bukkit.getConsoleSender().sendMessage(CC.translate("&fRegistered addon: &bPlaceholderAPI"));
+            new PlaceholderAPI().register();
+        }
+    }
+
+    /**
+     * Register services
+     */
     private void registerServices() {
         serviceManager.registerService(new ConfigService(this));
         serviceManager.registerService(new ScoreboardService(this));
@@ -88,6 +110,7 @@ public class Delta extends JavaPlugin {
         serviceManager.registerService(new TipsService(this));
         serviceManager.registerService(new ListenerService(this));
         serviceManager.registerService(new TPAService(this));
+        serviceManager.registerService(new TabListService(this));
         serviceManager.registerService(new CommandService(this));
         serviceManager.registerService(new CombatLogService(this));
         serviceManager.registerService(new ConversationService(this));
@@ -101,6 +124,7 @@ public class Delta extends JavaPlugin {
         initializationTasks.add(serviceManager::registerAllServices);
         initializationTasks.add(this::registerRepositories);
         initializationTasks.add(this::registerBungeeChannel);
+        initializationTasks.add(this::hookAddons);
     }
 
     /**

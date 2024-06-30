@@ -99,8 +99,11 @@ public class ChatListener implements Listener {
      */
     private String formatChatMessage(FileConfiguration config, Profile profile, Player player, String message) {
         boolean translate = player.hasPermission("delta.chat.color");
-        String chatFormat = CC.translate(config.getString("chat.format"));
+        boolean playerNameSmallFont = config.getBoolean("chat.player-name-small-font");
+        boolean clanNameSmallFont = config.getBoolean("chat.clan-name-small-font");
+        boolean rankSmallFont = config.getBoolean("chat.rank-prefix-small-font");
 
+        String chatFormat = CC.translate(config.getString("chat.format"));
         String rank = getRankPrefix(profile) + " ";
         String clan = getClan(player);
         String clanPrefix = "";
@@ -108,11 +111,15 @@ public class ChatListener implements Listener {
             clanPrefix = CC.translate(config.getString("chat.clan-prefix").replace("%clan%", clan)) + " ";
         }
 
+        String clanName = clanNameSmallFont ? CC.toSmallFont(CC.translate(clanPrefix)) : clanPrefix;
+        String rankName = rankSmallFont ? CC.toSmallFont(CC.translate(rank)) : rank;
+
+        String playerName = playerNameSmallFont ? CC.toSmallFont(player.getDisplayName()) : player.getDisplayName();
         chatFormat = chatFormat.replace("%color%", profile.getNameColor());
-        chatFormat = chatFormat.replace("%player%", player.getDisplayName());
+        chatFormat = chatFormat.replace("%player%", playerName);
         chatFormat = chatFormat.replace("%message%", translate ? CC.translate(message) : message);
-        chatFormat = chatFormat.replace("%clan%", clanPrefix);
-        chatFormat = chatFormat.replace("%rank%", rank);
+        chatFormat = chatFormat.replace("%clan%", clanName);
+        chatFormat = chatFormat.replace("%rank%", rankName);
         chatFormat = chatFormat.replace("%tag%", getTagPrefix(profile));
         chatFormat = chatFormat.replace("%suffix%", getRankSuffix(profile));
         chatFormat = chatFormat.replace("%world%", player.getWorld().getName());

@@ -23,7 +23,14 @@ public class ScoreboardVisualizer implements AssembleAdapter {
 
     @Override
     public String getTitle(Player player) {
-        return CC.translate(Delta.getInstance().getServiceManager().getService(ConfigService.class).getConfig("settings.yml").getString("scoreboard.title"));
+        boolean smallFont = Delta.getInstance().getServiceManager().getService(ConfigService.class).getConfig("settings.yml").getBoolean("scoreboard.small-font");
+        String title = Delta.getInstance().getServiceManager().getService(ConfigService.class).getConfig("settings.yml").getString("scoreboard.title");
+
+        if (smallFont) {
+            title = CC.toSmallFont(CC.translate(title));
+        }
+
+        return title;
     }
 
     @Override
@@ -47,17 +54,24 @@ public class ScoreboardVisualizer implements AssembleAdapter {
             for (String line : lines) {
                 if (line.contains("%combat-tag%")) {
                     if (combatLogService.isPlayerInCombat(player)) {
+                        boolean smallFont = Delta.getInstance().getServiceManager().getService(ConfigService.class).getConfig("settings.yml").getBoolean("scoreboard.small-font");
                         long remainingTime = combatLogService.getRemainingCombatTime(player);
                         List<String> combatTagLines = Delta.getInstance().getServiceManager().getService(ConfigService.class).getConfig("settings.yml").getStringList("scoreboard.combat-tag.lines");
 
                         for (String combatLine : combatTagLines) {
                             String formattedCombatLine = CC.translate(combatLine.replace("%tag%", String.valueOf(remainingTime)));
+
+                            if (smallFont) {
+                                formattedCombatLine = CC.toSmallFont(CC.translate(formattedCombatLine));
+                            }
+
                             toReturn.add(formattedCombatLine);
                         }
                     }
                 } else {
                     Profile profile = Delta.getInstance().getServiceManager().getService(ProfileService.class).getProfile(player.getUniqueId());
                     RankService rankService = Delta.getInstance().getServiceManager().getService(RankService.class);
+                    boolean smallFont = Delta.getInstance().getServiceManager().getService(ConfigService.class).getConfig("settings.yml").getBoolean("scoreboard.small-font");
                     String formattedLine = CC.translate(line
                             .replace("%online-players%", String.valueOf(player.getServer().getOnlinePlayers().size()))
                             .replace("%max-players%", String.valueOf(player.getServer().getMaxPlayers()))
@@ -67,8 +81,13 @@ public class ScoreboardVisualizer implements AssembleAdapter {
                             .replace("%coins%", profile.getCoins() + "")
                             .replace("%rank%", rankService.getHighestRank(profile).getName())
                             .replace("%rank-color%", rankService.getHighestRank(profile).getNameColor().toString())
-                            .replace("%rank-prefix%", rankService.getHighestRank(profile).getPrefix())
-                    );
+                            .replace("%rank-prefix%", rankService.getHighestRank(profile).getPrefix()
+                    ));
+
+                    if (smallFont) {
+                        formattedLine = CC.toSmallFont(CC.translate(formattedLine));
+                    }
+
                     toReturn.add(formattedLine);
                 }
             }

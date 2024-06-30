@@ -13,7 +13,6 @@ import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
 import org.bukkit.event.Listener;
-import org.bukkit.event.entity.PlayerDeathEvent;
 import org.bukkit.event.player.PlayerJoinEvent;
 import org.bukkit.event.player.PlayerLoginEvent;
 import org.bukkit.event.player.PlayerQuitEvent;
@@ -63,7 +62,6 @@ public class ProfileListener implements Listener {
     @EventHandler(priority = EventPriority.HIGHEST)
     public void onJoin(PlayerJoinEvent event) {
         Player player = event.getPlayer();
-
         ProfileService profileService = Delta.getInstance().getServiceManager().getService(ProfileService.class);
         Profile profile = profileService.getProfile(player.getUniqueId());
         profile.setName(player.getName());
@@ -72,40 +70,79 @@ public class ProfileListener implements Listener {
         ConfigService configService = Delta.getInstance().getServiceManager().getService(ConfigService.class);
         ServerService serverService = Delta.getInstance().getServiceManager().getService(ServerService.class);
 
-        if (configService.getConfig("settings.yml").getBoolean("teleport-spawn.enabled")) {
-            boolean onlyFirstJoin = configService.getConfig("settings.yml").getBoolean("teleport-spawn.only-first-join");
-
-            if (!onlyFirstJoin || !player.hasPlayedBefore()) {
-                player.teleport(serverService.getSpawnpoint(serverService.getServerName()));
-            }
-        }
-
+        handleTeleportationToSpawn(configService, player, serverService);
         profileService.loadPermissions(player);
-
-        String joinMessage = configService.getConfig("messages.yml").getString("on-join.messages.joined-the-game").replace("%player%", player.getName());
-        String firstJoinMessage = configService.getConfig("messages.yml").getString("on-join.messages.first-join").replace("%player%", player.getName());
-
-        if (configService.getConfig("messages.yml").getBoolean("on-join.messages.welcome-message.enabled", true)) {
-            List<String> welcomeMessages = configService.getConfig("messages.yml").getStringList("on-join.messages.welcome-message.message");
-            sendWelcomeMessage(player, welcomeMessages);
-        }
-
-        if (configService.getConfig("messages.yml").getBoolean("on-join.title-sender.enabled")) {
-            String mainTitle = configService.getConfig("messages.yml").getString("on-join.title-sender.main-title").replace("%player%", player.getName());
-            String subTitle = configService.getConfig("messages.yml").getString("on-join.title-sender.sub-title").replace("%player%", player.getName());
-
-            player.sendTitle(CC.translate(mainTitle), CC.translate(subTitle));
-        }
+        handleWelcomeMessage(player, configService);
+        handleJoinTitle(player, configService);
 
         if (profile.getStaffOptions().isVanish()) {
             event.setJoinMessage(null);
             return;
         }
 
+        handleJoinMessage(event, player, configService);
+    }
+
+    /**
+     * Handles the welcome message of a player
+     *
+     * @param player        the player to send the message to
+     * @param configService the config service
+     */
+    private void handleWelcomeMessage(Player player, ConfigService configService) {
+        if (configService.getConfig("messages.yml").getBoolean("on-join.messages.welcome-message.enabled", true)) {
+            List<String> welcomeMessages = configService.getConfig("messages.yml").getStringList("on-join.messages.welcome-message.message");
+            sendWelcomeMessage(player, welcomeMessages);
+        }
+    }
+
+    /**
+     * Handles the join title of a player
+     *
+     * @param player        the player to send the title to
+     * @param configService the config service
+     */
+    private void handleJoinTitle(Player player, ConfigService configService) {
+        if (configService.getConfig("messages.yml").getBoolean("on-join.title-sender.enabled")) {
+            String mainTitle = configService.getConfig("messages.yml").getString("on-join.title-sender.main-title").replace("%player%", player.getName());
+            String subTitle = configService.getConfig("messages.yml").getString("on-join.title-sender.sub-title").replace("%player%", player.getName());
+
+            player.sendTitle(CC.translate(mainTitle), CC.translate(subTitle));
+        }
+    }
+
+    /**
+     * Handles the join message of a player
+     *
+     * @param event         the event
+     * @param player        the player
+     * @param configService the config service
+     */
+    private void handleJoinMessage(PlayerJoinEvent event, Player player, ConfigService configService) {
+        String joinMessage = configService.getConfig("messages.yml").getString("on-join.messages.joined-the-game").replace("%player%", player.getName());
+        String firstJoinMessage = configService.getConfig("messages.yml").getString("on-join.messages.first-join").replace("%player%", player.getName());
+
         if (player.hasPlayedBefore()) {
             event.setJoinMessage(CC.translate(joinMessage));
         } else {
             event.setJoinMessage(CC.translate(firstJoinMessage));
+        }
+    }
+
+    /**
+     * Handles the teleportation of a player to the spawn
+     *
+     * @param configService the config service
+     * @param player        the player to teleport
+     * @param serverService the server service
+     */
+    private void handleTeleportationToSpawn(ConfigService configService, Player player, ServerService serverService) {
+        if (configService.getConfig("settings.yml").getBoolean("teleport-spawn.enabled")) {
+            boolean onlyFirstJoin = configService.getConfig("settings.yml").getBoolean("teleport-spawn.only-first-join");
+
+            if (!onlyFirstJoin || !player.hasPlayedBefore()) {
+                player.teleport(serverService.getSpawnpoint(serverService.getServerName()));
+            }
         }
     }
 

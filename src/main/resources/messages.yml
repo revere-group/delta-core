@@ -22,6 +22,9 @@ player:
 
 chat:
   clan-prefix: "&8[%clan%&8]"
+  clan-name-small-font: true
+  player-name-small-font: true
+  rank-prefix-small-font: true
   format: "%rank%%clan%%color%%player%%tag%&f: &f%message%"
   filter:
     enabled: true

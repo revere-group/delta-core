@@ -1,23 +1,29 @@
 server-name: eu-smp-1
 server-region: Europe
 
+tablist:
+  enabled: true
+  small-font: true
+  header: "&b&lDelta &7︱ &fSMP"
+  footer: "&7play.revere.dev"
+
 scoreboard:
   enabled: true
-  title: "&b&lᴅᴇʟᴛᴀ &7︱ &fѕᴍᴘ"
+  small-font: true
+  title: "&b&lDelta &7︱ &fSMP"
   lines:
     - ""
-    - "&bᴘʟᴀʏᴇʀ"
-    - " &b❚ &fʀᴀɴᴋ: %rank-color%%rank%"
-    - " &b❚ &fᴄᴏɪɴѕ: &b$%coins%"
-    - " &b❚ &fᴅᴇᴀᴛʜѕ: &b%deaths%"
-    - " &b❚ &fᴋɪʟʟѕ: &b%kills%"
+    - "&bPlayer"
+    - " &b❚ &fCoins: &b$%coins%"
+    - " &b❚ &fDeaths: &b%deaths%"
+    - " &b❚ &fKills: &b%kills%"
     - " &b❚ %combat-tag%"
     - ""
-    - "&7ᴘʟᴀʏ.ʀᴇᴠᴇʀᴇ.ᴅᴇᴠ"
+    - "&7play.revere.dev"
   combat-tag:
     lines:
       - ""
-      - " &b❚ &fᴄᴏᴍʙᴀᴛ ʟᴏɢ: &b%tag%ѕ"
+      - " &b❚ &fCombat Log: &b%tag%ѕ"
 
 teleport-spawn:
   enabled: true

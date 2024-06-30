@@ -18,6 +18,16 @@ public class CC {
 
     public static final String MENU_BAR = ChatColor.DARK_GRAY.toString() + ChatColor.STRIKETHROUGH + "------------------------";
 
+    private static final String[] SMALL_CHARS = {
+            "ᴀ", "ʙ", "ᴄ", "ᴅ", "ᴇ", "ꜰ", "ɢ", "ʜ", "ɪ", "ᴊ", "ᴋ", "ʟ", "ᴍ", "ɴ", "ᴏ", "ᴘ", "ǫ", "ʀ", "ѕ", "ᴛ", "ᴜ", "ᴠ", "ᴡ", "х", "ʏ", "ᴢ",
+            "ᴀ", "ʙ", "ᴄ", "ᴅ", "ᴇ", "ꜰ", "ɢ", "ʜ", "ɪ", "ᴊ", "ᴋ", "ʟ", "ᴍ", "ɴ", "ᴏ", "ᴘ", "ǫ", "ʀ", "ѕ", "ᴛ", "ᴜ", "ᴠ", "ᴡ", "х", "ʏ", "ᴢ"
+    };
+
+    // This is the small numbers array, but unused bc it looks ugly
+    private static final String[] SMALL_NUMBERS = {
+            "⁰", "¹", "²", "³", "⁴", "⁵", "⁶", "⁷", "⁸", "⁹"
+    };
+
     /**
      * Translates a string with color codes
      *
@@ -30,6 +40,40 @@ public class CC {
         text = ChatColor.translateAlternateColorCodes('&', text);
 
         return text;
+    }
+
+    /**
+     * Translates a string into small font
+     *
+     * @param input the input to translate
+     * @return the translated text
+     */
+    public static String toSmallFont(String input) {
+        StringBuilder smallText = new StringBuilder(input.length());
+        boolean colorMode = false;
+        for (int i = 0; i < input.length(); i++) {
+            char c = input.charAt(i);
+            if (c == '§') {
+                colorMode = true;
+                smallText.append(c);
+                continue;
+            }
+            if (colorMode) {
+                smallText.append(c);
+                colorMode = false;
+                continue;
+            }
+            if (c >= 'a' && c <= 'z') {
+                smallText.append(SMALL_CHARS[c - 'a']);
+            } else if (c >= 'A' && c <= 'Z') {
+                smallText.append(SMALL_CHARS[c - 'A']);
+            /*} else if (c >= '0' && c <= '9') { // This translates numbers to small numbers (0-9) but removed cuz it looks ugly
+                smallText.append(SMALL_NUMBERS[c - '0']);*/
+            } else {
+                smallText.append(c);
+            }
+        }
+        return smallText.toString();
     }
 
     /**
@@ -77,7 +121,6 @@ public class CC {
         }
         return text;
     }
-
 
     /**
      * Translates gradients in the format <gradient:FFFFFF:000000>text</gradient>
