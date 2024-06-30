@@ -6,6 +6,7 @@ import dev.revere.delta.feature.grant.GrantService;
 import dev.revere.delta.feature.rank.Rank;
 import dev.revere.delta.feature.rank.RankService;
 import dev.revere.delta.feature.server.ServerService;
+import dev.revere.delta.feature.shop.menus.CoinShopRankMenu;
 import dev.revere.delta.profile.Profile;
 import dev.revere.delta.profile.ProfileService;
 import dev.revere.delta.util.CC;
@@ -62,11 +63,13 @@ public class CoinShopRankButton extends Button {
 
         if (rankService.getHighestRank(profile).getWeight() >= rank.getWeight()) {
             player.sendMessage(CC.translate("&cYou already own this rank or a higher rank!"));
+            playFail(player);
             return;
         }
 
         if (profile.getCoins() < rank.getCost()) {
             player.sendMessage(CC.translate("&cYou do not have enough coins to purchase this rank!"));
+            playFail(player);
             return;
         }
 
@@ -87,5 +90,7 @@ public class CoinShopRankButton extends Button {
         grantService.addGrant(grant, player.getUniqueId());
 
         player.sendMessage(CC.translate("&aYou have successfully purchased the rank " + rank.getName() + "!"));
+        playSuccess(player);
+        new CoinShopRankMenu().openMenu(player);
     }
 }

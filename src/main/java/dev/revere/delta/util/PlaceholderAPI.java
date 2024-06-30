@@ -48,8 +48,9 @@ public class PlaceholderAPI extends PlaceholderExpansion {
         }
 
         return switch (params) {
-            case "rank-prefix" -> rankService.getHighestRank(profile).getPrefix();
-            case "rank-suffix" -> rankService.getHighestRank(profile).getSuffix();
+            case "rank-prefix" -> CC.translate(rankService.getHighestRank(profile).getPrefix());
+            case "rank-prefix-font" -> CC.toSmallFont(CC.translate(rankService.getHighestRank(profile).getPrefix()));
+            case "rank-suffix" -> CC.translate(rankService.getHighestRank(profile).getSuffix());
             case "rank-name" -> rankService.getHighestRank(profile).getName();
             case "rank-color" -> rankService.getHighestRank(profile).getNameColor().toString();
             case "rank-weight" -> String.valueOf(rankService.getHighestRank(profile).getWeight());

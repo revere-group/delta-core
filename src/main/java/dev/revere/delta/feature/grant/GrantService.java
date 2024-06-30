@@ -113,6 +113,18 @@ public class GrantService implements IService {
     }
 
     /**
+     * Delete a grant from a profile.
+     *
+     * @param grant   the grant to delete
+     * @param profile the profile to delete the grant from
+     */
+    public void deleteGrant(Grant grant, Profile profile) {
+        List<Grant> grants = profile.getGrants();
+        grants.remove(grant);
+        profile.saveProfile();
+    }
+
+    /**
      * Get a specific active grant by rank.
      *
      * @param rank the rank of the grant to retrieve

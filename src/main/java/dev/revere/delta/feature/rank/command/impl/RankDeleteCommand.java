@@ -4,8 +4,11 @@ import dev.revere.delta.Delta;
 import dev.revere.delta.api.command.BaseCommand;
 import dev.revere.delta.api.command.CommandArgs;
 import dev.revere.delta.api.command.annotation.Command;
+import dev.revere.delta.feature.grant.GrantService;
 import dev.revere.delta.feature.rank.Rank;
 import dev.revere.delta.feature.rank.RankService;
+import dev.revere.delta.profile.Profile;
+import dev.revere.delta.profile.ProfileService;
 import dev.revere.delta.util.CC;
 import org.bukkit.entity.Player;
 
@@ -41,6 +44,13 @@ public class RankDeleteCommand extends BaseCommand {
 
         Rank rank = rankService.getRank(name);
         rankService.deleteRank(rank);
+
+        GrantService grantService = Delta.getInstance().getServiceManager().getService(GrantService.class);
+        Profile profile = Delta.getInstance().getServiceManager().getService(ProfileService.class).getProfile(player.getUniqueId());
+
+        profile.getGrants().stream().filter(grant -> grant.getRank().equals(rank)).forEach(grant -> {
+            grantService.deleteGrant(grant, profile);
+        });
 
         player.sendMessage(CC.translate("&fSuccessfully deleted the rank &b" + name + "&f."));
     }

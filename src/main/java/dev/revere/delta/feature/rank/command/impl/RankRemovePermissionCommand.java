@@ -8,6 +8,7 @@ import dev.revere.delta.feature.rank.Rank;
 import dev.revere.delta.feature.rank.RankService;
 import dev.revere.delta.profile.ProfileService;
 import dev.revere.delta.util.CC;
+import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 
 import java.util.List;
@@ -51,15 +52,10 @@ public class RankRemovePermissionCommand extends BaseCommand {
         rank.setPermissions(permissions);
         rankService.saveRank(rank);
 
-        ProfileService profileService = Delta.getInstance().getServiceManager().getService(ProfileService.class);
-        profileService.getProfiles().values().stream()
-                .filter(profile -> profile.getGrants().equals(rank))
-                .forEach(profile -> {
-                    Player target = Delta.getInstance().getServer().getPlayer(profile.getUuid());
-                    if (target != null) {
-                        profileService.loadPermissions(target);
-                    }
-                });
+        Bukkit.getOnlinePlayers().forEach(online -> {
+            ProfileService profileService = Delta.getInstance().getServiceManager().getService(ProfileService.class);
+            profileService.loadPermissions(online);
+        });
 
         player.sendMessage(CC.translate("&fSuccessfully removed the permission &b" + permission + " &ffrom the rank &b" + name + "&f."));
     }

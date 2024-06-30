@@ -3,6 +3,7 @@ package dev.revere.delta.feature.tag.menu.button;
 import dev.revere.delta.Delta;
 import dev.revere.delta.feature.tag.Tag;
 import dev.revere.delta.feature.tag.TagService;
+import dev.revere.delta.feature.tag.menu.TagsMenu;
 import dev.revere.delta.profile.Profile;
 import dev.revere.delta.profile.ProfileService;
 import dev.revere.delta.util.CC;
@@ -51,5 +52,6 @@ public class ResetTagButton extends Button {
         profile.saveProfile();
 
         player.sendMessage(CC.translate("&aYou have successfully removed your tag!"));
+        new TagsMenu().openMenu(player);
     }
 }

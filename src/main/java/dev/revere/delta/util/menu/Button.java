@@ -26,7 +26,6 @@ public abstract class Button {
 
     public static void playFail(Player player) {
         player.playSound(player.getLocation(), Sound.BLOCK_NOTE_BLOCK_BASS, 20F, 0.1F);
-
     }
 
     public static void playSuccess(Player player) {

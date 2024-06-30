@@ -50,11 +50,13 @@ public class AdvancementButton extends Button {
 
         if (!advancementService.hasAdvancement(player, advancement.getKey().getKey())) {
             player.sendMessage(CC.translate("&cYou have not completed this advancement yet."));
+            playFail(player);
             return;
         }
 
         if (advancementService.hasAdvancementRedeemed(player, advancement.getKey().getKey())) {
             player.sendMessage(CC.translate("&cYou have already redeemed this advancement."));
+            playFail(player);
             return;
         }
 
@@ -64,12 +66,12 @@ public class AdvancementButton extends Button {
             profile.setCoins(profile.getCoins() + coinsReward);
         } else {
             player.sendMessage(CC.translate("&cAn error occurred while redeeming the advancement."));
+            playFail(player);
             return;
         }
 
-        profile.saveProfile();
         player.sendMessage(CC.translate("&fYou have redeemed the " + name + " &fadvancement and received &b" + category.getReward() + " coins&f."));
-
+        playSuccess(player);
         new CategoryMenu(category).openMenu(player);
     }
 }

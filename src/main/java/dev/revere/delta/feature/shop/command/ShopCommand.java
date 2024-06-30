@@ -16,7 +16,6 @@ public class ShopCommand extends BaseCommand {
     @Command(name = "shop", aliases = {"store", "buy"})
     public void onCommand(CommandArgs command) {
         Player player = command.getPlayer();
-
         new CoinShopMenu().openMenu(player);
     }
 }

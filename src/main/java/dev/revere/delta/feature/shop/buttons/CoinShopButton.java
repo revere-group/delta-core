@@ -59,6 +59,7 @@ public class CoinShopButton extends Button {
             case EMERALD:
                 long currentTime = System.currentTimeMillis();
                 if (!profile.isDailyRewardClaimable()) {
+                    playFail(player);
                     player.sendMessage(CC.translate("&cYou have already claimed your daily reward today!"));
                     return;
                 }
@@ -68,6 +69,7 @@ public class CoinShopButton extends Button {
                 profile.saveProfile();
 
                 player.sendMessage(CC.translate("&aYou have claimed your daily reward of $50!"));
+                playSuccess(player);
                 break;
         }
     }

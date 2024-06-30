@@ -2,7 +2,7 @@ server-name: eu-smp-1
 server-region: Europe
 
 tablist:
-  enabled: true
+  enabled: false
   small-font: true
   header: "&b&lDelta &7︱ &fSMP"
   footer: "&7play.revere.dev"

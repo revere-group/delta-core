@@ -110,5 +110,4 @@ public class Assemble {
 			player.setScoreboard(Bukkit.getScoreboardManager().getNewScoreboard());
 		}
 	}
-
 }

@@ -1,6 +1,8 @@
 package dev.revere.delta.profile.menu;
 
 import dev.revere.delta.feature.advancement.menu.AdvancementsMenu;
+import dev.revere.delta.feature.shop.menus.CoinShopMenu;
+import dev.revere.delta.feature.tag.menu.TagsMenu;
 import dev.revere.delta.util.menu.Button;
 import dev.revere.delta.util.menu.pagination.ItemBuilder;
 import lombok.AllArgsConstructor;
@@ -41,10 +43,10 @@ public class ProfileButton extends Button {
 
         switch (material) {
             case EMERALD:
-                player.performCommand("shop");
+                new CoinShopMenu().openMenu(player);
                 break;
             case NAME_TAG:
-                player.performCommand("tag");
+                new TagsMenu().openMenu(player);
                 break;
             case BOOK:
                 new AdvancementsMenu().openMenu(player);

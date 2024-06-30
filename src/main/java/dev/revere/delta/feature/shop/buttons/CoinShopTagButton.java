@@ -1,6 +1,7 @@
 package dev.revere.delta.feature.shop.buttons;
 
 import dev.revere.delta.Delta;
+import dev.revere.delta.feature.shop.menus.CoinShopTagMenu;
 import dev.revere.delta.feature.tag.Tag;
 import dev.revere.delta.feature.tag.TagService;
 import dev.revere.delta.profile.Profile;
@@ -9,7 +10,6 @@ import dev.revere.delta.util.CC;
 import dev.revere.delta.util.menu.Button;
 import dev.revere.delta.util.menu.pagination.ItemBuilder;
 import lombok.AllArgsConstructor;
-import net.md_5.bungee.api.ChatColor;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
 import org.bukkit.event.inventory.ClickType;
@@ -57,11 +57,13 @@ public class CoinShopTagButton extends Button {
 
         if (tagService.hasTag(player, tag)) {
             player.sendMessage(CC.translate("&cYou already own this tag!"));
+            playFail(player);
             return;
         }
 
         if (profile.getCoins() < tag.getCost()) {
             player.sendMessage(CC.translate("&cYou do not have enough coins to purchase this tag!"));
+            playFail(player);
             return;
         }
 
@@ -76,5 +78,7 @@ public class CoinShopTagButton extends Button {
         profileService.loadPermissions(player);
 
         player.sendMessage(CC.translate("&aYou have successfully purchased the tag " + tag.getName() + "!"));
+        playSuccess(player);
+        new CoinShopTagMenu().openMenu(player);
     }
 }
