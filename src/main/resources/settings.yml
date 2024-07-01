@@ -46,7 +46,7 @@ tips:
       - " "
       - "&4&lALERT &7- &cAttention!"
       - "&fJoin our Discord server for the latest updates!"
-      - "&bhttps://discord.gg/4bbVFypmzh"
+      - "&bhttps://discord.gg/kdfw8ADeTp"
       - ""
     message-3:
         - " "
@@ -54,3 +54,9 @@ tips:
         - "&fWould you like to apply for staff?"
         - "&bhttps://forms.gle/UrRgXDRZ8UY7s6LM8"
         - " "
+    message-4:
+      - " "
+      - "&4&lALERT &7- &cAttention!"
+      - "&fWant to earn coins and buy cosmetics?"
+      - "&bType /profile and complete advancements!"
+      - " "

@@ -33,6 +33,6 @@ public class DiscordButton extends Button {
 
     @Override
     public void clicked(Player player, ClickType clickType) {
-        player.sendMessage(CC.translate("&bDiscord link: https://discord.gg/QsdXsW92sq"));
+        player.sendMessage(CC.translate("&bDiscord link: https://discord.gg/kdfw8ADeTp"));
     }
 }

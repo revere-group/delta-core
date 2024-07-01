@@ -14,7 +14,7 @@ public abstract class PaginatedMenu extends Menu {
     private int page = 1;
 
     {
-        setUpdateAfterClick(false);
+        setUpdateAfterClick(true);
     }
 
     @Override

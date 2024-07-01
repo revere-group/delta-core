@@ -14,7 +14,7 @@ import org.bukkit.entity.Player;
  * @date 6/17/2024
  */
 public class HealCommand extends BaseCommand {
-    @Command(name = "heal", aliases = {"heal"}, permission = "delta.staff.heal", inGameOnly = true, description = "Heals a player", usage = "/heal [player]")
+    @Command(name = "heal", permission = "delta.staff.heal", inGameOnly = true, description = "Heals a player", usage = "/heal [player]")
     @Override
     public void onCommand(CommandArgs command) {
         Player player = command.getPlayer();

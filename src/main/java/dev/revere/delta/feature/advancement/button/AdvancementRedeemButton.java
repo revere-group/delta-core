@@ -23,11 +23,11 @@ import java.util.List;
  * @date 30/06/2024 - 18:18
  */
 @AllArgsConstructor
-public class AdvancementButton extends Button {
+public class AdvancementRedeemButton extends Button {
     private final String name;
     private final ItemStack material;
     private final List<String> lore;
-    private final Advancement advancement;
+    private final AdvancementCategory category;
 
     @Override
     public ItemStack getButtonItem(Player player) {
@@ -46,31 +46,29 @@ public class AdvancementButton extends Button {
         Profile profile = profileService.getProfile(player.getUniqueId());
 
         AdvancementService advancementService = Delta.getInstance().getServiceManager().getService(AdvancementService.class);
-        AdvancementCategory category = advancementService.getAdvancementCategory(advancement.getKey().getKey());
+        List<Advancement> advancements = advancementService.getAdvancements(category);
 
-        if (!advancementService.hasAdvancement(player, advancement.getKey().getKey())) {
-            player.sendMessage(CC.translate("&cYou have not completed this advancement yet."));
-            playFail(player);
-            return;
+        int totalCoinsReward = 0;
+        int redeemedCount = 0;
+
+        for (Advancement advancement : advancements) {
+            String advancementKey = advancement.getKey().getKey();
+            if (advancementService.hasAdvancement(player, advancementKey) && !advancementService.hasAdvancementRedeemed(player, advancementKey)) {
+                advancementService.markAdvancementAsRedeemed(player, advancementKey);
+                totalCoinsReward += category.getReward();
+                redeemedCount++;
+            }
         }
 
-        if (advancementService.hasAdvancementRedeemed(player, advancement.getKey().getKey())) {
-            player.sendMessage(CC.translate("&cYou have already redeemed this advancement."));
-            playFail(player);
-            return;
-        }
-
-        advancementService.markAdvancementAsRedeemed(player, advancement.getKey().getKey());
-        if (category != null) {
-            int coinsReward = category.getReward();
-            profile.setCoins(profile.getCoins() + coinsReward);
+        if (redeemedCount > 0) {
+            profile.setCoins(profile.getCoins() + totalCoinsReward);
+            profile.saveProfile();
+            player.sendMessage(CC.translate("&fYou have redeemed &b" + redeemedCount + " &fadvancements in the &b" + category.getDisplayName() + " &fcategory and received &b" + totalCoinsReward + " coins&f."));
+            playSuccess(player);
         } else {
-            player.sendMessage(CC.translate("&cAn error occurred while redeeming the advancement."));
+            player.sendMessage(CC.translate("&cThere are no advancements to redeem in this category."));
             playFail(player);
-            return;
         }
 
-        player.sendMessage(CC.translate("&fYou have redeemed the " + name + " &fadvancement and received &b" + category.getReward() + " coins&f."));
-        playSuccess(player);
     }
 }

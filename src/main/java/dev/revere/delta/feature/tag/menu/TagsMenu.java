@@ -34,7 +34,8 @@ public class TagsMenu extends PaginatedMenu {
 
         addGlassHeader(buttons);
 
-        buttons.put(4, new BackButton(new ProfileMenu()));
+        buttons.put(3, new BackButton(new ProfileMenu()));
+        buttons.put(5, new ResetTagButton());
 
         return buttons;
     }
@@ -44,9 +45,6 @@ public class TagsMenu extends PaginatedMenu {
         Map<Integer, Button> buttons = new HashMap<>();
 
         TagService tagService = Delta.getInstance().getServiceManager().getService(TagService.class);
-
-        buttons.put(3, new BackButton(new ProfileMenu()));
-        buttons.put(5, new ResetTagButton());
 
         int slot = 0;
 

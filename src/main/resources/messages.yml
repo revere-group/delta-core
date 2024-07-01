@@ -1,7 +1,8 @@
 broadcasts:
   alert:
     - ""
-    - "&7[&4Alert&7] &f%message%"
+    - "&4&lALERT &7- &cAttention!"
+    - "%message%"
     - ""
   broadcast:
     - ""

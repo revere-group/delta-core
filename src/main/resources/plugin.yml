@@ -4,3 +4,8 @@ version: '${project.version}'
 main: dev.revere.delta.Delta
 description: 'A server core for newer versions of Minecraft.'
 api-version: '1.20'
+softdepend:
+  - PlaceholderAPI
+  - TAB
+loadbefore:
+  - WorldGuard

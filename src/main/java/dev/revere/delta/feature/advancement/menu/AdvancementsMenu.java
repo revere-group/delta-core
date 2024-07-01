@@ -3,6 +3,7 @@ package dev.revere.delta.feature.advancement.menu;
 import dev.revere.delta.Delta;
 import dev.revere.delta.feature.advancement.AdvancementCategory;
 import dev.revere.delta.feature.advancement.AdvancementService;
+import dev.revere.delta.feature.advancement.button.AdvancementAllRedeemButton;
 import dev.revere.delta.feature.advancement.button.AdvancementProfileButton;
 import dev.revere.delta.profile.menu.ProfileMenu;
 import dev.revere.delta.util.CC;
@@ -33,7 +34,7 @@ public class AdvancementsMenu extends Menu {
     public Map<Integer, Button> getButtons(Player player) {
         Map<Integer, Button> buttons = new HashMap<>();
 
-        buttons.put(3, new BackButton(new ProfileMenu()));
+        buttons.put(2, new BackButton(new ProfileMenu()));
 
         ItemStack skullItem = new ItemStack(Material.PLAYER_HEAD, 1);
         SkullMeta skullMeta = (SkullMeta) skullItem.getItemMeta();
@@ -43,13 +44,21 @@ public class AdvancementsMenu extends Menu {
             skullItem.setItemMeta(skullMeta);
         }
 
-        buttons.put(5, new AdvancementProfileButton(CC.translate("&b&lYour Profile"), skullItem, Arrays.asList(
+        buttons.put(4, new AdvancementProfileButton(CC.translate("&b&lYour Profile"), skullItem, Arrays.asList(
                 "&8&m----------------------",
                 " &fIncomplete: &b" + Delta.getInstance().getServiceManager().getService(AdvancementService.class).getIncompleteAdvancements(player).size(),
                 " &fCompleted: &b" + Delta.getInstance().getServiceManager().getService(AdvancementService.class).getCompletedAdvancements(player).size(),
                 " &fTotal: &b" + Delta.getInstance().getServiceManager().getService(AdvancementService.class).getAdvancements().size(),
                 "",
                 "&7Cannot interact with",
+                "&8&m----------------------"
+        )));
+
+        buttons.put(6, new AdvancementAllRedeemButton("&b&lRedeem All", new ItemStack(Material.EMERALD), Arrays.asList(
+                "&8&m----------------------",
+                " &fRedeem all completed advancements",
+                "",
+                "&aClick to redeem all",
                 "&8&m----------------------"
         )));
 

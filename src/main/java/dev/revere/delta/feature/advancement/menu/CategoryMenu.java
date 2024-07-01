@@ -4,6 +4,7 @@ import dev.revere.delta.Delta;
 import dev.revere.delta.feature.advancement.AdvancementCategory;
 import dev.revere.delta.feature.advancement.AdvancementService;
 import dev.revere.delta.feature.advancement.button.AdvancementButton;
+import dev.revere.delta.feature.advancement.button.AdvancementRedeemButton;
 import dev.revere.delta.util.menu.Button;
 import dev.revere.delta.util.menu.button.BackButton;
 import dev.revere.delta.util.menu.pagination.PaginatedMenu;
@@ -39,7 +40,14 @@ public class CategoryMenu extends PaginatedMenu {
 
         addGlassHeader(buttons);
 
-        buttons.put(4, new BackButton(new AdvancementsMenu()));
+        buttons.put(3, new BackButton(new AdvancementsMenu()));
+        buttons.put(5, new AdvancementRedeemButton("&b&lRedeem All", new ItemStack(Material.EMERALD), Arrays.asList(
+                "&8&m----------------------",
+                " &fRedeem all completed advancements",
+                "",
+                "&aClick to redeem all",
+                "&8&m----------------------"
+        ), category));
 
         return buttons;
     }
@@ -181,11 +189,6 @@ public class CategoryMenu extends PaginatedMenu {
         addGlassToAvoidedSlots(buttons);
 
         return buttons;
-    }
-
-    @Override
-    public int getMaxItemsPerPage() {
-        return 36;
     }
 
     @Override

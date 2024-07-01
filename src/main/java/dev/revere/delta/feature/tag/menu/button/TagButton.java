@@ -64,7 +64,5 @@ public class TagButton extends Button {
         profile.saveProfile();
 
         player.sendMessage(CC.translate("&fYou have selected the tag " + tag.getColor() + tag.getName() + "&f!"));
-
-        new TagsMenu().openMenu(player);
     }
 }
