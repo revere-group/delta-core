@@ -57,7 +57,7 @@ public class ChatListener implements Listener {
         Player player = event.getPlayer();
         Profile profile = getProfile(player);
 
-        if (profile.getPunishments().stream().anyMatch(punishment -> punishment.getType() == PunishmentType.MUTE && punishment.isActive())) {
+        if (profile.getPunishments().stream().anyMatch(punishment -> punishment.getType() == PunishmentType.MUTE && !punishment.hasExpired())) {
             event.setCancelled(true);
             player.sendMessage(CC.translate("&cYou are currently muted."));
         }

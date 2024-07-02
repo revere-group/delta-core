@@ -84,7 +84,7 @@ public class PunishmentService implements IService {
         if (profile == null || profile.getPunishments() == null) {
             return false;
         }
-        return profile.getPunishments().stream().anyMatch(punishment -> punishment.getType() == type && punishment.isActive());
+        return profile.getPunishments().stream().anyMatch(punishment -> punishment.getType() == type && !punishment.hasExpired());
     }
 
     /**
@@ -95,16 +95,6 @@ public class PunishmentService implements IService {
      * @return the active punishment, or null if there is none
      */
     public Punishment getActivePunishment(Profile profile, PunishmentType type) {
-        return profile.getPunishments().stream().filter(punishment -> punishment.getType() == type && punishment.isActive()).findFirst().orElse(null);
-    }
-
-    /**
-     * Get all active grants for a profile.
-     *
-     * @param profile the profile to get the grants for
-     * @return a list of active grants
-     */
-    public List<Punishment> getActivePunishments(Profile profile) {
-        return profile.getPunishments().stream().filter(punishment -> !punishment.hasExpired() && punishment.isActive()).toList();
+        return profile.getPunishments().stream().filter(punishment -> punishment.getType() == type && !punishment.hasExpired()).findFirst().orElse(null);
     }
 }

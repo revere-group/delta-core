@@ -52,10 +52,10 @@ public class ProfileListener implements Listener {
             return;
         }
 
-        if (profile.getPunishments().stream().anyMatch(punishment -> punishment.getType() == PunishmentType.BAN && punishment.isActive())) {
-            Punishment punishment = profile.getPunishments().stream().filter(pun -> pun.getType() == PunishmentType.BAN && pun.isActive()).findFirst().get();
-            event.disallow(PlayerLoginEvent.Result.KICK_BANNED, CC.translate("&cYou are currently banned for " + punishment.getReason() + ". Duration: " + (punishment.isPermanent() ? "Permanent" : DateUtils.formatTimeMillis(punishment.getDuration()))));
-        } else if (profile.getPunishments().stream().anyMatch(punishment -> punishment.getType() == PunishmentType.BLACKLIST && punishment.isActive())) {
+        if (profile.getPunishments().stream().anyMatch(punishment -> punishment.getType() == PunishmentType.BAN && !punishment.hasExpired())) {
+            Punishment punishment = profile.getPunishments().stream().filter(pun -> pun.getType() == PunishmentType.BAN && !pun.hasExpired()).findFirst().get();
+            event.disallow(PlayerLoginEvent.Result.KICK_BANNED, CC.translate("&cYou are currently banned for " + punishment.getReason() + ". Expiring in: " + (punishment.isPermanent() ? "Permanent" : DateUtils.formatTimeMillis(punishment.getRemainingTime()))));
+        } else if (profile.getPunishments().stream().anyMatch(punishment -> punishment.getType() == PunishmentType.BLACKLIST && !punishment.hasExpired())) {
             event.disallow(PlayerLoginEvent.Result.KICK_BANNED, CC.translate("&cYou are currently blacklisted."));
         }
     }

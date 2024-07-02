@@ -41,6 +41,18 @@ public class Punishment {
      * @return if the punishment has expired
      */
     public boolean hasExpired() {
-        return !permanent && System.currentTimeMillis() >= addedAt + duration;
+        if (!isActive()) return true;
+        if (isPermanent()) return false;
+
+        return System.currentTimeMillis() >= addedAt + duration;
+    }
+
+    /**
+     * Get the remaining time of the punishment
+     *
+     * @return the remaining time
+     */
+    public long getRemainingTime() {
+        return addedAt + duration - System.currentTimeMillis();
     }
 }
