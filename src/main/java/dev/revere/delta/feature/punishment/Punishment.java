@@ -1,5 +1,6 @@
 package dev.revere.delta.feature.punishment;
 
+import dev.revere.delta.util.DateUtils;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -21,8 +22,9 @@ public class Punishment {
     private UUID target;
     private UUID punisher;
 
-    private boolean permanent;
+    private boolean permanent = true;
     private boolean active = true;
+    private boolean silent = false;
 
     private long duration;
     private long addedAt;
@@ -45,6 +47,15 @@ public class Punishment {
         if (isPermanent()) return false;
 
         return System.currentTimeMillis() >= addedAt + duration;
+    }
+
+    /**
+     * Get the formatted duration of the punishment
+     *
+     * @return the formatted duration
+     */
+    public String getFormattedDuration() {
+        return DateUtils.formatTimeMillis(duration);
     }
 
     /**

@@ -30,7 +30,7 @@ public class MuteCommand extends BaseCommand {
         CommandSender sender = command.getSender();
         String[] args = command.getArgs();
 
-        if (args.length < 2) {
+        if (args.length < 1) {
             sender.sendMessage(CC.translate("&cUsage: /mute <player> <duration> [reason]"));
             return;
         }
@@ -39,7 +39,11 @@ public class MuteCommand extends BaseCommand {
         OfflinePlayer target = Delta.getInstance().getServer().getOfflinePlayer(targetName);
         Profile profile = Delta.getInstance().getServiceManager().getService(ProfileService.class).getProfile(target.getUniqueId());
 
-        String duration = args[1];
+        String duration = "perm";
+        if (args.length > 1 && !args[1].equalsIgnoreCase("perm") && !args[1].equalsIgnoreCase("permanent")) {
+            duration = args[1];
+        }
+
         String reason = args.length > 2 ? String.join(" ", Arrays.copyOfRange(args, 2, args.length)) : "No reason provided";
 
         PunishmentService punishmentService = Delta.getInstance().getServiceManager().getService(PunishmentService.class);
@@ -62,13 +66,13 @@ public class MuteCommand extends BaseCommand {
         punishment.setPunisher(punisher);
         punishment.setPermanent(isPermanent(duration));
         punishment.setActive(true);
+        punishment.setSilent(reason.contains("-s") || reason.contains("-silent"));
         punishment.setDuration(isPermanent(duration) ? -1 : DateUtils.parseTime(duration));
         punishment.setAddedAt(System.currentTimeMillis());
         punishment.setReason(reason);
         punishment.setAddedBy(punisherName);
         punishment.setTargetName(targetName);
-        punishmentService.addPunishment(punishment, target.getUniqueId());
-        sender.getServer().getOnlinePlayers().stream().filter(player -> player.hasPermission("delta.staff")).forEach(player -> player.sendMessage(CC.translate("&b" + sender.getName() + " &7has muted &b" + target.getName())));
+        punishmentService.executePunishment(punishment);
     }
 
     /**

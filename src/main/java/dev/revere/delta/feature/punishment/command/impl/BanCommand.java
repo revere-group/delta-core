@@ -31,8 +31,8 @@ public class BanCommand extends BaseCommand {
         CommandSender sender = command.getSender();
         String[] args = command.getArgs();
 
-        if (args.length < 2) {
-            sender.sendMessage(CC.translate("&cUsage: /ban <player> <duration> [reason]"));
+        if (args.length < 1) {
+            sender.sendMessage(CC.translate("&cUsage: /ban <player> <duration> [reason] [-s]"));
             return;
         }
 
@@ -40,17 +40,17 @@ public class BanCommand extends BaseCommand {
         OfflinePlayer target = Delta.getInstance().getServer().getOfflinePlayer(targetName);
         Profile profile = Delta.getInstance().getServiceManager().getService(ProfileService.class).getProfile(target.getUniqueId());
 
-        String duration = args[1];
+        String duration = "perm";
+        if (args.length > 1 && !args[1].equalsIgnoreCase("perm") && !args[1].equalsIgnoreCase("permanent")) {
+            duration = args[1];
+        }
+
         String reason = args.length > 2 ? String.join(" ", Arrays.copyOfRange(args, 2, args.length)) : "No reason provided";
 
         PunishmentService punishmentService = Delta.getInstance().getServiceManager().getService(PunishmentService.class);
         if (punishmentService.isPunishmentActive(profile, PunishmentType.BAN)) {
             sender.sendMessage(CC.translate("&cThat player is already banned."));
             return;
-        }
-
-        if (target.isOnline()) {
-            target.getPlayer().kickPlayer(CC.translate("&cYou have been banned from the server for " + reason + "."));
         }
 
         UUID punisher = sender instanceof Player ? ((Player) sender).getUniqueId() : UUID.randomUUID();
@@ -62,13 +62,13 @@ public class BanCommand extends BaseCommand {
         punishment.setPunisher(punisher);
         punishment.setPermanent(isPermanent(duration));
         punishment.setActive(true);
+        punishment.setSilent(reason.contains("-s") || reason.contains("-silent"));
         punishment.setDuration(isPermanent(duration) ? -1 : DateUtils.parseTime(duration));
         punishment.setAddedAt(System.currentTimeMillis());
         punishment.setReason(reason);
         punishment.setAddedBy(punisherName);
         punishment.setTargetName(targetName);
-        punishmentService.addPunishment(punishment, target.getUniqueId());
-        sender.getServer().getOnlinePlayers().stream().filter(player -> player.hasPermission("delta.staff")).forEach(player -> player.sendMessage(CC.translate("&b" + sender.getName() + " &7has banned &b" + target.getName())));
+        punishmentService.executePunishment(punishment);
     }
 
     /**

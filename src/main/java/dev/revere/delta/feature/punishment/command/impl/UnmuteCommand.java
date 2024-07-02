@@ -43,7 +43,8 @@ public class UnmuteCommand extends BaseCommand {
         }
 
         Punishment punishment = punishmentService.getActivePunishment(profile, PunishmentType.MUTE);
-        punishmentService.removePunishment(punishment, sender instanceof Player ? sender.getName() : "Console", target.getUniqueId(), reason);
-        sender.getServer().getOnlinePlayers().stream().filter(player -> player.hasPermission("delta.staff")).forEach(player -> player.sendMessage(CC.translate("&b" + sender.getName() + " &7has unmuted &b" + target.getName())));
+        punishment.setRemovedReason(reason);
+        punishment.setRemovedBy(sender instanceof Player ? sender.getName() : "Console");
+        punishmentService.executePunishmentRemoval(punishment, reason.contains("-s") || reason.contains("-silent"));
     }
 }
