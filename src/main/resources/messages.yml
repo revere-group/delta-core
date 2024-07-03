@@ -133,6 +133,7 @@ staff:
   report: "&3[&bS&3] &b%player% &fhas reported &b%target% &ffor &b%reason%&f."
   help: "&3[&bS&3] &b%player% &fhas requested help from staff. &7(&b%message%&7)"
   sudo: "&3[&bS&3] &fYou've made &b%target% &ftype &b%command%&f in chat!"
+  sudo-all: "&3[&bS&3] &fYou've made &beveryone &ftype &b%command%&f in chat!"
   invsee: "&3[&bS&3] &fViewing &b%target%'s &finventory."
   endinvsee: "&3[&bS&3] &fViewing &b%target%'s &fender chest."
   healed: "&3[&bS&3] &fYou've been healed."
