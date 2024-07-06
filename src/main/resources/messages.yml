@@ -79,12 +79,12 @@ on-join:
         - " "
         - "%bars%"
         - " "
-    joined-the-game: "&f[&b+&f] &b%player% &fhas joined."
+    joined-the-game: "&f[%color%+&f] &b%color%%player% &fhas joined."
     first-join: "&f[&b+&f] &fWelcome to &b%player%'s &ffirst time on the server!"
 
 on-leave:
   messages:
-    left-the-game: "&f[&c-&f] &c%player% &fhas left."
+    left-the-game: "&f[%color%-&f] &c%color%%player% &fhas left."
 
 trolling:
   strike: "&fYou've struck &b%target% &fwith lightning!"

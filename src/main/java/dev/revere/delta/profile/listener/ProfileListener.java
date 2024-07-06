@@ -2,8 +2,11 @@ package dev.revere.delta.profile.listener;
 
 import dev.revere.delta.Delta;
 import dev.revere.delta.feature.advancement.AdvancementService;
+import dev.revere.delta.feature.grant.Grant;
+import dev.revere.delta.feature.grant.GrantService;
 import dev.revere.delta.feature.punishment.Punishment;
 import dev.revere.delta.feature.punishment.PunishmentType;
+import dev.revere.delta.feature.rank.RankService;
 import dev.revere.delta.feature.server.ServerService;
 import dev.revere.delta.profile.Profile;
 import dev.revere.delta.profile.ProfileService;
@@ -123,7 +126,10 @@ public class ProfileListener implements Listener {
      * @param configService the config service
      */
     private void handleJoinMessage(PlayerJoinEvent event, Player player, ConfigService configService) {
-        String joinMessage = configService.getConfig("messages.yml").getString("on-join.messages.joined-the-game").replace("%player%", player.getName());
+        Profile profile = Delta.getInstance().getServiceManager().getService(ProfileService.class).getProfile(player.getUniqueId());
+        String joinMessage = configService.getConfig("messages.yml").getString("on-join.messages.joined-the-game")
+                .replace("%player%", player.getName())
+                .replace("%color%", String.valueOf(Delta.getInstance().getServiceManager().getService(RankService.class).getHighestRank(profile).getNameColor()));
         String firstJoinMessage = configService.getConfig("messages.yml").getString("on-join.messages.first-join").replace("%player%", player.getName());
 
         if (player.hasPlayedBefore()) {
@@ -179,7 +185,10 @@ public class ProfileListener implements Listener {
             return;
         }
 
-        String quitMessage = Delta.getInstance().getServiceManager().getService(ConfigService.class).getConfig("messages.yml").getString("on-leave.messages.left-the-game").replace("%player%", player.getName());
+        String quitMessage = Delta.getInstance().getServiceManager().getService(ConfigService.class).getConfig("messages.yml").getString("on-leave.messages.left-the-game")
+                .replace("%player%", player.getName())
+                .replace("%color%", String.valueOf(Delta.getInstance().getServiceManager().getService(RankService.class).getHighestRank(profile).getNameColor()));
+                ;
         event.setQuitMessage(CC.translate(quitMessage));
     }
 
