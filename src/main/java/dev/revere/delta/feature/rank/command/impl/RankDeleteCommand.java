@@ -12,6 +12,9 @@ import dev.revere.delta.profile.ProfileService;
 import dev.revere.delta.util.CC;
 import org.bukkit.entity.Player;
 
+import java.util.Map;
+import java.util.UUID;
+
 /**
  * @author Remi
  * @project Delta
@@ -46,12 +49,10 @@ public class RankDeleteCommand extends BaseCommand {
         rankService.deleteRank(rank);
 
         GrantService grantService = Delta.getInstance().getServiceManager().getService(GrantService.class);
-        Profile profile = Delta.getInstance().getServiceManager().getService(ProfileService.class).getProfile(player.getUniqueId());
-
-        profile.getGrants().stream().filter(grant -> grant.getRank().equals(rank)).forEach(grant -> {
+        ProfileService profileService = Delta.getInstance().getServiceManager().getService(ProfileService.class);
+        profileService.getProfiles().values().forEach(profile -> profile.getGrants().stream().filter(grant -> grant.getRank().equals(rank)).forEach(grant -> {
             grantService.deleteGrant(grant, profile);
-        });
-
+        }));
         player.sendMessage(CC.translate("&fSuccessfully deleted the rank &b" + name + "&f."));
     }
 }
