@@ -55,6 +55,9 @@ public class PlaceholderAPI extends PlaceholderExpansion {
             case "rank-color" -> rankService.getHighestRank(profile).getNameColor().toString();
             case "rank-weight" -> String.valueOf(rankService.getHighestRank(profile).getWeight());
             case "rank-inheritance" -> rankService.getHighestRank(profile).getInheritance().toString();
+            case "tag-name" -> CC.translate(profile.getTag() != null ? profile.getTag().getName() : "");
+            case "tag-prefix" -> CC.translate(profile.getTag() != null ? " " + profile.getTag().getPrefix() : "");
+            case "tag-color" -> profile.getTag() != null ? profile.getTag().getColor().toString() : "";
             default -> null;
         };
     }
