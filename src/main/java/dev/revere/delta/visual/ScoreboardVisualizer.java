@@ -8,6 +8,7 @@ import dev.revere.delta.profile.Profile;
 import dev.revere.delta.profile.ProfileService;
 import dev.revere.delta.service.ConfigService;
 import dev.revere.delta.util.CC;
+import me.clip.placeholderapi.PlaceholderAPI;
 import org.bukkit.Statistic;
 import org.bukkit.entity.Player;
 
@@ -93,6 +94,6 @@ public class ScoreboardVisualizer implements AssembleAdapter {
             }
         }
 
-        return toReturn;
+        return Delta.getInstance().isPlaceholderAPIEnabled() ? PlaceholderAPI.setPlaceholders(player, toReturn) : toReturn;
     }
 }

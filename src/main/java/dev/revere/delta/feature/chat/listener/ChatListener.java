@@ -8,6 +8,8 @@ import dev.revere.delta.profile.Profile;
 import dev.revere.delta.profile.ProfileService;
 import dev.revere.delta.service.ConfigService;
 import dev.revere.delta.util.CC;
+import me.clip.placeholderapi.PlaceholderAPI;
+import org.bukkit.Bukkit;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
@@ -23,44 +25,33 @@ import org.bukkit.event.player.AsyncPlayerChatEvent;
 public class ChatListener implements Listener {
 
     /**
-     * Handle the chat format
+     * Handle the chat
      *
      * @param event the event to handle
      */
     @EventHandler
-    public void handleChatFormat(AsyncPlayerChatEvent event) {
+    public void handleChat(AsyncPlayerChatEvent event) {
         Player player = event.getPlayer();
         Profile profile = getProfile(player);
         FileConfiguration config = getMessagesConfig();
 
-        String chatFormat = formatChatMessage(config, profile, player, event.getMessage());
-        event.setFormat(chatFormat);
-    }
-
-    /**
-     * Handle the chat filter
-     *
-     * @param event the event to handle
-     */
-    @EventHandler
-    public void handleChatFilter(AsyncPlayerChatEvent event) {
-        Player player = event.getPlayer();
-        String message = event.getMessage();
-
-        if (shouldFilterMessage(player, message)) {
-            event.setCancelled(true);
-        }
-    }
-
-    @EventHandler(priority = EventPriority.HIGHEST)
-    public void handlePunishmentChat(AsyncPlayerChatEvent event) {
-        Player player = event.getPlayer();
-        Profile profile = getProfile(player);
-
         if (profile.getPunishments().stream().anyMatch(punishment -> punishment.getType() == PunishmentType.MUTE && !punishment.hasExpired())) {
             event.setCancelled(true);
             player.sendMessage(CC.translate("&cYou are currently muted."));
+            return;
         }
+
+        if (shouldFilterMessage(player, event.getMessage())) {
+            event.setCancelled(true);
+            return;
+        }
+
+        String chatFormat = formatChatMessage(config, profile, player, event.getMessage());
+        for (Player recipient : Bukkit.getOnlinePlayers()) {
+            recipient.sendMessage(chatFormat);
+        }
+
+        event.setCancelled(true);
     }
 
     /**
@@ -123,9 +114,10 @@ public class ChatListener implements Listener {
         chatFormat = chatFormat.replace("%tag%", getTagPrefix(profile));
         chatFormat = chatFormat.replace("%suffix%", getRankSuffix(profile));
         chatFormat = chatFormat.replace("%world%", player.getWorld().getName());
-        chatFormat = chatFormat.replace("%", "%%");
+        chatFormat = chatFormat.replace("%ping%", String.valueOf(player.getPing()));
+        chatFormat = chatFormat.replace("%coins%", String.valueOf(profile.getCoins()));
 
-        return chatFormat;
+        return Delta.getInstance().isPlaceholderAPIEnabled() ? PlaceholderAPI.setPlaceholders(player, chatFormat) : chatFormat;
     }
 
     /**

@@ -52,6 +52,8 @@ public class Delta extends JavaPlugin {
     private HomeRepository homeRepository;
     private ClanRepository clanRepository;
 
+    private boolean isPlaceholderAPIEnabled;
+
     @Override
     public void onEnable() {
         instance = this;
@@ -86,6 +88,7 @@ public class Delta extends JavaPlugin {
         if (Bukkit.getPluginManager().isPluginEnabled("PlaceholderAPI")) {
             Bukkit.getConsoleSender().sendMessage(CC.translate("&fRegistered addon: &bPlaceholderAPI"));
             new PlaceholderAPI().register();
+            isPlaceholderAPIEnabled = true;
         }
     }
 
