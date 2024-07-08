@@ -22,11 +22,9 @@ player:
     received: "&b%player% &fhas shared their &blocation &fwith you. &7(&b%x%&7, &b%y%&7, &b%z%&7)"
 
 chat:
-  clan-prefix: "&8[%clan%&8]"
-  clan-name-small-font: true
   player-name-small-font: true
   rank-prefix-small-font: true
-  format: "%rank%%clan%%color%%player%%tag%&f: &f%message%"
+  format: "%rank%%color%%player%%tag%&f: &f%message%"
   filter:
     enabled: true
     notify-self: "&f[&bChat&f] &fYour message has been filtered. &7(&b%word%&7)"
