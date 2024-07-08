@@ -5,6 +5,7 @@ import dev.revere.delta.api.service.IService;
 import dev.revere.delta.profile.Profile;
 import dev.revere.delta.profile.ProfileService;
 import dev.revere.delta.util.CC;
+import dev.revere.delta.util.DateUtils;
 import lombok.Getter;
 import org.bukkit.OfflinePlayer;
 import org.bukkit.entity.Player;
@@ -147,13 +148,15 @@ public class PunishmentService implements IService {
      * @param punishment the punishment to apply
      */
     private void applyPunishmentToTarget(Player target, Punishment punishment) {
+        String durationMessage = punishment.isPermanent() ? "forever" : String.valueOf(DateUtils.parseTime(punishment.getFormattedDuration()));
+
         switch (punishment.getType()) {
             case BAN:
             case BLACKLIST:
                 target.kickPlayer(CC.translate("&cYou have been " + punishment.getType().toString().toLowerCase() + " from the server for " + punishment.getReason() + "."));
                 break;
             case MUTE:
-                target.sendMessage(CC.translate("&cYou have been muted for " + punishment.getReason() + " for " + punishment.getFormattedDuration() + "."));
+                target.sendMessage(CC.translate("&cYou have been muted for " + punishment.getReason() + " for " + durationMessage + "."));
                 break;
             case KICK:
                 target.kickPlayer(CC.translate("&cYou have been kicked from the server."));

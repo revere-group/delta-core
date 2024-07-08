@@ -79,8 +79,12 @@ on-join:
         - " "
         - "%bars%"
         - " "
-    joined-the-game: "&f[%color%+&f] &b%color%%player% &fhas joined."
-    first-join: "&f[&b+&f] &fWelcome to &b%player%'s &ffirst time on the server!"
+    joined-the-game:
+      enabled: true
+      message: "&f[%color%+&f] &b%color%%player% &fhas joined."
+    first-join:
+      enabled: false
+      message: "&f[&b+&f] &fWelcome to &b%player%'s &ffirst time on the server!"
 
 on-leave:
   messages:

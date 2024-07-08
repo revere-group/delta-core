@@ -52,11 +52,6 @@ public class MuteCommand extends BaseCommand {
             return;
         }
 
-        if (target.isOnline()) {
-            String durationMessage = isPermanent(duration) ? "forever" : String.valueOf(DateUtils.parseTime(duration));
-            target.getPlayer().sendMessage(CC.translate("&cYou have been muted for " + reason + " for " + durationMessage + "."));
-        }
-
         UUID punisher = sender instanceof Player ? ((Player) sender).getUniqueId() : UUID.randomUUID();
         String punisherName = sender instanceof Player ? sender.getName() : "Console";
 

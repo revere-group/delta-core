@@ -127,15 +127,18 @@ public class ProfileListener implements Listener {
      */
     private void handleJoinMessage(PlayerJoinEvent event, Player player, ConfigService configService) {
         Profile profile = Delta.getInstance().getServiceManager().getService(ProfileService.class).getProfile(player.getUniqueId());
-        String joinMessage = configService.getConfig("messages.yml").getString("on-join.messages.joined-the-game")
+        String joinMessage = configService.getConfig("messages.yml").getString("on-join.messages.joined-the-game.message")
                 .replace("%player%", player.getName())
                 .replace("%color%", String.valueOf(Delta.getInstance().getServiceManager().getService(RankService.class).getHighestRank(profile).getNameColor()));
-        String firstJoinMessage = configService.getConfig("messages.yml").getString("on-join.messages.first-join").replace("%player%", player.getName());
+        String firstJoinMessage = configService.getConfig("messages.yml").getString("on-join.messages.first-join.message").replace("%player%", player.getName());
+
+        boolean joinMessageEnabled = configService.getConfig("messages.yml").getBoolean("on-join.messages.joined-the-game.enabled");
+        boolean firstJoinMessageEnabled = configService.getConfig("messages.yml").getBoolean("on-join.messages.first-join.enabled");
 
         if (player.hasPlayedBefore()) {
-            event.setJoinMessage(CC.translate(joinMessage));
+            event.setJoinMessage(joinMessageEnabled ? CC.translate(joinMessage) : null);
         } else {
-            event.setJoinMessage(CC.translate(firstJoinMessage));
+            event.setJoinMessage(firstJoinMessageEnabled ? CC.translate(firstJoinMessage) : null);
         }
     }
 
