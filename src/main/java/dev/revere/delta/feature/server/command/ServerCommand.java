@@ -18,7 +18,7 @@ import java.util.stream.Collectors;
  * @date 6/27/2024
  */
 public class ServerCommand extends BaseCommand {
-    @Command(name = "server", permission = "delta.staff.server")
+    @Command(name = "serverinfo", permission = "delta.staff.server")
     @Override
     public void onCommand(CommandArgs command) {
         Player player = command.getPlayer();
