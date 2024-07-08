@@ -1,4 +1,4 @@
-server-name: eu-smp-1
+server-name: eu-lobby-1
 server-region: Europe
 
 tablist:
@@ -17,7 +17,6 @@ scoreboard:
     - " &b❚ &fCoins: &b$%coins%"
     - " &b❚ &fDeaths: &b%deaths%"
     - " &b❚ &fKills: &b%kills%"
-    - " &b❚ %combat-tag%"
     - ""
     - "&7play.revere.dev"
 

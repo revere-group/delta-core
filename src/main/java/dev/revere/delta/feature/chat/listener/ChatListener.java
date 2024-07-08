@@ -46,12 +46,14 @@ public class ChatListener implements Listener {
             return;
         }
 
-        String chatFormat = formatChatMessage(config, profile, player, event.getMessage());
-        for (Player recipient : Bukkit.getOnlinePlayers()) {
-            recipient.sendMessage(chatFormat);
-        }
+        if (config.getBoolean("chat.format-enabled")) {
+            String chatFormat = formatChatMessage(config, profile, player, event.getMessage());
+            for (Player recipient : Bukkit.getOnlinePlayers()) {
+                recipient.sendMessage(chatFormat);
+            }
 
-        event.setCancelled(true);
+            event.setCancelled(true);
+        }
     }
 
     /**
@@ -91,7 +93,6 @@ public class ChatListener implements Listener {
     private String formatChatMessage(FileConfiguration config, Profile profile, Player player, String message) {
         boolean translate = player.hasPermission("delta.chat.color");
         boolean playerNameSmallFont = config.getBoolean("chat.player-name-small-font");
-        boolean clanNameSmallFont = config.getBoolean("chat.clan-name-small-font");
         boolean rankSmallFont = config.getBoolean("chat.rank-prefix-small-font");
 
         String chatFormat = CC.translate(config.getString("chat.format"));

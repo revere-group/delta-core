@@ -4,6 +4,7 @@ import dev.revere.delta.Delta;
 import dev.revere.delta.api.command.BaseCommand;
 import dev.revere.delta.api.command.CommandArgs;
 import dev.revere.delta.api.command.annotation.Command;
+import dev.revere.delta.feature.rank.RankService;
 import dev.revere.delta.profile.Profile;
 import dev.revere.delta.profile.ProfileService;
 import dev.revere.delta.service.ConfigService;
@@ -80,7 +81,9 @@ public class VanishCommand extends BaseCommand {
                 }
             }
         } else {
-            String joinMessage = Delta.getInstance().getServiceManager().getService(ConfigService.class).getConfig("messages.yml").getString("on-join.messages.joined-the-game.message").replace("%player%", player.getName());
+            String joinMessage = Delta.getInstance().getServiceManager().getService(ConfigService.class).getConfig("messages.yml").getString("on-join.messages.joined-the-game.message")
+                    .replace("%player%", player.getName())
+                    .replace("%color%", String.valueOf(Delta.getInstance().getServiceManager().getService(RankService.class).getHighestRank(profile).getNameColor()));
             player.getServer().getOnlinePlayers().forEach(online -> online.sendMessage(CC.translate(joinMessage)));
             player.setCanPickupItems(true);
             player.setCollidable(true);

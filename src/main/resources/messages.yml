@@ -22,6 +22,7 @@ player:
     received: "&b%player% &fhas shared their &blocation &fwith you. &7(&b%x%&7, &b%y%&7, &b%z%&7)"
 
 chat:
+  format-enabled: true
   player-name-small-font: true
   rank-prefix-small-font: true
   format: "%rank%%color%%player%%tag%&f: &f%message%"
