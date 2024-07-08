@@ -2,7 +2,6 @@ package dev.revere.delta.visual;
 
 import dev.revere.delta.Delta;
 import dev.revere.delta.api.scoreboard.AssembleAdapter;
-import dev.revere.delta.feature.combat.CombatLogService;
 import dev.revere.delta.feature.rank.RankService;
 import dev.revere.delta.profile.Profile;
 import dev.revere.delta.profile.ProfileService;
@@ -49,48 +48,29 @@ public class ScoreboardVisualizer implements AssembleAdapter {
             return toReturn;
         }
 
-        CombatLogService combatLogService = Delta.getInstance().getServiceManager().getService(CombatLogService.class);
 
         if (Delta.getInstance().getServiceManager().getService(ConfigService.class).getConfig("settings.yml").getBoolean("scoreboard.enabled")) {
             for (String line : lines) {
-                if (line.contains("%combat-tag%")) {
-                    if (combatLogService.isPlayerInCombat(player)) {
-                        boolean smallFont = Delta.getInstance().getServiceManager().getService(ConfigService.class).getConfig("settings.yml").getBoolean("scoreboard.small-font");
-                        long remainingTime = combatLogService.getRemainingCombatTime(player);
-                        List<String> combatTagLines = Delta.getInstance().getServiceManager().getService(ConfigService.class).getConfig("settings.yml").getStringList("scoreboard.combat-tag.lines");
+                Profile profile = Delta.getInstance().getServiceManager().getService(ProfileService.class).getProfile(player.getUniqueId());
+                RankService rankService = Delta.getInstance().getServiceManager().getService(RankService.class);
+                boolean smallFont = Delta.getInstance().getServiceManager().getService(ConfigService.class).getConfig("settings.yml").getBoolean("scoreboard.small-font");
+                String formattedLine = CC.translate(line
+                        .replace("%online-players%", String.valueOf(player.getServer().getOnlinePlayers().size()))
+                        .replace("%max-players%", String.valueOf(player.getServer().getMaxPlayers()))
+                        .replace("%deaths%", player.getStatistic(Statistic.DEATHS) + "")
+                        .replace("%kills%", player.getStatistic(Statistic.PLAYER_KILLS) + "")
+                        .replace("%ping%", player.getPing() + "")
+                        .replace("%coins%", profile.getCoins() + "")
+                        .replace("%rank%", rankService.getHighestRank(profile).getName())
+                        .replace("%rank-color%", rankService.getHighestRank(profile).getNameColor().toString())
+                        .replace("%rank-prefix%", rankService.getHighestRank(profile).getPrefix()
+                ));
 
-                        for (String combatLine : combatTagLines) {
-                            String formattedCombatLine = CC.translate(combatLine.replace("%tag%", String.valueOf(remainingTime)));
-
-                            if (smallFont) {
-                                formattedCombatLine = CC.toSmallFont(CC.translate(formattedCombatLine));
-                            }
-
-                            toReturn.add(formattedCombatLine);
-                        }
-                    }
-                } else {
-                    Profile profile = Delta.getInstance().getServiceManager().getService(ProfileService.class).getProfile(player.getUniqueId());
-                    RankService rankService = Delta.getInstance().getServiceManager().getService(RankService.class);
-                    boolean smallFont = Delta.getInstance().getServiceManager().getService(ConfigService.class).getConfig("settings.yml").getBoolean("scoreboard.small-font");
-                    String formattedLine = CC.translate(line
-                            .replace("%online-players%", String.valueOf(player.getServer().getOnlinePlayers().size()))
-                            .replace("%max-players%", String.valueOf(player.getServer().getMaxPlayers()))
-                            .replace("%deaths%", player.getStatistic(Statistic.DEATHS) + "")
-                            .replace("%kills%", player.getStatistic(Statistic.PLAYER_KILLS) + "")
-                            .replace("%ping%", player.getPing() + "")
-                            .replace("%coins%", profile.getCoins() + "")
-                            .replace("%rank%", rankService.getHighestRank(profile).getName())
-                            .replace("%rank-color%", rankService.getHighestRank(profile).getNameColor().toString())
-                            .replace("%rank-prefix%", rankService.getHighestRank(profile).getPrefix()
-                    ));
-
-                    if (smallFont) {
-                        formattedLine = CC.toSmallFont(CC.translate(formattedLine));
-                    }
-
-                    toReturn.add(formattedLine);
+                if (smallFont) {
+                    formattedLine = CC.toSmallFont(CC.translate(formattedLine));
                 }
+
+                toReturn.add(formattedLine);
             }
         }
 

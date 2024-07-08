@@ -96,20 +96,13 @@ public class ChatListener implements Listener {
 
         String chatFormat = CC.translate(config.getString("chat.format"));
         String rank = getRankPrefix(profile) + " ";
-        String clan = getClan(player);
-        String clanPrefix = "";
-        if (!clan.isEmpty()) {
-            clanPrefix = CC.translate(config.getString("chat.clan-prefix").replace("%clan%", clan)) + " ";
-        }
 
-        String clanName = clanNameSmallFont ? CC.toSmallFont(CC.translate(clanPrefix)) : clanPrefix;
         String rankName = rankSmallFont ? CC.toSmallFont(CC.translate(rank)) : rank;
 
         String playerName = playerNameSmallFont ? CC.toSmallFont(player.getDisplayName()) : player.getDisplayName();
         chatFormat = chatFormat.replace("%color%", profile.getNameColor());
         chatFormat = chatFormat.replace("%player%", playerName);
         chatFormat = chatFormat.replace("%message%", translate ? CC.translate(message) : message);
-        chatFormat = chatFormat.replace("%clan%", clanName);
         chatFormat = chatFormat.replace("%rank%", rankName);
         chatFormat = chatFormat.replace("%tag%", getTagPrefix(profile));
         chatFormat = chatFormat.replace("%suffix%", getRankSuffix(profile));
@@ -118,20 +111,6 @@ public class ChatListener implements Listener {
         chatFormat = chatFormat.replace("%coins%", String.valueOf(profile.getCoins()));
 
         return Delta.getInstance().isPlaceholderAPIEnabled() ? PlaceholderAPI.setPlaceholders(player, chatFormat) : chatFormat;
-    }
-
-    /**
-     * Get the clan tag of a player
-     *
-     * @param player the player to get the clan tag of
-     * @return the clan tag of the player
-     */
-    private String getClan(Player player) {
-        String clanTag = "";
-        if (Delta.getInstance().getClanRepository().getPlayerClan(player.getUniqueId()) != null) {
-            clanTag = Delta.getInstance().getClanRepository().getPlayerClan(player.getUniqueId()).getColoredName();
-        }
-        return CC.translate(clanTag);
     }
 
     /**

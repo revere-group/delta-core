@@ -1,9 +1,6 @@
 package dev.revere.delta.profile.listener;
 
 import dev.revere.delta.Delta;
-import dev.revere.delta.feature.advancement.AdvancementService;
-import dev.revere.delta.feature.grant.Grant;
-import dev.revere.delta.feature.grant.GrantService;
 import dev.revere.delta.feature.punishment.Punishment;
 import dev.revere.delta.feature.punishment.PunishmentType;
 import dev.revere.delta.feature.rank.RankService;
@@ -71,13 +68,11 @@ public class ProfileListener implements Listener {
         profile.setName(player.getName());
         profile.setOnline(true);
 
-        AdvancementService advancementService = Delta.getInstance().getServiceManager().getService(AdvancementService.class);
         ConfigService configService = Delta.getInstance().getServiceManager().getService(ConfigService.class);
         ServerService serverService = Delta.getInstance().getServiceManager().getService(ServerService.class);
         handleTeleportationToSpawn(configService, player, serverService);
 
         profileService.loadPermissions(player);
-        advancementService.loadPlayerAdvancements(player);
 
         handleWelcomeMessage(player, configService);
         handleJoinTitle(player, configService);
@@ -191,7 +186,7 @@ public class ProfileListener implements Listener {
         String quitMessage = Delta.getInstance().getServiceManager().getService(ConfigService.class).getConfig("messages.yml").getString("on-leave.messages.left-the-game")
                 .replace("%player%", player.getName())
                 .replace("%color%", String.valueOf(Delta.getInstance().getServiceManager().getService(RankService.class).getHighestRank(profile).getNameColor()));
-                ;
+        ;
         event.setQuitMessage(CC.translate(quitMessage));
     }
 
@@ -223,19 +218,4 @@ public class ProfileListener implements Listener {
                 .replace("%health%", String.valueOf(Math.round(player.getHealth())))
                 .replace("%bars%", bars);
     }
-
-    /**
-     * Get the clan tag of a player
-     *
-     * @param player the player to get the clan tag of
-     * @return the clan tag of the player
-     */
-    private String getClan(Player player) {
-        String clanTag = "";
-        if (Delta.getInstance().getClanRepository().getPlayerClan(player.getUniqueId()) != null) {
-            clanTag = Delta.getInstance().getClanRepository().getPlayerClan(player.getUniqueId()).getColoredName();
-        }
-        return CC.translate(clanTag);
-    }
-
 }

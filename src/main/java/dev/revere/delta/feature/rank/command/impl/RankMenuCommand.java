@@ -4,7 +4,6 @@ import dev.revere.delta.Delta;
 import dev.revere.delta.api.command.BaseCommand;
 import dev.revere.delta.api.command.CommandArgs;
 import dev.revere.delta.api.command.annotation.Command;
-import dev.revere.delta.feature.home.menu.HomeMenu;
 import dev.revere.delta.feature.rank.RankService;
 import dev.revere.delta.feature.rank.menu.RankMenu;
 import dev.revere.delta.util.CC;

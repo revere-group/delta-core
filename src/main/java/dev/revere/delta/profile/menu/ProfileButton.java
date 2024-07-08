@@ -1,6 +1,5 @@
 package dev.revere.delta.profile.menu;
 
-import dev.revere.delta.feature.advancement.menu.AdvancementsMenu;
 import dev.revere.delta.feature.shop.menus.CoinShopMenu;
 import dev.revere.delta.feature.tag.menu.TagsMenu;
 import dev.revere.delta.util.menu.Button;
@@ -48,8 +47,6 @@ public class ProfileButton extends Button {
             case NAME_TAG:
                 new TagsMenu().openMenu(player);
                 break;
-            case BOOK:
-                new AdvancementsMenu().openMenu(player);
         }
         playNeutral(player);
     }

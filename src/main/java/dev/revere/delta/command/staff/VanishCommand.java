@@ -80,7 +80,7 @@ public class VanishCommand extends BaseCommand {
                 }
             }
         } else {
-            String joinMessage = Delta.getInstance().getServiceManager().getService(ConfigService.class).getConfig("messages.yml").getString("on-join.messages.joined-the-game").replace("%player%", player.getName());
+            String joinMessage = Delta.getInstance().getServiceManager().getService(ConfigService.class).getConfig("messages.yml").getString("on-join.messages.joined-the-game.message").replace("%player%", player.getName());
             player.getServer().getOnlinePlayers().forEach(online -> online.sendMessage(CC.translate(joinMessage)));
             player.setCanPickupItems(true);
             player.setCollidable(true);

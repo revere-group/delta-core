@@ -56,7 +56,7 @@ public class ProfileMenu extends Menu {
                 "&8&m----------------------"
         )));
 
-        buttons.put(19, new ProfileButton("&b&lProfile Settings", new ItemStack(Material.ANVIL), Arrays.asList(
+        buttons.put(20, new ProfileButton("&b&lProfile Settings", new ItemStack(Material.ANVIL), Arrays.asList(
                 "&8&m----------------------",
                 " &fCustomize your settings",
                 " &fto your preference.",
@@ -65,7 +65,7 @@ public class ProfileMenu extends Menu {
                 "&8&m----------------------"
         )));
 
-        buttons.put(21, new ProfileButton("&b&lTag Customization", new ItemStack(Material.NAME_TAG), Arrays.asList(
+        buttons.put(22, new ProfileButton("&b&lTag Customization", new ItemStack(Material.NAME_TAG), Arrays.asList(
                 "&8&m----------------------",
                 " &fCustomize your tag",
                 " &fto your preference.",
@@ -74,16 +74,7 @@ public class ProfileMenu extends Menu {
                 "&8&m----------------------"
         )));
 
-        buttons.put(23, new ProfileButton("&b&lAdvancements", new ItemStack(Material.BOOK), Arrays.asList(
-                "&8&m----------------------",
-                " &fView your advancements and",
-                " &fcomplete them for rewards.",
-                "",
-                "&aClick to view!",
-                "&8&m----------------------"
-        )));
-
-        buttons.put(25, new ProfileButton("&b&lCoin Shop", new ItemStack(Material.EMERALD), Arrays.asList(
+        buttons.put(24, new ProfileButton("&b&lCoin Shop", new ItemStack(Material.EMERALD), Arrays.asList(
                 "&8&m----------------------",
                 " &fPurchase cosmetics,",
                 " &fthemes, and more with",

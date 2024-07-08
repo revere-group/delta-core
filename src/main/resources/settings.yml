@@ -20,10 +20,6 @@ scoreboard:
     - " &b❚ %combat-tag%"
     - ""
     - "&7play.revere.dev"
-  combat-tag:
-    lines:
-      - ""
-      - " &b❚ &fCombat Log: &b%tag%ѕ"
 
 teleport-spawn:
   enabled: true

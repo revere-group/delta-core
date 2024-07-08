@@ -5,14 +5,10 @@ import com.google.gson.GsonBuilder;
 import dev.revere.delta.api.service.ServiceManager;
 import dev.revere.delta.command.CommandService;
 import dev.revere.delta.database.MongoService;
-import dev.revere.delta.feature.advancement.AdvancementService;
 import dev.revere.delta.feature.chat.filter.FilterService;
-import dev.revere.delta.feature.clan.ClanRepository;
-import dev.revere.delta.feature.combat.CombatLogService;
 import dev.revere.delta.feature.conversation.ConversationService;
 import dev.revere.delta.feature.cooldown.CooldownService;
 import dev.revere.delta.feature.grant.GrantService;
-import dev.revere.delta.feature.home.HomeRepository;
 import dev.revere.delta.feature.punishment.PunishmentService;
 import dev.revere.delta.feature.rank.RankService;
 import dev.revere.delta.feature.scoreboard.ScoreboardService;
@@ -21,7 +17,6 @@ import dev.revere.delta.feature.server.whitelist.WhitelistService;
 import dev.revere.delta.feature.tablist.TabListService;
 import dev.revere.delta.feature.tag.TagService;
 import dev.revere.delta.feature.tips.TipsService;
-import dev.revere.delta.feature.tpa.TPAService;
 import dev.revere.delta.profile.ProfileService;
 import dev.revere.delta.service.ConfigService;
 import dev.revere.delta.service.ListenerService;
@@ -49,9 +44,6 @@ public class Delta extends JavaPlugin {
 
     private final List<Runnable> initializationTasks = new ArrayList<>();
 
-    private HomeRepository homeRepository;
-    private ClanRepository clanRepository;
-
     private boolean isPlaceholderAPIEnabled;
 
     @Override
@@ -71,14 +63,6 @@ public class Delta extends JavaPlugin {
      */
     private void registerBungeeChannel() {
         getServer().getMessenger().registerOutgoingPluginChannel(this, "BungeeCord");
-    }
-
-    /**
-     * Register repositories
-     */
-    private void registerRepositories() {
-        this.homeRepository = new HomeRepository();
-        this.clanRepository = new ClanRepository();
     }
 
     /**
@@ -102,7 +86,8 @@ public class Delta extends JavaPlugin {
         serviceManager.registerService(new ProfileService(this));
         serviceManager.registerService(new RankService(this));
         serviceManager.registerService(new TagService(this));
-        serviceManager.registerService(new GrantService(this));;
+        serviceManager.registerService(new GrantService(this));
+        ;
         serviceManager.registerService(new FilterService(this));
         serviceManager.registerService(new ServerService(this));
         serviceManager.registerService(new WhitelistService(this));
@@ -110,11 +95,8 @@ public class Delta extends JavaPlugin {
         serviceManager.registerService(new PunishmentService(this));
         serviceManager.registerService(new TipsService(this));
         serviceManager.registerService(new ListenerService(this));
-        serviceManager.registerService(new TPAService(this));
         serviceManager.registerService(new TabListService(this));
         serviceManager.registerService(new CommandService(this));
-        serviceManager.registerService(new AdvancementService(this));
-        serviceManager.registerService(new CombatLogService(this));
         serviceManager.registerService(new ConversationService(this));
     }
 
@@ -124,7 +106,6 @@ public class Delta extends JavaPlugin {
     private void setupInitializationTasks() {
         initializationTasks.add(this::registerServices);
         initializationTasks.add(serviceManager::registerAllServices);
-        initializationTasks.add(this::registerRepositories);
         initializationTasks.add(this::registerBungeeChannel);
         initializationTasks.add(this::hookAddons);
     }

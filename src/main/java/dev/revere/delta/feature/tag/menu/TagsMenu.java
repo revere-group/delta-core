@@ -1,14 +1,12 @@
 package dev.revere.delta.feature.tag.menu;
 
 import dev.revere.delta.Delta;
-import dev.revere.delta.feature.advancement.menu.AdvancementsMenu;
 import dev.revere.delta.feature.tag.Tag;
 import dev.revere.delta.feature.tag.TagService;
 import dev.revere.delta.feature.tag.menu.button.ResetTagButton;
 import dev.revere.delta.feature.tag.menu.button.TagButton;
 import dev.revere.delta.profile.menu.ProfileMenu;
 import dev.revere.delta.util.menu.Button;
-import dev.revere.delta.util.menu.Menu;
 import dev.revere.delta.util.menu.button.BackButton;
 import dev.revere.delta.util.menu.pagination.PaginatedMenu;
 import org.bukkit.entity.Player;

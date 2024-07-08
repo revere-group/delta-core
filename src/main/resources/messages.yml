@@ -111,10 +111,6 @@ trolling:
     message: "&fYou've captured &b%target%&f!"
 
 staff:
-  ore-notify:
-    delay: 10
-    enabled: true
-    message: "&3[&bS&3] &b%player% &fmined &b%total% &f%ore% ores in the last &b%time% &fseconds."
   logger:
     enabled: true
     commands: ["gamemode", "teleport", "tp", "give", "vanish", "v", "s"]
