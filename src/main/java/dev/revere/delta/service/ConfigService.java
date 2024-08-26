@@ -26,7 +26,7 @@ public class ConfigService implements IService {
     private final Map<String, FileConfiguration> fileConfigurations = new HashMap<>();
 
     private final String[] configFileNames = {
-            "messages.yml", "settings.yml", "storage/homes.yml", "database/database.yml", "storage/clans.yml", "menus/socials-menu.yml", "menus/grants-menu.yml", "menus/homes-menu.yml"
+            "database/database.yml", "menus/grants-menu.yml", "menus/socials-menu.yml", "messages.yml", "settings.yml"
     };
 
     /**

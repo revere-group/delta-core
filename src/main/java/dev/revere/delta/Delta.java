@@ -87,7 +87,6 @@ public class Delta extends JavaPlugin {
         serviceManager.registerService(new RankService(this));
         serviceManager.registerService(new TagService(this));
         serviceManager.registerService(new GrantService(this));
-        ;
         serviceManager.registerService(new FilterService(this));
         serviceManager.registerService(new ServerService(this));
         serviceManager.registerService(new WhitelistService(this));
