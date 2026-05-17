@@ -1,7 +1,7 @@
 package dev.revere.delta.util.menu.pagination;
 
-import lombok.AllArgsConstructor;
 import dev.revere.delta.util.menu.Button;
+import lombok.AllArgsConstructor;
 import org.bukkit.ChatColor;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;

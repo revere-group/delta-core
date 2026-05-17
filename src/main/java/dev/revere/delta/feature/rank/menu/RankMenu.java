@@ -3,7 +3,6 @@ package dev.revere.delta.feature.rank.menu;
 import dev.revere.delta.Delta;
 import dev.revere.delta.feature.rank.RankService;
 import dev.revere.delta.util.menu.Button;
-import dev.revere.delta.util.menu.Menu;
 import dev.revere.delta.util.menu.pagination.PaginatedMenu;
 import org.bukkit.entity.Player;
 

@@ -49,7 +49,7 @@ public class CoinShopButton extends Button {
         ProfileService profileService = Delta.getInstance().getServiceManager().getService(ProfileService.class);
         Profile profile = profileService.getProfile(player.getUniqueId());
 
-        switch(material) {
+        switch (material) {
             case NETHER_STAR:
                 new CoinShopRankMenu().openMenu(player);
                 break;

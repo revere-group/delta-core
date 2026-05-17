@@ -48,7 +48,7 @@ public class RankSetCostCommand extends BaseCommand {
     /**
      * Get the cost from the command arguments
      *
-     * @param args The command arguments
+     * @param args   The command arguments
      * @param player The player executing the command
      * @return The cost
      */

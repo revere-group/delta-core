@@ -10,7 +10,7 @@ import lombok.Setter;
  */
 @Getter
 @Setter
-public class MutableTriple<A, B,C> {
+public class MutableTriple<A, B, C> {
     private A a;
     private B b;
     private C c;

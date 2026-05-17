@@ -1,10 +1,10 @@
 package dev.revere.delta.util.menu.button;
 
 import dev.revere.delta.util.CC;
-import dev.revere.delta.util.menu.pagination.ItemBuilder;
-import lombok.AllArgsConstructor;
 import dev.revere.delta.util.menu.Button;
 import dev.revere.delta.util.menu.Menu;
+import dev.revere.delta.util.menu.pagination.ItemBuilder;
+import lombok.AllArgsConstructor;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
 import org.bukkit.event.inventory.ClickType;

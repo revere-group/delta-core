@@ -8,8 +8,6 @@ import dev.revere.delta.service.ConfigService;
 import dev.revere.delta.util.CC;
 import org.bukkit.entity.Player;
 
-import java.util.Arrays;
-
 /**
  * @author Remi
  * @project Delta

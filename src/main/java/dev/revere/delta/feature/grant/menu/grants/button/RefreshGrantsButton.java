@@ -67,9 +67,9 @@ public class RefreshGrantsButton extends Button {
     /**
      * Handles the click event for the button.
      *
-     * @param player      the player who clicked the button
-     * @param slot        the slot the button was clicked in
-     * @param clickType   the type of click
+     * @param player       the player who clicked the button
+     * @param slot         the slot the button was clicked in
+     * @param clickType    the type of click
      * @param hotbarButton the hotbar button clicked
      */
     @Override

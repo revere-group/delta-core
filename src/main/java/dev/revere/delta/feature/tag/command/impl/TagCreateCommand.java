@@ -7,11 +7,7 @@ import dev.revere.delta.api.command.annotation.Command;
 import dev.revere.delta.feature.tag.Tag;
 import dev.revere.delta.feature.tag.TagService;
 import dev.revere.delta.util.CC;
-import org.bukkit.ChatColor;
 import org.bukkit.entity.Player;
-
-import java.util.Collections;
-import java.util.List;
 
 /**
  * @author Remi

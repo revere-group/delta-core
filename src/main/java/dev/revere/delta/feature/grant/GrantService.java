@@ -70,7 +70,7 @@ public class GrantService implements IService {
      *
      * @param rankName the name of the rank to remove
      * @param uuid     the UUID of the profile
-    * @param sender   the sender of the command
+     * @param sender   the sender of the command
      */
     public void removeGrant(String rankName, String reason, UUID uuid, CommandSender sender) {
         ProfileService profileService = Delta.getInstance().getServiceManager().getService(ProfileService.class);

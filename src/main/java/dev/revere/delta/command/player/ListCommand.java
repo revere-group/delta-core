@@ -39,7 +39,8 @@ public class ListCommand extends BaseCommand {
             onlinePlayers = onlinePlayers.stream()
                     .filter(p -> !isVanished(p))
                     .toList();
-        };
+        }
+        ;
 
         String formattedStaffList = onlinePlayers.stream()
                 .filter(p -> {

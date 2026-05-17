@@ -6,7 +6,6 @@ import dev.revere.delta.api.command.CommandArgs;
 import dev.revere.delta.api.command.annotation.Command;
 import dev.revere.delta.feature.rank.Rank;
 import dev.revere.delta.feature.rank.RankService;
-import dev.revere.delta.profile.Profile;
 import dev.revere.delta.profile.ProfileService;
 import dev.revere.delta.util.CC;
 import org.bukkit.Bukkit;

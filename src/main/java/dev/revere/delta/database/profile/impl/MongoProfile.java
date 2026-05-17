@@ -48,13 +48,14 @@ public class MongoProfile implements IProfile {
     /**
      * Load the grants of a profile
      *
-     * @param profile the profile to load the grants for
+     * @param profile  the profile to load the grants for
      * @param document the document to load the grants from
      */
     private void loadGrants(Profile profile, Document document) {
         String grantsJson = document.getString("grants");
         if (grantsJson != null) {
-            Type grantListType = new TypeToken<List<Grant>>() {}.getType();
+            Type grantListType = new TypeToken<List<Grant>>() {
+            }.getType();
             List<Grant> grants = Delta.getInstance().getGson().fromJson(grantsJson, grantListType);
             profile.setGrants(grants);
         } else {
@@ -65,13 +66,14 @@ public class MongoProfile implements IProfile {
     /**
      * Load the punishments of a profile
      *
-     * @param profile the profile to load the punishments for
+     * @param profile  the profile to load the punishments for
      * @param document the document to load the punishments from
      */
     private void loadPunishments(Profile profile, Document document) {
         String punishmentsJson = document.getString("punishments");
         if (punishmentsJson != null) {
-            Type punishmentListType = new TypeToken<List<Punishment>>() {}.getType();
+            Type punishmentListType = new TypeToken<List<Punishment>>() {
+            }.getType();
             List<Punishment> punishments = Delta.getInstance().getGson().fromJson(punishmentsJson, punishmentListType);
             profile.setPunishments(punishments);
         }
@@ -80,13 +82,14 @@ public class MongoProfile implements IProfile {
     /**
      * Load the permissions of a profile
      *
-     * @param profile the profile to load the permissions for
+     * @param profile  the profile to load the permissions for
      * @param document the document to load the permissions from
      */
     private void loadPermissions(Profile profile, Document document) {
         String permissionsJson = document.getString("permissions");
         if (permissionsJson != null) {
-            Type permissionListType = new TypeToken<List<String>>() {}.getType();
+            Type permissionListType = new TypeToken<List<String>>() {
+            }.getType();
             List<String> permissions = Delta.getInstance().getGson().fromJson(permissionsJson, permissionListType);
             profile.setPermissions(permissions);
         }
@@ -95,7 +98,7 @@ public class MongoProfile implements IProfile {
     /**
      * Load the staff options of a profile
      *
-     * @param profile the profile to load the staff options for
+     * @param profile  the profile to load the staff options for
      * @param document the document to load the staff options from
      */
     private void loadStaffOptions(Profile profile, Document document) {

@@ -9,9 +9,6 @@ import dev.revere.delta.feature.rank.RankService;
 import dev.revere.delta.util.CC;
 import org.bukkit.entity.Player;
 
-import java.util.Collections;
-import java.util.List;
-
 /**
  * @author Remi
  * @project Delta

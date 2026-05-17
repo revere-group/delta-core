@@ -146,8 +146,8 @@ public class CC {
      * Applies a gradient to a string
      *
      * @param startColor the start color of the gradient
-     * @param endColor the end color of the gradient
-     * @param text the text to apply the gradient to
+     * @param endColor   the end color of the gradient
+     * @param text       the text to apply the gradient to
      * @return the text with the gradient applied
      */
     private static String applyGradient(String startColor, String endColor, String text) {
@@ -170,11 +170,21 @@ public class CC {
             if (c == '&' && i + 1 < length) {
                 char formatCode = text.charAt(i + 1);
                 switch (formatCode) {
-                    case 'l': bold = true; break;
-                    case 'o': italic = true; break;
-                    case 'n': underline = true; break;
-                    case 'm': strikethrough = true; break;
-                    case 'k': magic = true; break;
+                    case 'l':
+                        bold = true;
+                        break;
+                    case 'o':
+                        italic = true;
+                        break;
+                    case 'n':
+                        underline = true;
+                        break;
+                    case 'm':
+                        strikethrough = true;
+                        break;
+                    case 'k':
+                        magic = true;
+                        break;
                     case 'r':
                         bold = italic = underline = strikethrough = magic = false;
                         break;

@@ -9,7 +9,6 @@ import dev.revere.delta.profile.Profile;
 import dev.revere.delta.profile.ProfileService;
 import dev.revere.delta.service.ConfigService;
 import dev.revere.delta.util.CC;
-import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 
 /**

@@ -2,7 +2,6 @@ package dev.revere.delta.feature.chat.filter;
 
 import dev.revere.delta.Delta;
 import dev.revere.delta.api.service.IService;
-import dev.revere.delta.profile.ProfileService;
 import dev.revere.delta.service.ConfigService;
 import dev.revere.delta.util.CC;
 import lombok.Getter;
@@ -173,7 +172,7 @@ public class FilterService implements IService {
     /**
      * Notify staff of a filtered message.
      *
-     * @param player the player who sent the message
+     * @param player        the player who sent the message
      * @param filteredWords the filtered words
      */
     private void notifyStaff(Player player, List<String> filteredWords) {

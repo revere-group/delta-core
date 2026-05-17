@@ -64,7 +64,7 @@ public class ScoreboardVisualizer implements AssembleAdapter {
                         .replace("%rank%", rankService.getHighestRank(profile).getName())
                         .replace("%rank-color%", rankService.getHighestRank(profile).getNameColor().toString())
                         .replace("%rank-prefix%", rankService.getHighestRank(profile).getPrefix()
-                ));
+                        ));
 
                 if (smallFont) {
                     formattedLine = CC.toSmallFont(CC.translate(formattedLine));

@@ -52,7 +52,7 @@ public class RankSetPurchasableCommand extends BaseCommand {
     /**
      * Get the status from the command arguments
      *
-     * @param args The command arguments
+     * @param args   The command arguments
      * @param player The player executing the command
      * @return The status
      */

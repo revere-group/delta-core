@@ -2,15 +2,13 @@ package dev.revere.delta.command.staff;
 
 import dev.revere.delta.Delta;
 import dev.revere.delta.api.command.BaseCommand;
-import dev.revere.delta.api.command.annotation.Command;
 import dev.revere.delta.api.command.CommandArgs;
+import dev.revere.delta.api.command.annotation.Command;
 import dev.revere.delta.service.ConfigService;
 import dev.revere.delta.util.CC;
 import org.bukkit.entity.Player;
 
 import java.util.Arrays;
-import java.util.stream.Collectors;
-import java.util.stream.IntStream;
 
 /**
  * @author Remi

@@ -6,7 +6,6 @@ import dev.revere.delta.feature.rank.RankService;
 import dev.revere.delta.profile.Profile;
 import dev.revere.delta.profile.ProfileService;
 import dev.revere.delta.util.menu.Button;
-import dev.revere.delta.util.menu.button.CancelButton;
 import dev.revere.delta.util.menu.pagination.PaginatedMenu;
 import lombok.AllArgsConstructor;
 import org.bukkit.Material;
@@ -41,7 +40,7 @@ public class GrantMenu extends PaginatedMenu {
 
         addGlassHeader(buttons);
 
-        buttons.put(4, new ViewGrantsButton(targetPlayer,"&fView &b" + targetPlayer.getName() + "&f's grants", Material.NAME_TAG, 0, Arrays.asList(
+        buttons.put(4, new ViewGrantsButton(targetPlayer, "&fView &b" + targetPlayer.getName() + "&f's grants", Material.NAME_TAG, 0, Arrays.asList(
                 "",
                 " &b" + targetPlayer.getName() + "&f's current rank is &b" +
                         rankService.getHighestRank(profile).getNameColor() +

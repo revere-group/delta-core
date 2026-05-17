@@ -20,10 +20,10 @@ public class CommandArgs {
     /**
      * Creates a new instance of the CommandArgs class
      *
-     * @param sender the sender of the command
-     * @param command the command that was executed
-     * @param label the label of the command
-     * @param args the arguments of the command
+     * @param sender     the sender of the command
+     * @param command    the command that was executed
+     * @param label      the label of the command
+     * @param args       the arguments of the command
      * @param subCommand the subcommand of the command
      */
     protected CommandArgs(CommandSender sender, org.bukkit.command.Command command, String label, String[] args, int subCommand) {

@@ -12,7 +12,6 @@ import dev.revere.delta.profile.Profile;
 import lombok.Getter;
 import net.md_5.bungee.api.ChatColor;
 import org.bson.Document;
-import org.bukkit.Bukkit;
 
 import java.lang.reflect.Type;
 import java.util.ArrayList;
@@ -213,7 +212,8 @@ public class RankService implements IService {
      */
     private List<String> loadPermissions(String permissionsJson) {
         if (permissionsJson != null) {
-            Type permissions = new TypeToken<List<String>>() {}.getType();
+            Type permissions = new TypeToken<List<String>>() {
+            }.getType();
             return Delta.getInstance().getGson().fromJson(permissionsJson, permissions);
         } else {
             return new ArrayList<>();
@@ -228,7 +228,8 @@ public class RankService implements IService {
      */
     private List<String> loadServers(String serversJson) {
         if (serversJson != null) {
-            Type servers = new TypeToken<List<String>>() {}.getType();
+            Type servers = new TypeToken<List<String>>() {
+            }.getType();
             return Delta.getInstance().getGson().fromJson(serversJson, servers);
         } else {
             return new ArrayList<>();
@@ -243,7 +244,8 @@ public class RankService implements IService {
      */
     private List<String> loadInheritance(String inheritanceJson) {
         if (inheritanceJson != null) {
-            Type inheritance = new TypeToken<List<String>>() {}.getType();
+            Type inheritance = new TypeToken<List<String>>() {
+            }.getType();
             return Delta.getInstance().getGson().fromJson(inheritanceJson, inheritance);
         } else {
             return new ArrayList<>();

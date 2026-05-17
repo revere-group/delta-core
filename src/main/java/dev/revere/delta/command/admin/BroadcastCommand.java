@@ -26,7 +26,7 @@ public class BroadcastCommand extends BaseCommand {
         if (args.length == 0) {
             player.sendMessage(CC.translate("&cUsage: /broadcast (message)"));
             return;
-         }
+        }
 
         List<String> message = Arrays.asList(args);
         String alertMessage = String.join(" ", message);

@@ -9,8 +9,6 @@ import dev.revere.delta.feature.rank.RankService;
 import dev.revere.delta.util.CC;
 import org.bukkit.entity.Player;
 
-import java.util.Arrays;
-
 /**
  * @author Remi
  * @project Delta
@@ -50,7 +48,7 @@ public class RankSetWeightCommand extends BaseCommand {
     /**
      * Get the weight from the command arguments
      *
-     * @param args The command arguments
+     * @param args   The command arguments
      * @param player The player executing the command
      * @return The weight
      */

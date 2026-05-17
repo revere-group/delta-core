@@ -2,13 +2,10 @@ package dev.revere.delta.feature.server.whitelist;
 
 import dev.revere.delta.Delta;
 import dev.revere.delta.api.service.IService;
-import dev.revere.delta.feature.server.Server;
 import dev.revere.delta.feature.server.ServerService;
 import dev.revere.delta.feature.server.whitelist.listener.WhitelistListener;
 import lombok.Getter;
 import org.bukkit.entity.Player;
-
-import java.util.Map;
 
 /**
  * @author Remi

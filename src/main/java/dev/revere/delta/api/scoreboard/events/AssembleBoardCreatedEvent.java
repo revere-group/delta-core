@@ -1,15 +1,17 @@
 package dev.revere.delta.api.scoreboard.events;
 
+import dev.revere.delta.api.scoreboard.AssembleBoard;
 import lombok.Getter;
 import lombok.Setter;
-import dev.revere.delta.api.scoreboard.AssembleBoard;
 import org.bukkit.event.Event;
 import org.bukkit.event.HandlerList;
 
-@Getter @Setter
+@Getter
+@Setter
 public class AssembleBoardCreatedEvent extends Event {
 
-    @Getter public static HandlerList handlerList = new HandlerList();
+    @Getter
+    public static HandlerList handlerList = new HandlerList();
 
     private boolean cancelled = false;
     private final AssembleBoard board;

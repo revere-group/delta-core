@@ -1,15 +1,12 @@
 package dev.revere.delta.feature.tag.menu.button;
 
 import dev.revere.delta.Delta;
-import dev.revere.delta.feature.tag.Tag;
-import dev.revere.delta.feature.tag.TagService;
 import dev.revere.delta.feature.tag.menu.TagsMenu;
 import dev.revere.delta.profile.Profile;
 import dev.revere.delta.profile.ProfileService;
 import dev.revere.delta.util.CC;
 import dev.revere.delta.util.menu.Button;
 import dev.revere.delta.util.menu.pagination.ItemBuilder;
-import lombok.AllArgsConstructor;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
 import org.bukkit.event.inventory.ClickType;

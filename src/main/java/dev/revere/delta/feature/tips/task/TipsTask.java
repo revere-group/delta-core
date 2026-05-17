@@ -13,7 +13,7 @@ import java.util.List;
  * @date 6/28/2024
  */
 @RequiredArgsConstructor
-public class TipsTask implements Runnable{
+public class TipsTask implements Runnable {
 
     private final List<String[]> announcements;
     private int currentAnnouncementIndex = 0;

@@ -15,8 +15,6 @@ import org.bukkit.configuration.file.FileConfiguration;
 
 import java.util.Objects;
 import java.util.concurrent.TimeUnit;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 /**
  * @author Remi

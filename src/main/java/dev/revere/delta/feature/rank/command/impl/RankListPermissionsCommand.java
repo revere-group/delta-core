@@ -7,13 +7,7 @@ import dev.revere.delta.api.command.annotation.Command;
 import dev.revere.delta.feature.rank.Rank;
 import dev.revere.delta.feature.rank.RankService;
 import dev.revere.delta.util.CC;
-import net.md_5.bungee.api.chat.BaseComponent;
-import net.md_5.bungee.api.chat.ComponentBuilder;
-import net.md_5.bungee.api.chat.HoverEvent;
-import org.bukkit.ChatColor;
 import org.bukkit.entity.Player;
-
-import java.util.Comparator;
 
 /**
  * @author Remi

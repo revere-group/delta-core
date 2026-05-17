@@ -7,13 +7,9 @@ import dev.revere.delta.api.command.annotation.Command;
 import dev.revere.delta.feature.grant.GrantService;
 import dev.revere.delta.feature.rank.Rank;
 import dev.revere.delta.feature.rank.RankService;
-import dev.revere.delta.profile.Profile;
 import dev.revere.delta.profile.ProfileService;
 import dev.revere.delta.util.CC;
 import org.bukkit.entity.Player;
-
-import java.util.Map;
-import java.util.UUID;
 
 /**
  * @author Remi

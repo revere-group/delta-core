@@ -10,8 +10,6 @@ import dev.revere.delta.util.CC;
 import net.md_5.bungee.api.ChatColor;
 import org.bukkit.entity.Player;
 
-import java.util.Arrays;
-
 /**
  * @author Remi
  * @project Delta

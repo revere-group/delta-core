@@ -13,7 +13,6 @@ import dev.revere.delta.profile.Profile;
 import dev.revere.delta.profile.ProfileService;
 import dev.revere.delta.util.CC;
 import dev.revere.delta.util.DateUtils;
-import dev.revere.delta.util.lang.Locale;
 import org.bukkit.OfflinePlayer;
 import org.bukkit.command.CommandSender;
 

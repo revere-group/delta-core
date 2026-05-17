@@ -86,7 +86,7 @@ public class TagService implements IService {
      * Check if a player owns a tag
      *
      * @param player the player to check
-     * @param tag the tag to check
+     * @param tag    the tag to check
      * @return if the player has the tag
      */
     public boolean hasTag(Player player, Tag tag) {
@@ -107,7 +107,7 @@ public class TagService implements IService {
      * Check if a player already has a tag selected
      *
      * @param profile the profile to check
-     * @param tag the tag to check
+     * @param tag     the tag to check
      * @return if the player has the tag selected
      */
     public boolean hasSelected(Profile profile, Tag tag) {

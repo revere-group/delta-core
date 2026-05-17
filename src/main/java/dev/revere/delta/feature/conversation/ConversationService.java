@@ -10,7 +10,9 @@ import org.bukkit.Sound;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.entity.Player;
 
-import java.util.*;
+import java.util.HashMap;
+import java.util.Objects;
+import java.util.UUID;
 
 /**
  * @author Remi
